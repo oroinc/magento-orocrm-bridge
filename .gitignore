@@ -1,0 +1,9 @@
+.idea/*
+app/etc/local.xml
+downloader/.cache/*
+var/log/*
+var/locks/*
+var/report/*
+var/cache/*
+var/export/*
+var/session/*

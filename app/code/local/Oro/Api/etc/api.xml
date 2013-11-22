@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<config>
+    <api>
+        <resources>
+            <sales_quote translate="title" module="oro_api">
+                <model>oro_api/sales_quote_api</model>
+                <title>Quote Information</title>
+                <acl>sales/quote</acl>
+                <methods>
+                    <list translate="title" module="oro_api">
+                        <title>Get quote list by filters</title>
+                        <method>items</method>
+                        <acl>sales/quote/info</acl>
+                    </list>
+                </methods>
+            </sales_quote>
+            <wishlist translate="title" module="oro_api">
+                <model>oro_api/wishlist_api</model>
+                <title>Wishlist</title>
+                <acl>wishlist</acl>
+                <methods>
+                    <list translate="title" module="oro_api">
+                        <title>Get wishlist collection by filters</title>
+                        <method>items</method>
+                        <acl>wishlist/info</acl>
+                    </list>
+                </methods>
+            </wishlist>
+            <wishlist_item translate="title" module="oro_api">
+                <model>oro_api/wishlist_item_api</model>
+                <title>Wishlist Item</title>
+                <acl>wishlist_item</acl>
+                <methods>
+                    <list translate="title" module="oro_api">
+                        <title>Get wishlist item collection by filters</title>
+                        <method>items</method>
+                        <acl>wishlist_item/info</acl>
+                    </list>
+                </methods>
+            </wishlist_item>
+            <report_product_viewed translate="title" module="oro_api">
+                <model>oro_api/report_product_viewed_api</model>
+                <title>Report Product Viewed</title>
+                <acl>report_product_viewed</acl>
+                <methods>
+                    <list translate="title" module="oro_api">
+                        <title>Viewed  product collection by filters</title>
+                        <method>items</method>
+                        <acl>report_product_viewed/info</acl>
+                    </list>
+                </methods>
+            </report_product_viewed>
+            <newsletter_subscriber translate="title" module="oro_api">
+                <model>oro_api/newsletter_subscriber_api</model>
+                <title>Newsletter Subscriber</title>
+                <acl>newsletter_subscriber</acl>
+                <methods>
+                    <list translate="title" module="oro_api">
+                        <title>Subscribers collection</title>
+                        <method>items</method>
+                        <acl>newsletter_subscriber/info</acl>
+                    </list>
+                </methods>
+            </newsletter_subscriber>
+        </resources>
+        <rest>
+            <mapping>
+                <sales_quote_list>
+                    <get><method>list</method></get>
+                </sales_quote_list>
+                <wishlist_list>
+                    <get><method>list</method></get>
+                </wishlist_list>
+                <wishlist_item_list>
+                    <get><method>list</method></get>
+                </wishlist_item_list>
+                <report_product_viewed>
+                    <get><method>list</method></get>
+                </report_product_viewed>
+                <newsletter_subscriber>
+                    <get><method>list</method></get>
+                </newsletter_subscriber>
+            </mapping>
+        </rest>
+        <acl>
+            <resources>
+                <sales>
+                    <quote>
+                        <info translate="title" module="oro_api">
+                           <title>Quote info</title>
+                        </info>
+                    </quote>
+                </sales>
+                <wishlist>
+                    <info translate="title" module="oro_api">
+                        <title>Wishlist info</title>
+                    </info>
+                </wishlist>
+                <wishlist_item>
+                    <info translate="title" module="oro_api">
+                        <title>Wishlist Item info</title>
+                    </info>
+                </wishlist_item>
+                <report_product_viewed>
+                    <info translate="title" module="oro_api">
+                        <title>Report Product Viewed</title>
+                    </info>
+                </report_product_viewed>
+                <newsletter_subscriber>
+                    <info translate="title" module="oro_api">
+                        <title>Newsletter Subscriber</title>
+                    </info>
+                </newsletter_subscriber>
+            </resources>
+        </acl>
+        <v2>
+            <resources_function_prefix>
+                <sales_quote>salesQuote</sales_quote>
+                <wishlist>wishlist</wishlist>
+                <wishlist_item>wishlistItem</wishlist_item>
+                <report_product_viewed>reportProductViewed</report_product_viewed>
+                <newsletter_subscriber>newsletterSubscriber</newsletter_subscriber>
+            </resources_function_prefix>
+        </v2>
+    </api>
+</config>

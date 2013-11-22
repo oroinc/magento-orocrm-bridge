@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Oro_Api>
+            <version>1.0.0</version>
+        </Oro_Api>
+    </modules>
+    <global>
+        <models>
+            <oro_api>
+                <class>Oro_Api_Model</class>
+                <resourceModel>oro_api_resource</resourceModel>
+            </oro_api>
+            <oro_api_resource>
+                <class>Oro_Api_Model_Resource</class>
+            </oro_api_resource>
+            <checkout>
+                <rewrite>
+                    <cart_customer_api_v2>Oro_Api_Model_Checkout_Cart_Customer_Api_V2</cart_customer_api_v2>
+                </rewrite>
+            </checkout>
+        </models>
+        <helpers>
+            <oro_api>
+                <class>Oro_Api_Helper</class>
+            </oro_api>
+        </helpers>
+        <resources>
+            <oro_api_setup>
+                <setup>
+                    <module>Oro_Api</module>
+                </setup>
+            </oro_api_setup>
+        </resources>
+    </global>
+</config>

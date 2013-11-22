@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!--
+/** {license_text}  */
+-->
+<config>
+    <modules>
+        <Oro_Api>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Oro_Api>
+    </modules>
+</config>
