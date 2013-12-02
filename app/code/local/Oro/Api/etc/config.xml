@@ -14,11 +14,6 @@
             <oro_api_resource>
                 <class>Oro_Api_Model_Resource</class>
             </oro_api_resource>
-            <checkout>
-                <rewrite>
-                    <cart_customer_api_v2>Oro_Api_Model_Checkout_Cart_Customer_Api_V2</cart_customer_api_v2>
-                </rewrite>
-            </checkout>
         </models>
         <helpers>
             <oro_api>

@@ -7,6 +7,15 @@
     <types>
         <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:Magento">
             <import namespace="http://schemas.xmlsoap.org/soap/encoding/" schemaLocation="http://schemas.xmlsoap.org/soap/encoding/" />
+            <!-- Fix for magento 1.6.x -->
+            <complexType name="associativeMultiArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:associativeMultiEntity[]" />
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <!-- // Fix for magento 1.6.x -->
             <complexType name="salesQuoteEntity">
                 <all>
                     <element name="entity_id" type="xsd:string" minOccurs="0" />
