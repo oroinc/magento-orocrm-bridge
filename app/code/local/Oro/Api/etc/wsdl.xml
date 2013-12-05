@@ -16,6 +16,12 @@
                 </complexContent>
             </complexType>
             <!-- // Fix for magento 1.6.x -->
+            <complexType name="pager">
+                <all>
+                    <element name="page" type="xsd:string" minOccurs="0" />
+                    <element name="pageSize" type="xsd:string" minOccurs="0" />
+                </all>
+            </complexType>            
             <complexType name="salesQuoteEntity">
                 <all>
                     <element name="entity_id" type="xsd:string" minOccurs="0" />
@@ -223,6 +229,7 @@
     <message name="salesQuoteListRequest">
         <part name="sessionId" type="xsd:string" />
         <part name="filters" type="typens:filters" />
+        <part name="pager" type="typens:pager" />
     </message>
     <message name="salesQuoteListResponse">
         <part name="result" type="typens:salesQuoteEntityArray" />
