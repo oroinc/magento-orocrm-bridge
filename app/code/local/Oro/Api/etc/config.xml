@@ -16,7 +16,6 @@
             </oro_api_resource>
             <catalog>
                 <rewrite>
-                    <product_api>Oro_Api_Model_Catalog_Product_Api</product_api>
                     <product_api_v2>Oro_Api_Model_Catalog_Product_Api_V2</product_api_v2>
                 </rewrite>
             </catalog>
