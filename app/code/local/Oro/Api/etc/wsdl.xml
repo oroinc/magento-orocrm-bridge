@@ -157,6 +157,12 @@
                 </complexContent>
             </complexType>
             <!--  Newsletters Subscriber -->
+            <complexType name="catalogProductEntity">
+                <all>
+                    <element name="price" type="xsd:string"/>
+                    <element name="special_price" type="xsd:string"/>
+                </all>
+            </complexType>
         </schema>
     </types>
     <portType name="{{var wsdl.handler}}PortType">
