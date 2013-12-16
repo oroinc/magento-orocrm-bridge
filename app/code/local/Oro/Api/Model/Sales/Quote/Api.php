@@ -29,13 +29,13 @@ class Oro_Api_Model_Sales_Quote_Api
             $quoteCollection->setCurPage($pager->page);
             if ($quoteCollection->getCurPage() != $pager->page) {
                 // there's no such page, so no results for it
-                return [];
+                return array();
             }
 
             $quoteCollection->setPageSize($pager->pageSize);
         }
 
-        $resultArray = [];
+        $resultArray = array();
         foreach ($quoteCollection as $quote) {
             $resultArray[] = array_merge($quote->__toArray(), $this->info($quote));
         }
