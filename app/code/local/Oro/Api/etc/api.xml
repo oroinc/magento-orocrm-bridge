@@ -2,6 +2,18 @@
 <config>
     <api>
         <resources>
+            <oro translate="title" module="oro_api">
+                <model>oro_api/ping</model>
+                <title>Oro extension ping</title>
+                <acl>oro_ping</acl>
+                <methods>
+                    <ping translate="title" module="oro_api">
+                        <title>Ping mage instance in order to check if extension available</title>
+                        <method>ping</method>
+                        <acl>oro_ping</acl>
+                    </ping>
+                </methods>
+            </oro>
             <sales_quote translate="title" module="oro_api">
                 <model>oro_api/sales_quote_api</model>
                 <title>Quote Information</title>
@@ -80,10 +92,18 @@
                 <newsletter_subscriber>
                     <get><method>list</method></get>
                 </newsletter_subscriber>
+                <oro_ping>
+                    <get><method>ping</method></get>
+                </oro_ping>
             </mapping>
         </rest>
         <acl>
             <resources>
+                <oro_ping>
+                    <info translate="title" module="oro_api">
+                        <title>Oro ping</title>
+                    </info>
+                </oro_ping>
                 <sales>
                     <quote>
                         <info translate="title" module="oro_api">
@@ -115,6 +135,7 @@
         </acl>
         <v2>
             <resources_function_prefix>
+                <oro>oro</oro>
                 <sales_quote>salesQuote</sales_quote>
                 <wishlist>wishlist</wishlist>
                 <wishlist_item>wishlistItem</wishlist_item>
