@@ -5,9 +5,10 @@ class Oro_Api_Model_Sales_Quote_Api
 {
     /**
      * @param array|object $filters
+     * @param array $pager
      * @return array
      */
-    public function items($filters)
+    public function items($filters, $pager)
     {
         /** @var Mage_Sales_Model_Resource_Quote_Collection $quoteCollection */
         $quoteCollection = Mage::getResourceModel('sales/quote_collection');
@@ -24,7 +25,17 @@ class Oro_Api_Model_Sales_Quote_Api
             $this->_fault('filters_invalid', $e->getMessage());
         }
 
-        $resultArray = [];
+        if ($pager->pageSize && $pager->page) {
+            $quoteCollection->setCurPage($pager->page);
+            $quoteCollection->setPageSize($pager->pageSize);
+
+            if ($quoteCollection->getCurPage() != $pager->page) {
+                // there's no such page, so no results for it
+                return array();
+            }
+        }
+
+        $resultArray = array();
         foreach ($quoteCollection as $quote) {
             $resultArray[] = array_merge($quote->__toArray(), $this->info($quote));
         }
