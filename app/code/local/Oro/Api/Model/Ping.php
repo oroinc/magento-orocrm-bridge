@@ -11,7 +11,6 @@ class Oro_Api_Model_Ping extends Mage_Api_Model_Resource_Abstract
         return array(
             'version'      => self::VERSION,
             'mage_version' => Mage::getVersion(),
-            'mage_edition' => Mage::getEdition(),
         );
     }
 }

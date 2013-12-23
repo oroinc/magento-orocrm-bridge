@@ -12,7 +12,7 @@ class Oro_Api_Model_Wishlist_Item_Api
         /** @var Mage_Wishlist_Model_Resource_Item_Collection $collection */
         $collection = Mage::getResourceModel('wishlist/item_collection');
         /** @var $apiHelper Mage_Api_Helper_Data */
-        $apiHelper = Mage::helper('api');
+        $apiHelper = Mage::helper('oro_api');
         $filters = $apiHelper->parseFilters($filters);
         try {
             foreach ($filters as $field => $value) {

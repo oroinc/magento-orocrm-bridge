@@ -17,7 +17,7 @@ class Oro_Api_Model_Catalog_Product_Api_V2
         $collection->addAttributeToSelect(array('name', 'price', 'special_price'));
 
         /** @var $apiHelper Mage_Api_Helper_Data */
-        $apiHelper = Mage::helper('api');
+        $apiHelper = Mage::helper('oro_api');
         $filters = $apiHelper->parseFilters($filters, $this->_filtersMap);
         try {
             foreach ($filters as $field => $value) {

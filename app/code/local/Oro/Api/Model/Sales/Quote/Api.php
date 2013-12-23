@@ -14,7 +14,7 @@ class Oro_Api_Model_Sales_Quote_Api
         $quoteCollection = Mage::getResourceModel('sales/quote_collection');
 
         /** @var $apiHelper Mage_Api_Helper_Data */
-        $apiHelper = Mage::helper('api');
+        $apiHelper = Mage::helper('oro_api');
 
         $filters = $apiHelper->parseFilters($filters, $this->_attributesMap['quote']);
         try {

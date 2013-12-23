@@ -7,7 +7,7 @@ class Oro_Api_Model_Newsletter_Subscriber_Api
         /** @var Mage_Newsletter_Model_Resource_Subscriber_Collection $collection */
         $collection = Mage::getResourceModel('newsletter/subscriber_collection');
         /** @var $apiHelper Mage_Api_Helper_Data */
-        $apiHelper = Mage::helper('api');
+        $apiHelper = Mage::helper('oro_api');
         $filters = $apiHelper->parseFilters($filters);
         try {
             foreach ($filters as $field => $value) {

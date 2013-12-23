@@ -13,7 +13,7 @@ class Oro_Api_Model_Report_Product_Viewed_Api
         $collection = Mage::getResourceModel('oro_api/reports_product_index_viewed_collection');
         $collection->addIndexFilter();
         /** @var $apiHelper Mage_Api_Helper_Data */
-        $apiHelper = Mage::helper('api');
+        $apiHelper = Mage::helper('oro_api');
         $filters = $apiHelper->parseFilters($filters);
         try {
             foreach ($filters as $field => $value) {
