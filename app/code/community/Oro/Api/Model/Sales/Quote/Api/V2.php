@@ -1,5 +1,4 @@
-<?xml version="1.0"?>
-<!--
+<?php
 /**
  * MageCore
  *
@@ -16,12 +15,8 @@
  * @copyright Copyright 2013 Oro Inc. (http://www.orocrm.com)
  * @license http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
--->
-<config>
-    <modules>
-        <Oro_Api>
-            <active>true</active>
-            <codePool>community</codePool>
-        </Oro_Api>
-    </modules>
-</config>
+class Oro_Api_Model_Sales_Quote_Api_V2
+    extends Oro_Api_Model_Sales_Quote_Api
+{
+
+}

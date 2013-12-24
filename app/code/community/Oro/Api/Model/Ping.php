@@ -1,5 +1,4 @@
-<?xml version="1.0"?>
-<!--
+<?php
 /**
  * MageCore
  *
@@ -16,12 +15,17 @@
  * @copyright Copyright 2013 Oro Inc. (http://www.orocrm.com)
  * @license http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
--->
-<config>
-    <modules>
-        <Oro_Api>
-            <active>true</active>
-            <codePool>community</codePool>
-        </Oro_Api>
-    </modules>
-</config>
+class Oro_Api_Model_Ping extends Mage_Api_Model_Resource_Abstract
+{
+    const VERSION = '1.0.0';
+    /**
+     * @return array
+     */
+    public function ping()
+    {
+        return array(
+            'version'      => self::VERSION,
+            'mage_version' => Mage::getVersion(),
+        );
+    }
+}
