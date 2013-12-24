@@ -1,6 +1,6 @@
 <?php
 /**
- * MageCore
+ * Oro Inc.
  *
  * NOTICE OF LICENSE
  *
