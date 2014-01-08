@@ -40,6 +40,8 @@ class Oro_Api_Model_Sales_Quote_Api
             $this->_fault('filters_invalid', $e->getMessage());
         }
 
+        $quoteCollection->setOrder('entity_id');
+
         if ($pager->pageSize && $pager->page) {
             $quoteCollection->setCurPage($pager->page);
             $quoteCollection->setPageSize($pager->pageSize);
