@@ -1,6 +1,7 @@
 .idea/*
 app/etc/local.xml
 downloader/.cache/*
+tests/config.sh
 var/log/*
 var/locks/*
 var/report/*

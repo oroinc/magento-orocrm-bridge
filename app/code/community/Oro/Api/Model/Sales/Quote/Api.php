@@ -20,7 +20,8 @@ class Oro_Api_Model_Sales_Quote_Api
 {
     /**
      * @param array|object $filters
-     * @param array $pager
+     * @param \stdClass    $pager
+     *
      * @return array
      */
     public function items($filters, $pager)

@@ -15,8 +15,12 @@
  * @copyright Copyright 2013 Oro Inc. (http://www.orocrm.com)
  * @license http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
-class Oro_Api_Model_Customer_Api extends Mage_Customer_Model_Customer_Api
+class Oro_Api_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
 {
+    protected $_mapAttributes = array(
+        'customer_id' => 'entity_id'
+    );
+
     /**
      * Retrieve customers data
      *
@@ -74,7 +78,7 @@ class Oro_Api_Model_Customer_Api extends Mage_Customer_Model_Customer_Api
      *
      * @return array
      */
-    public function info($customer, $attributes = null)
+    protected function info($customer, $attributes = null)
     {
         if (!$customer->getId()) {
             $this->_fault('not_exists');
