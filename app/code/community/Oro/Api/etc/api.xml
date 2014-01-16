@@ -44,6 +44,30 @@
                     </list>
                 </methods>
             </sales_quote>
+            <oro_order translate="title" module="oro_api">
+                <model>oro_api/sales_order_api</model>
+                <title>Order Information</title>
+                <acl>sales/order</acl>
+                <methods>
+                    <list translate="title" module="oro_api">
+                        <title>Get order list by filters</title>
+                        <method>items</method>
+                        <acl>sales/order/info</acl>
+                    </list>
+                </methods>
+            </oro_order>
+            <oro_customer translate="title" module="oro_api">
+                <model>oro_api/customer_api</model>
+                <title>Customer List Information</title>
+                <acl>sales/customer</acl>
+                <methods>
+                    <list translate="title" module="oro_api">
+                        <title>Get customer list by filters</title>
+                        <method>items</method>
+                        <acl>sales/customer/info</acl>
+                    </list>
+                </methods>
+            </oro_customer>
             <wishlist translate="title" module="oro_api">
                 <model>oro_api/wishlist_api</model>
                 <title>Wishlist</title>
@@ -113,6 +137,12 @@
                 <oro_ping>
                     <get><method>ping</method></get>
                 </oro_ping>
+                <oro_order_list>
+                    <get><method>list</method></get>
+                </oro_order_list>
+                <oro_customer_list>
+                    <get><method>list</method></get>
+                </oro_customer_list>
             </mapping>
         </rest>
         <acl>
@@ -129,6 +159,16 @@
                         </info>
                     </quote>
                 </sales>
+                <oro_order>
+                    <info translate="title" module="oro_api">
+                        <title>Order info</title>
+                    </info>
+                </oro_order>
+                <oro_customer>
+                    <info translate="title" module="oro_api">
+                        <title>Customer info</title>
+                    </info>
+                </oro_customer>
                 <wishlist>
                     <info translate="title" module="oro_api">
                         <title>Wishlist info</title>
@@ -155,6 +195,8 @@
             <resources_function_prefix>
                 <oro>oro</oro>
                 <sales_quote>salesQuote</sales_quote>
+                <oro_order>oroOrder</oro_order>
+                <oro_customer>oroCustomer</oro_customer>
                 <wishlist>wishlist</wishlist>
                 <wishlist_item>wishlistItem</wishlist_item>
                 <report_product_viewed>reportProductViewed</report_product_viewed>

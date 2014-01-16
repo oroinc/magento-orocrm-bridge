@@ -101,14 +101,13 @@ class Oro_Api_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
         return $result;
     }
 
-
     /**
-     * @param Mage_Core_Model_Resource_Db_Collection_Abstract $collection
-     * @param \stdClass                                       $pager
+     * @param Varien_Data_Collection_Db $collection
+     * @param \stdClass|null            $pager
      *
      * @return boolean
      */
-    protected function applyPager(Mage_Core_Model_Resource_Db_Collection_Abstract $collection, \stdClass $pager)
+    protected function applyPager($collection, $pager)
     {
         if ($pager->pageSize && $pager->page) {
             $collection->setCurPage($pager->page);
