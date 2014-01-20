@@ -33,8 +33,8 @@ class Oro_Api_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
     {
         $collection = Mage::getModel('customer/customer')->getCollection()->addAttributeToSelect('*');
 
-        /** @var $apiHelper Mage_Api_Helper_Data */
-        $apiHelper = Mage::helper('api');
+        /** @var $apiHelper Oro_Api_Helper_Data */
+        $apiHelper = Mage::helper('oro_api');
 
         $filters = $apiHelper->parseFilters($filters, $this->_mapAttributes);
         try {
@@ -96,6 +96,46 @@ class Oro_Api_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
 
         foreach ($this->getAllowedAttributes($customer, $attributes) as $attributeCode=>$attribute) {
             $result[$attributeCode] = $customer->getData($attributeCode);
+        }
+
+        // TODO: join customer address, customer group
+        $result['addresses'] = $this->addressItems($customer);
+
+        return $result;
+    }
+
+    /**
+     * Retrive customer addresses list
+     *
+     * @param Mage_Customer_Model_Customer $customer
+     *
+     * @return array
+     */
+    protected function addressItems($customer)
+    {
+        if (!$customer->getId()) {
+            $this->_fault('customer_not_exists');
+        }
+
+        $result = array();
+        foreach ($customer->getAddresses() as $address) {
+            $data = $address->toArray();
+            $row  = array();
+
+            foreach ($this->_mapAttributes as $attributeAlias => $attributeCode) {
+                $row[$attributeAlias] = isset($data[$attributeCode]) ? $data[$attributeCode] : null;
+            }
+
+            foreach ($this->getAllowedAttributes($address) as $attributeCode => $attribute) {
+                if (isset($data[$attributeCode])) {
+                    $row[$attributeCode] = $data[$attributeCode];
+                }
+            }
+
+            $row['is_default_billing'] = $customer->getDefaultBilling() == $address->getId();
+            $row['is_default_shipping'] = $customer->getDefaultShipping() == $address->getId();
+
+            $result[] = $row;
         }
 
         return $result;

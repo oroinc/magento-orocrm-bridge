@@ -30,8 +30,8 @@ class Oro_Api_Model_Sales_Order_Api extends Mage_Sales_Model_Api_Resource
         $orders          = array();
         $orderCollection = $this->getOrderCollection();
 
-        /** @var $apiHelper Mage_Api_Helper_Data */
-        $apiHelper = Mage::helper('api');
+        /** @var $apiHelper Oro_Api_Helper_Data */
+        $apiHelper = Mage::helper('oro_api');
         $filters = $apiHelper->parseFilters($filters, $this->_attributesMap['order']);
         try {
             foreach ($filters as $field => $value) {
