@@ -98,7 +98,6 @@ class Oro_Api_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
             $result[$attributeCode] = $customer->getData($attributeCode);
         }
 
-        // TODO: join customer address, customer group
         $result['addresses'] = $this->addressItems($customer);
 
         return $result;
