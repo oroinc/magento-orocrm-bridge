@@ -32,6 +32,7 @@ class Oro_Api_Model_Sales_Order_Api extends Mage_Sales_Model_Api_Resource
 
         /** @var $apiHelper Oro_Api_Helper_Data */
         $apiHelper = Mage::helper('oro_api');
+
         $filters = $apiHelper->parseFilters($filters, $this->_attributesMap['order']);
         try {
             foreach ($filters as $field => $value) {
@@ -42,7 +43,7 @@ class Oro_Api_Model_Sales_Order_Api extends Mage_Sales_Model_Api_Resource
         }
 
         $orderCollection->setOrder('entity_id');
-        if (!$this->applyPager($orderCollection, $pager)) {
+        if (!$apiHelper->applyPager($orderCollection, $pager)) {
             // there's no such page, so no results for it
             return array();
         }
@@ -148,25 +149,5 @@ class Oro_Api_Model_Sales_Order_Api extends Mage_Sales_Model_Api_Resource
             );
 
         return $orderCollection;
-    }
-
-    /**
-     * @param Varien_Data_Collection_Db $collection
-     * @param \stdClass|null            $pager
-     *
-     * @return boolean
-     */
-    protected function applyPager($collection, $pager)
-    {
-        if ($pager->pageSize && $pager->page) {
-            $collection->setCurPage($pager->page);
-            $collection->setPageSize($pager->pageSize);
-
-            if ($collection->getCurPage() != $pager->page) {
-                return false;
-            }
-        }
-
-        return true;
     }
 }

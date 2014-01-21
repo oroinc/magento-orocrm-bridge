@@ -42,7 +42,7 @@ class Oro_Api_Model_Sales_Quote_Api
         }
 
         $quoteCollection->setOrder('entity_id');
-        if (!$this->applyPager($quoteCollection, $pager)) {
+        if (!$apiHelper->applyPager($quoteCollection, $pager)) {
             // there's no such page, so no results for it
             return array();
         }
@@ -87,25 +87,5 @@ class Oro_Api_Model_Sales_Quote_Api
         $result['payment'] = $this->_getAttributes($quote->getPayment(), 'quote_payment');
 
         return $result;
-    }
-
-    /**
-     * @param Varien_Data_Collection_Db $collection
-     * @param \stdClass|null            $pager
-     *
-     * @return boolean
-     */
-    protected function applyPager($collection, $pager)
-    {
-        if ($pager->pageSize && $pager->page) {
-            $collection->setCurPage($pager->page);
-            $collection->setPageSize($pager->pageSize);
-
-            if ($collection->getCurPage() != $pager->page) {
-                return false;
-            }
-        }
-
-        return true;
     }
 }

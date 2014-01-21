@@ -46,71 +46,38 @@ class Oro_Api_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
         }
 
         $collection->setOrder('entity_id');
-        if (!$this->applyPager($collection, $pager)) {
+        if (!$apiHelper->applyPager($collection, $pager)) {
             // there's no such page, so no results for it
             return array();
         }
 
         $result = array();
         foreach ($collection as $customer) {
-            $data = $customer->toArray();
             $row  = array();
+
             foreach ($this->_mapAttributes as $attributeAlias => $attributeCode) {
-                $row[$attributeAlias] = (isset($data[$attributeCode]) ? $data[$attributeCode] : null);
+                $row[$attributeAlias] = $customer->getData($attributeCode);
             }
+
             foreach ($this->getAllowedAttributes($customer) as $attributeCode => $attribute) {
-                if (isset($data[$attributeCode])) {
-                    $row[$attributeCode] = $data[$attributeCode];
-                }
+                $row[$attributeCode] = $customer->getData($attributeCode);
             }
 
-            $result[] = array_merge($row, $this->info($customer));
+            $row['addresses'] = $this->getAddressItems($customer);
+            $result[] = $row;
         }
 
         return $result;
     }
 
     /**
-     * Retrieve customer data
-     *
-     * @param       $customer
-     * @param array $attributes
-     *
-     * @return array
-     */
-    protected function info($customer, $attributes = null)
-    {
-        if (!$customer->getId()) {
-            $this->_fault('not_exists');
-        }
-
-        if (!is_null($attributes) && !is_array($attributes)) {
-            $attributes = array($attributes);
-        }
-
-        $result = array();
-
-        foreach ($this->_mapAttributes as $attributeAlias=>$attributeCode) {
-            $result[$attributeAlias] = $customer->getData($attributeCode);
-        }
-
-        foreach ($this->getAllowedAttributes($customer, $attributes) as $attributeCode=>$attribute) {
-            $result[$attributeCode] = $customer->getData($attributeCode);
-        }
-
-        $result['addresses'] = $this->addressItems($customer);
-
-        return $result;
-    }
-
-    /**
-     * Retrive customer addresses list
+     * Retrieve customer addresses list
      *
      * @param Mage_Customer_Model_Customer $customer
      *
      * @return array
      */
-    protected function addressItems($customer)
+    protected function getAddressItems($customer)
     {
         if (!$customer->getId()) {
             $this->_fault('customer_not_exists');
@@ -138,25 +105,5 @@ class Oro_Api_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
         }
 
         return $result;
-    }
-
-    /**
-     * @param Varien_Data_Collection_Db $collection
-     * @param \stdClass|null            $pager
-     *
-     * @return boolean
-     */
-    protected function applyPager($collection, $pager)
-    {
-        if ($pager->pageSize && $pager->page) {
-            $collection->setCurPage($pager->page);
-            $collection->setPageSize($pager->pageSize);
-
-            if ($collection->getCurPage() != $pager->page) {
-                return false;
-            }
-        }
-
-        return true;
     }
 }

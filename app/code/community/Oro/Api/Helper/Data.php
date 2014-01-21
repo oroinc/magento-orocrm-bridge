@@ -112,4 +112,24 @@ class Oro_Api_Helper_Data
             $conditionValue = explode($delimiter, $conditionValue);
         }
     }
+
+    /**
+     * @param Varien_Data_Collection_Db $collection
+     * @param \stdClass|null            $pager
+     *
+     * @return boolean
+     */
+    public function applyPager($collection, $pager)
+    {
+        if ($pager->pageSize && $pager->page) {
+            $collection->setCurPage($pager->page);
+            $collection->setPageSize($pager->pageSize);
+
+            if ($collection->getCurPage() != $pager->page) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
