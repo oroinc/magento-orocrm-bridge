@@ -21,6 +21,10 @@ class Oro_Api_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
         'customer_id' => 'entity_id'
     );
 
+    protected $_mapAddressAttributes = array(
+        'customer_address_id' => 'entity_id'
+    );
+
     /**
      * Retrieve customers data
      *
@@ -84,7 +88,7 @@ class Oro_Api_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
             $data = $address->toArray();
             $row  = array();
 
-            foreach ($this->_mapAttributes as $attributeAlias => $attributeCode) {
+            foreach ($this->_mapAddressAttributes as $attributeAlias => $attributeCode) {
                 $row[$attributeAlias] = isset($data[$attributeCode]) ? $data[$attributeCode] : null;
             }
 
