@@ -246,10 +246,10 @@
             <output message="typens:oroPingResponse"/>
         </operation>
 
-        <operation name="salesQuoteList">
+        <operation name="oroQuoteList">
             <documentation>Get quote data list</documentation>
-            <input message="typens:salesQuoteListRequest"/>
-            <output message="typens:salesQuoteListResponse"/>
+            <input message="typens:oroQuoteListRequest"/>
+            <output message="typens:oroQuoteListResponse"/>
         </operation>
 
         <operation name="oroOrderList">
@@ -296,7 +296,7 @@
             <input><soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
             <output><soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
         </operation>
-        <operation name="salesQuoteList">
+        <operation name="oroQuoteList">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input><soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
             <output><soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
@@ -340,12 +340,12 @@
         <part name="result" type="typens:oroPingResponse" />
     </message>
 
-    <message name="salesQuoteListRequest">
+    <message name="oroQuoteListRequest">
         <part name="sessionId" type="xsd:string" />
         <part name="filters" type="typens:filters" />
         <part name="pager" type="typens:pager" />
     </message>
-    <message name="salesQuoteListResponse">
+    <message name="oroQuoteListResponse">
         <part name="result" type="typens:salesQuoteEntityArray" />
     </message>
 

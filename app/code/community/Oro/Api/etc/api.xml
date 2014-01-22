@@ -32,7 +32,7 @@
                     </ping>
                 </methods>
             </oro>
-            <sales_quote translate="title" module="oro_api">
+            <oro_quote translate="title" module="oro_api">
                 <model>oro_api/sales_quote_api</model>
                 <title>Quote Information</title>
                 <acl>sales/quote</acl>
@@ -43,7 +43,7 @@
                         <acl>sales/quote/info</acl>
                     </list>
                 </methods>
-            </sales_quote>
+            </oro_quote>
             <oro_order translate="title" module="oro_api">
                 <model>oro_api/sales_order_api</model>
                 <title>Order Information</title>
@@ -119,9 +119,6 @@
         </resources>
         <rest>
             <mapping>
-                <sales_quote_list>
-                    <get><method>list</method></get>
-                </sales_quote_list>
                 <wishlist_list>
                     <get><method>list</method></get>
                 </wishlist_list>
@@ -143,6 +140,9 @@
                 <oro_customer_list>
                     <get><method>list</method></get>
                 </oro_customer_list>
+                <oro_quote_list>
+                    <get><method>list</method></get>
+                </oro_quote_list>
             </mapping>
         </rest>
         <acl>
@@ -152,13 +152,11 @@
                         <title>Oro ping</title>
                     </info>
                 </oro_ping>
-                <sales>
-                    <quote>
-                        <info translate="title" module="oro_api">
-                           <title>Quote info</title>
-                        </info>
-                    </quote>
-                </sales>
+                <oro_quote>
+                    <info translate="title" module="oro_api">
+                       <title>Quote info</title>
+                    </info>
+                </oro_quote>
                 <oro_order>
                     <info translate="title" module="oro_api">
                         <title>Order info</title>
@@ -194,7 +192,7 @@
         <v2>
             <resources_function_prefix>
                 <oro>oro</oro>
-                <sales_quote>salesQuote</sales_quote>
+                <oro_quote>oroQuote</oro_quote>
                 <oro_order>oroOrder</oro_order>
                 <oro_customer>oroCustomer</oro_customer>
                 <wishlist>wishlist</wishlist>

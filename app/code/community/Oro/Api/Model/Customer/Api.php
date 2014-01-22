@@ -79,10 +79,6 @@ class Oro_Api_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
      */
     protected function getAddressItems($customer)
     {
-        if (!$customer->getId()) {
-            $this->_fault('customer_not_exists');
-        }
-
         $result = array();
         foreach ($customer->getAddresses() as $address) {
             $data = $address->toArray();
