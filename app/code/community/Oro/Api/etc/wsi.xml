@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:typens="urn:{{var wsdl.name}}"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  name="{{var wsdl.name}}"
+                  targetNamespace="urn:{{var wsdl.name}}">
+    <wsdl:types>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:{{var wsdl.name}}">
+            <!-- Fix for magento 1.6.x -->
+            <xsd:complexType name="associativeMultiArray">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" maxOccurs="unbounded" name="complexObjectArray" type="typens:associativeMultiEntity" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <!-- // Fix for magento 1.6.x -->
+
+            <xsd:complexType name="pager">
+                <xsd:sequence>
+                    <xsd:element name="page" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="pageSize" type="xsd:string" minOccurs="0" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="salesQuoteEntity">
+                <xsd:sequence>
+                    <xsd:element name="entity_id" type="xsd:int" minOccurs="0" />
+                    <xsd:element name="store_id" type="xsd:int" minOccurs="0" />
+                    <xsd:element name="created_at" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="updated_at" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="converted_at" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="is_active" type="xsd:boolean" minOccurs="0" />
+                    <xsd:element name="is_virtual" type="xsd:boolean" minOccurs="0" />
+                    <xsd:element name="is_multi_shipping" type="xsd:boolean" minOccurs="0" />
+                    <xsd:element name="items_count" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="items_qty" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="orig_order_id" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="store_to_base_rate" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="store_to_quote_rate" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="base_currency_code" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="store_currency_code" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="quote_currency_code" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="grand_total" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="base_grand_total" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="checkout_method" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="customer_id" type="xsd:int" minOccurs="0" />
+                    <xsd:element name="customer_tax_class_id" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="customer_group_id" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="customer_email" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="customer_prefix" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="customer_firstname" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="customer_middlename" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="customer_lastname" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="customer_suffix" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="customer_dob" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="customer_note" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="customer_note_notify" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="customer_is_guest" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="remote_ip" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="applied_rule_ids" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="reserved_order_id" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="password_hash" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="coupon_code" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="global_currency_code" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="base_to_global_rate" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="base_to_quote_rate" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="customer_taxvat" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="customer_gender" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="subtotal" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="base_subtotal" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="subtotal_with_discount" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="base_subtotal_with_discount" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="is_changed" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="trigger_recollect" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="ext_shipping_info" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="gift_message_id" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="is_persistent" type="xsd:string" minOccurs="0" />
+
+                    <xsd:element name="shipping_address" type="typens:shoppingCartAddressEntity" minOccurs="0"/>
+                    <xsd:element name="billing_address" type="typens:shoppingCartAddressEntity" minOccurs="0"/>
+                    <xsd:element name="items" type="typens:shoppingCartItemEntityArray" minOccurs="0"/>
+                    <xsd:element name="payment" type="typens:shoppingCartPaymentEntity" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="salesQuoteEntityArray">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" maxOccurs="unbounded" name="complexObjectArray" type="typens:salesQuoteEntity" />
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="salesOrderEntityArray">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" maxOccurs="unbounded" name="complexObjectArray" type="typens:salesOrderEntity" />
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="wishlistEntity">
+                <xsd:sequence>
+                    <xsd:element name="wishlist_id" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="customer_id" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="shared" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="sharing_code" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="updated_at" type="xsd:string" minOccurs="0" />
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="wishlistEntityArray">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" maxOccurs="unbounded" name="complexObjectArray" type="typens:wishlistEntity" />
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="wishlistItemEntity">
+                <xsd:sequence>
+                    <xsd:element name="wishlist_item_id" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="wishlist_id" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="product_id" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="store_id" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="added_at" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="description" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="qty" type="xsd:string" minOccurs="0" />
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="wishlistItemEntityArray">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" maxOccurs="unbounded" name="complexObjectArray" type="typens:wishlistItemEntity" />
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <!--  Report Product Viewed -->
+            <xsd:complexType name="reportProductViewedEntity">
+                <xsd:sequence>
+                    <xsd:element name="index_id" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="visitor_id" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="product_id" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="sku" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="customer_id" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="added_at" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="store_id" type="xsd:string" minOccurs="0" />
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="reportProductViewedEntityArray">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" maxOccurs="unbounded" name="complexObjectArray" type="typens:reportProductViewedEntity" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <!--  Report Product Viewed -->
+
+            <!--  Newsletters Subscriber -->
+            <xsd:complexType name="newsletterSubscriberEntity">
+                <xsd:sequence>
+                    <xsd:element name="subscriber_id" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="store_id" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="change_status_at" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="customer_id" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="subscriber_email" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="subscriber_status" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="subscriber_confirm_code" type="xsd:string" minOccurs="0" />
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="newsletterSubscriberEntityArray">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" maxOccurs="unbounded" name="complexObjectArray" type="typens:newsletterSubscriberEntity" />
+                </xsd:sequence>
+            </xsd:complexType>
+            <!--  Newsletters Subscriber -->
+
+            <xsd:complexType name="catalogProductEntity">
+                <xsd:sequence>
+                    <xsd:element name="price" type="xsd:string"/>
+                    <xsd:element name="special_price" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="oroPingResponse">
+                <xsd:sequence>
+                    <xsd:element name="version" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="mage_version" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="mage_edition" type="xsd:string" minOccurs="0" />
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="oroCustomerEntity">
+                <xsd:sequence>
+                    <xsd:element name="customer_id" type="xsd:int" minOccurs="0" />
+                    <xsd:element name="created_at" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="updated_at" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="increment_id" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="store_id" type="xsd:int" minOccurs="0" />
+                    <xsd:element name="website_id" type="xsd:int" minOccurs="0" />
+                    <xsd:element name="created_in" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="email" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="firstname" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="middlename" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="lastname" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="group_id" type="xsd:int" minOccurs="0" />
+                    <xsd:element name="prefix" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="suffix" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="dob" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="taxvat" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="confirmation" type="xsd:boolean" minOccurs="0" />
+                    <xsd:element name="password_hash" type="xsd:string" minOccurs="0" />
+
+                    <xsd:element name="addresses" type="typens:customerAddressEntityArray" minOccurs="1"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="oroCustomerEntityArray">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" maxOccurs="unbounded" name="complexObjectArray" type="typens:oroCustomerEntity" />
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </wsdl:types>
+
+    <wsdl:message name="oroPingRequest">
+        <wsdl:part name="sessionId" element="xsd:string" />
+    </wsdl:message>
+    <wsdl:message name="oroPingResponse">
+        <wsdl:part name="result" element="typens:oroPingResponse" />
+    </wsdl:message>
+
+    <wsdl:message name="oroQuoteListRequest">
+        <wsdl:part name="sessionId" element="xsd:string" />
+        <wsdl:part name="filters" element="typens:filters" />
+        <wsdl:part name="pager" element="typens:pager" />
+    </wsdl:message>
+    <wsdl:message name="oroQuoteListResponse">
+        <wsdl:part name="result" element="typens:salesQuoteEntityArray" />
+    </wsdl:message>
+
+    <wsdl:message name="oroOrderListRequest">
+        <wsdl:part name="sessionId" element="xsd:string" />
+        <wsdl:part name="filters" element="typens:filters" />
+        <wsdl:part name="pager" element="typens:pager" />
+    </wsdl:message>
+    <wsdl:message name="oroOrderListResponse">
+        <wsdl:part name="result" element="typens:salesOrderEntityArray" />
+    </wsdl:message>
+
+    <wsdl:message name="oroCustomerListRequest">
+        <wsdl:part name="sessionId" element="xsd:string" />
+        <wsdl:part name="filters" element="typens:filters" />
+        <wsdl:part name="pager" element="typens:pager" />
+    </wsdl:message>
+    <wsdl:message name="oroCustomerListResponse">
+        <wsdl:part name="result" element="typens:oroCustomerEntityArray" />
+    </wsdl:message>
+
+    <wsdl:message name="wishlistListRequest">
+        <wsdl:part name="sessionId" element="xsd:string" />
+        <wsdl:part name="filters" element="typens:filters" />
+    </wsdl:message>
+    <wsdl:message name="wishlistListResponse">
+        <wsdl:part name="result" element="typens:wishlistEntityArray" />
+    </wsdl:message>
+
+    <wsdl:message name="wishlistItemListRequest">
+        <wsdl:part name="sessionId" element="xsd:string" />
+        <wsdl:part name="filters" element="typens:filters" />
+    </wsdl:message>
+    <wsdl:message name="wishlistItemListResponse">
+        <wsdl:part name="result" element="typens:wishlistItemEntityArray" />
+    </wsdl:message>
+
+    <!--  Report Product Viewed -->
+    <wsdl:message name="reportProductViewedListRequest">
+        <wsdl:part name="sessionId" element="xsd:string" />
+        <wsdl:part name="filters" element="typens:filters" />
+    </wsdl:message>
+    <wsdl:message name="reportProductViewedListResponse">
+        <wsdl:part name="result" element="typens:reportProductViewedEntityArray" />
+    </wsdl:message>
+    <!--  Report Product Viewed -->
+
+    <!--  Newsletters Subscriber -->
+    <wsdl:message name="newsletterSubscriberListRequest">
+        <wsdl:part name="sessionId" element="xsd:string" />
+        <wsdl:part name="filters" element="typens:filters" />
+    </wsdl:message>
+    <wsdl:message name="newsletterSubscriberListResponse">
+        <wsdl:part name="result" element="typens:newsletterSubscriberEntityArray" />
+    </wsdl:message>
+    <!--  Newsletters Subscriber -->
+
+    <wsdl:portType name="{{var wsdl.handler}}PortType">
+        <wsdl:operation name="oroPing">
+            <wsdl:documentation>Get basic presence info</wsdl:documentation>
+            <wsdl:input message="typens:oroPingRequest"/>
+            <wsdl:output message="typens:oroPingResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="oroQuoteList">
+            <wsdl:documentation>Get quote data list</wsdl:documentation>
+            <wsdl:input message="typens:oroQuoteListRequest"/>
+            <wsdl:output message="typens:oroQuoteListResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="oroOrderList">
+            <wsdl:documentation>Get quote data list</wsdl:documentation>
+            <wsdl:input message="typens:oroOrderListRequest"/>
+            <wsdl:output message="typens:oroOrderListResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="oroCustomerList">
+            <wsdl:documentation>Get quote data list</wsdl:documentation>
+            <wsdl:input message="typens:oroCustomerListRequest"/>
+            <wsdl:output message="typens:oroCustomerListResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="wishlistList">
+            <wsdl:documentation>Get wishlist collection</wsdl:documentation>
+            <wsdl:input message="typens:wishlistListRequest"/>
+            <wsdl:output message="typens:wishlistListResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="wishlistItemList">
+            <wsdl:documentation>Get wishlist item collection</wsdl:documentation>
+            <wsdl:input message="typens:wishlistItemListRequest"/>
+            <wsdl:output message="typens:wishlistItemListResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="reportProductViewedList">
+            <wsdl:documentation>Get wishlist item collection</wsdl:documentation>
+            <wsdl:input message="typens:reportProductViewedListRequest"/>
+            <wsdl:output message="typens:reportProductViewedListResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="newsletterSubscriberList">
+            <wsdl:documentation>Newsletter subscriber collection</wsdl:documentation>
+            <wsdl:input message="typens:newsletterSubscriberListRequest"/>
+            <wsdl:output message="typens:newsletterSubscriberListResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="{{var wsdl.handler}}Binding" type="typens:{{var wsdl.handler}}PortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="oroPing">
+            <soap:operation soapAction="" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="oroQuoteList">
+            <soap:operation soapAction=""/>
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="oroOrderList">
+            <soap:operation soapAction=""/>
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="oroCustomerList">
+            <soap:operation soapAction=""/>
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="wishlistList">
+            <soap:operation soapAction=""/>
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="wishlistItemList">
+            <soap:operation soapAction=""/>
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="reportProductViewedList">
+            <soap:operation soapAction=""/>
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="newsletterSubscriberList">
+            <soap:operation soapAction=""/>
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+</wsdl:definitions>
