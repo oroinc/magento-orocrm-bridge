@@ -17,6 +17,10 @@
  */
 class Oro_Api_Model_Sales_Order_Api extends Mage_Sales_Model_Api_Resource
 {
+    protected $_attributesMap = array(
+        'order' => array('order_id' => 'entity_id'),
+    );
+
     /**
      * Retrieve list of orders. Filtration could be applied
      *
@@ -71,8 +75,7 @@ class Oro_Api_Model_Sales_Order_Api extends Mage_Sales_Model_Api_Resource
             );
         }
 
-        $result = $this->_getAttributes($order, 'order');
-
+        $result = [];
         $result['shipping_address'] = $this->_getAttributes($order->getShippingAddress(), 'order_address');
         $result['billing_address']  = $this->_getAttributes($order->getBillingAddress(), 'order_address');
         $result['items'] = array();
