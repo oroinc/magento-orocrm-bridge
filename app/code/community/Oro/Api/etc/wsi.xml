@@ -205,7 +205,7 @@
                     <xsd:element name="confirmation" type="xsd:boolean" minOccurs="0" />
                     <xsd:element name="password_hash" type="xsd:string" minOccurs="0" />
 
-                    <xsd:element name="addresses" type="typens:customerAddressEntityArray" minOccurs="1"/>
+                    <xsd:element minOccurs="1" maxOccurs="1" name="addresses" type="typens:customerAddressEntityArray" />
                 </xsd:sequence>
             </xsd:complexType>
 
@@ -214,41 +214,110 @@
                     <xsd:element minOccurs="0" maxOccurs="unbounded" name="complexObjectArray" type="typens:oroCustomerEntity" />
                 </xsd:sequence>
             </xsd:complexType>
+
+            <!-- Customer -->
+            <xsd:element name="oroCustomerListRequestParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+                        <xsd:element minOccurs="1" maxOccurs="1" name="filters" type="typens:filters" />
+                        <xsd:element minOccurs="1" maxOccurs="1" name="pager" type="typens:pager" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="oroCustomerListResponseParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="result" type="typens:oroCustomerEntityArray" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <!-- /Customer -->
+
+            <!-- Quote -->
+            <xsd:element name="oroQuoteListRequestParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+                        <xsd:element minOccurs="1" maxOccurs="1" name="filters" type="typens:filters" />
+                        <xsd:element minOccurs="1" maxOccurs="1" name="pager" type="typens:pager" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="oroQuoteListResponseParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="result" type="typens:salesQuoteEntityArray" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <!-- /Quote -->
+
+            <!-- Order -->
+            <xsd:element name="oroOrderListRequestParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+                        <xsd:element minOccurs="1" maxOccurs="1" name="filters" type="typens:filters" />
+                        <xsd:element minOccurs="1" maxOccurs="1" name="pager" type="typens:pager" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="oroOrderListResponseParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="result" type="typens:salesOrderEntityArray" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <!-- /Order -->
+
+            <!-- Ping -->
+            <xsd:element name="oroPingRequestParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="oroPingResponseParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="result" type="typens:oroPingResponse" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <!-- /Ping -->
         </xsd:schema>
     </wsdl:types>
 
     <wsdl:message name="oroPingRequest">
-        <wsdl:part name="sessionId" element="xsd:string" />
+        <wsdl:part name="parameters" element="typens:oroPingRequestParam" />
     </wsdl:message>
     <wsdl:message name="oroPingResponse">
-        <wsdl:part name="result" element="typens:oroPingResponse" />
+        <wsdl:part name="parameters" element="typens:oroPingResponseParam" />
     </wsdl:message>
 
     <wsdl:message name="oroQuoteListRequest">
-        <wsdl:part name="sessionId" element="xsd:string" />
-        <wsdl:part name="filters" element="typens:filters" />
-        <wsdl:part name="pager" element="typens:pager" />
+        <wsdl:part name="parameters" element="typens:oroQuoteListRequestParam" />
     </wsdl:message>
     <wsdl:message name="oroQuoteListResponse">
-        <wsdl:part name="result" element="typens:salesQuoteEntityArray" />
+        <wsdl:part name="parameters" element="typens:oroQuoteListResponseParam" />
     </wsdl:message>
 
     <wsdl:message name="oroOrderListRequest">
-        <wsdl:part name="sessionId" element="xsd:string" />
-        <wsdl:part name="filters" element="typens:filters" />
-        <wsdl:part name="pager" element="typens:pager" />
+        <wsdl:part name="parameters" element="typens:oroOrderListRequestParam" />
     </wsdl:message>
     <wsdl:message name="oroOrderListResponse">
-        <wsdl:part name="result" element="typens:salesOrderEntityArray" />
+        <wsdl:part name="parameters" element="typens:oroOrderListResponseParam" />
     </wsdl:message>
 
     <wsdl:message name="oroCustomerListRequest">
-        <wsdl:part name="sessionId" element="xsd:string" />
-        <wsdl:part name="filters" element="typens:filters" />
-        <wsdl:part name="pager" element="typens:pager" />
+        <wsdl:part name="parameters" element="typens:oroCustomerListRequestParam" />
     </wsdl:message>
     <wsdl:message name="oroCustomerListResponse">
-        <wsdl:part name="result" element="typens:oroCustomerEntityArray" />
+        <wsdl:part name="parameters" element="typens:oroCustomerListResponseParam" />
     </wsdl:message>
 
     <wsdl:message name="wishlistListRequest">
