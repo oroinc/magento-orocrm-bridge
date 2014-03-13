@@ -51,4 +51,46 @@
             </oro_api_setup>
         </resources>
     </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <oro_api before="Mage_Adminhtml">Oro_Api_Adminhtml</oro_api>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+        <events>
+            <controller_action_predispatch>
+                <observers>
+                    <oro_api_handle_crm_request>
+                        <type>singleton</type>
+                        <class>oro_api/observer_crm_controller</class>
+                        <method>handleRequest</method>
+                    </oro_api_handle_crm_request>
+                </observers>
+            </controller_action_predispatch>
+            <controller_action_postdispatch>
+                <observers>
+                    <oro_api_handle_crm_response>
+                        <type>singleton</type>
+                        <class>oro_api/observer_crm_controller</class>
+                        <method>handleResponse</method>
+                    </oro_api_handle_crm_response>
+                </observers>
+            </controller_action_postdispatch>
+            <controller_action_layout_render_before>
+                <observers>
+                    <oro_api_handle_crm_layout>
+                        <type>singleton</type>
+                        <class>oro_api/observer_crm_controller</class>
+                        <method>handleRenderLayout</method>
+                    </oro_api_handle_crm_layout>
+                </observers>
+            </controller_action_layout_render_before>
+        </events>
+    </adminhtml>
 </config>

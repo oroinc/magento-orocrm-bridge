@@ -132,4 +132,12 @@ class Oro_Api_Helper_Data
 
         return true;
     }
+
+    /**
+     * @return bool
+     */
+    public function isOroRequest()
+    {
+        return (bool) Mage::registry('is-oro-request');
+    }
 }

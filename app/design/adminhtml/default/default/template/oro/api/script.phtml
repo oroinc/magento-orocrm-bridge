@@ -1,0 +1,14 @@
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl('js')?>mage/cookies.js"></script>
+<script type="text/javascript">
+    window.onbeforeunload = setOneTimeCookie;
+
+    function setOneTimeCookie() {
+        window.Mage.Cookies.set("is-oro-request", 1);
+    }
+
+    Event.observe(document, "dom:loaded", function() {
+        $$('form').each(function(form){
+            Event.observe(form, 'submit', setOneTimeCookie);
+        })
+    });
+</script>
