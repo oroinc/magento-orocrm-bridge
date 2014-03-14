@@ -11,20 +11,15 @@ class Oro_Api_Model_Observer_Crm_Controller
     {
         /** @var Mage_Core_Controller_Front_Action $controller */
         $controller = $observer->getEvent()->getData('controller_action');
-        if ($controller->getRequest()->getOriginalPathInfo() == '/admin/oro_gateway/go' || $controller->getRequest()->getParam('is-oro-request') || $controller->getRequest()->getCookie('is-oro-request')) {
-            $controller->setFlag('', 'is-oro-request', true);
-            if (!Mage::registry('is-oro-request')) {
-                Mage::register('is-oro-request', true);
+
+        if (!preg_match('/^.+?\\/oro_gateway\\/clearSession/ui', $controller->getRequest()->getPathInfo())) {
+            if (preg_match('/^.+?\\/oro_gateway\\/do$/ui', $controller->getRequest()->getOriginalPathInfo()) || $controller->getRequest()->getParam('is-oro-request') || $controller->getRequest()->getCookie('is-oro-request')) {
+                $controller->setFlag('', 'is-oro-request', true);
+                if (!Mage::registry('is-oro-request')) {
+                    Mage::register('is-oro-request', true);
+                }
             }
         }
-
-
-//        /** @var Mage_Core_Controller_Front_Action $controller */
-//        $controller = $observer->getEvent()->getData('controller_action');
-//        if ($controller->getRequest()->getHeader('oro-request')) {
-//            $controller->setFlag('', 'is-oro-request', true);
-//            $controller->setFlag('', 'no-renderLayout', true);
-//        }
     }
 
     /**
@@ -34,16 +29,18 @@ class Oro_Api_Model_Observer_Crm_Controller
     {
         /** @var Mage_Core_Controller_Front_Action $controller */
         $controller = $observer->getEvent()->getData('controller_action');
-        if (!$controller->getResponse()->isRedirect()) {
-            unset($_COOKIE['is-oro-request']);
-            setcookie('is-oro-request', null, -1, '/');
+        $session = Mage::getSingleton('adminhtml/session');
+        if (Mage::helper('oro_api')->isOroRequest()) {
+            if ($controller->getFullActionName() == $session->getData('oro_end_point')) {
+                Mage::getSingleton('core/cookie')->set('is-oro-request', 0, null, null, null, null, false);
+                $controller->getResponse()->clearHeader('Location');
+                $controller->getResponse()->clearBody();
+                $controller->getResponse()->appendBody('<script type="text/javascript">setTimeout(function(){location.href = "'.$session->getData('oro_success_url').'"}, 1000)</script>')->sendResponse();
+                exit;
+            } else {
+                Mage::getSingleton('core/cookie')->set('is-oro-request', 1, null, null, null, null, false);
+            }
         }
-        //if ($controller->getRequest()->getParam('ororequest')) {
-            /** @var Mage_Core_Block_Text $script */
-            //$script = $controller->getLayout()->createBlock('core/template', 'oro_script');
-            //echo '<script type="text/javascript" src="/js/mage/cookies.js">window.onbeforeunload = function() {window.Mage.Cookies.set("is-oro-request", 1);return "234";}</script>';
-            //echo '<script type="text/javascript">window.onbeforeunload = function() {window.Mage.Cookies.set("oro", 1);}</script>';
-        //}
     }
 
     public function handleRenderLayout(Varien_Event_Observer $observer)
