@@ -200,7 +200,7 @@
                 <all>
                     <element name="version" type="xsd:string" minOccurs="0" />
                     <element name="mage_version" type="xsd:string" minOccurs="0" />
-                    <element name="mage_edition" type="xsd:string" minOccurs="0" />
+                    <element name="admin_url" type="xsd:string" minOccurs="0" />
                 </all>
             </complexType>
 

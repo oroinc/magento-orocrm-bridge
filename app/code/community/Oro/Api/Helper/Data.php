@@ -19,6 +19,14 @@ class Oro_Api_Helper_Data
     extends Mage_Api_Helper_Data
 {
     /**
+     * @return string
+     */
+    public function getModuleName()
+    {
+        return $this->_getModuleName();
+    }
+
+    /**
      * Parse filters and format them to be applicable for collection filtration
      *
      * @param null|object|array $filters
@@ -131,5 +139,13 @@ class Oro_Api_Helper_Data
         }
 
         return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isOroRequest()
+    {
+        return (bool) Mage::registry('is-oro-request');
     }
 }

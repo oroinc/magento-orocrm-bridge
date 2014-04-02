@@ -1,0 +1,14 @@
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl('js')?>mage/cookies.js"></script>
+<script type="text/javascript">
+    if (window.self == window.top) { // If is not iframe
+        if (1 == window.Mage.Cookies.get("is-oro-request")) { // If we have iframe cookie clear it
+            window.Mage.Cookies.set("is-oro-request", 0, Mage.Cookies.expires, Mage.Cookies.path, '<?php echo Mage::getSingleton('core/cookie')->getDomain();?>');
+            location.reload();
+        }
+    } else { // If is iframe
+        if (1 != window.Mage.Cookies.get("is-oro-request")) { // If we no have iframe cookie set it
+            window.Mage.Cookies.set("is-oro-request", 1, Mage.Cookies.expires, Mage.Cookies.path, '<?php echo Mage::getSingleton('core/cookie')->getDomain();?>');
+            location.reload();
+        }
+    }
+</script>

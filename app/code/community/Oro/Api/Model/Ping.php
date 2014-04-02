@@ -17,7 +17,7 @@
  */
 class Oro_Api_Model_Ping extends Mage_Api_Model_Resource_Abstract
 {
-    const VERSION = '1.0.0';
+    const VERSION = '1.1.0';
     /**
      * @return array
      */
@@ -26,6 +26,7 @@ class Oro_Api_Model_Ping extends Mage_Api_Model_Resource_Abstract
         return array(
             'version'      => self::VERSION,
             'mage_version' => Mage::getVersion(),
+            'admin_url'    => Mage::getUrl('adminhtml'),
         );
     }
 }
