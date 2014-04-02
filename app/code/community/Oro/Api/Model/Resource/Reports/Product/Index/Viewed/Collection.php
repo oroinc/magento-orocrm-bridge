@@ -39,7 +39,6 @@ class Oro_Api_Model_Resource_Reports_Product_Index_Viewed_Collection
      */
     protected function _getWhereCondition()
     {
-
         return array();
     }
 }
