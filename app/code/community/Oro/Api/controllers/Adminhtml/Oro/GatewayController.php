@@ -1,4 +1,5 @@
 <?php
+
 class Oro_Api_Adminhtml_Oro_GatewayController
     extends Mage_Adminhtml_Controller_Action
 {
@@ -10,15 +11,14 @@ class Oro_Api_Adminhtml_Oro_GatewayController
     public function doAction()
     {
         $request = $this->getRequest();
-        $params = $request->getParams();
+        $params  = $request->getParams();
 
         if (isset($params['route'])) {
-            $route  = $params['route'];
+            $route = $params['route'];
             unset($params['route']);
             $params['is-oro-request'] = true;
 
             $url = $this->getUrl('adminhtml/' . $route, array('_query' => $params));
-
 
             $configFile = Mage::getConfig()->getModuleDir('etc', Mage::helper('oro_api')->getModuleName()) . DS . 'workflow.xml';
             /** @var Mage_Catalog_Model_Config $config */
@@ -29,12 +29,14 @@ class Oro_Api_Adminhtml_Oro_GatewayController
 
             $endPoints = $config->getXpath("{$workFlow}/end_point_action");
             if (count($endPoints)) {
-                $endPoint = (string) array_shift($endPoints);
+                $endPoint = (string)array_shift($endPoints);
 
+                // clear messages before redirect
+                Mage::getSingleton('adminhtml/session')->getMessages(true);
 
                 Mage::getSingleton('adminhtml/session')->setData('oro_end_point', $endPoint);
-                Mage::getSingleton('adminhtml/session')->setData('oro_success_url',  $request->getParam('success_url'));
-                Mage::getSingleton('adminhtml/session')->setData('oro_error_url',    $request->getParam('error_url'));
+                Mage::getSingleton('adminhtml/session')->setData('oro_success_url', $request->getParam('success_url'));
+                Mage::getSingleton('adminhtml/session')->setData('oro_error_url', $request->getParam('error_url'));
 
                 $this->_redirectUrl($url);
 
