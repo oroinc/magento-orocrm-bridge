@@ -48,6 +48,7 @@ class Oro_Api_Model_Observer_Crm_Controller
         if (Mage::helper('oro_api')->isOroRequest()) {
             if ($controller->getFullActionName() == $session->getData('oro_end_point')) {
                 Mage::getSingleton('core/cookie')->set('is-oro-request', 0, null, null, null, null, false);
+                Mage::getSingleton('adminhtml/session')->getMessages(true);
                 $controller->getResponse()->clearHeader('Location');
                 $controller->getResponse()->clearBody();
                 $controller->getResponse()->appendBody('<script type="text/javascript">setTimeout(function(){location.href = "'.$session->getData('oro_success_url').'"}, 1000)</script>')->sendResponse();
