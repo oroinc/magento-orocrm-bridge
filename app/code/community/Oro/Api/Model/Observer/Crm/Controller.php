@@ -63,6 +63,11 @@ class Oro_Api_Model_Observer_Crm_Controller
     {
         if (Mage::helper('oro_api')->isOroRequest()) {
             $layout = Mage::app()->getLayout();
+
+            if (($contentBlock = $layout->getBlock('content')) instanceof Mage_Adminhtml_Block_Sales_Order_Create) {
+                $contentBlock->removeButton('reset');
+            }
+
             /** @var Mage_Core_Block_Text $script */
             $layout->createBlock('adminhtml/template', 'oro_script', array('template' => 'oro/api/script.phtml'));
 
