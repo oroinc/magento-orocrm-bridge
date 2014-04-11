@@ -44,17 +44,35 @@ class Oro_Api_Model_Observer_Crm_Controller
     {
         /** @var Mage_Core_Controller_Front_Action $controller */
         $controller = $observer->getEvent()->getData('controller_action');
-        $session = Mage::getSingleton('adminhtml/session');
+        $session    = Mage::getSingleton('adminhtml/session');
         if (Mage::helper('oro_api')->isOroRequest()) {
             if ($controller->getFullActionName() == $session->getData('oro_end_point')) {
-                Mage::getSingleton('core/cookie')->set('is-oro-request', 0, null, null, null, null, false);
+                $messages      = Mage::getSingleton('adminhtml/session')->getMessages(false);
+                $quoteMessages = Mage::getSingleton('adminhtml/session_quote')->getMessages(false);
+                $errors        = array_merge($messages->getErrors(), $quoteMessages->getErrors());
+
+                // assume that if error messages exist then do no redirect to "success_url"
+                if (!empty($errors)) {
+                    $this->_setCookieValue(1);
+                    return;
+                }
+
+                $this->_setCookieValue(0);
+
+                // clear success messages
                 Mage::getSingleton('adminhtml/session')->getMessages(true);
+                Mage::getSingleton('adminhtml/session_quote')->getMessages(true);
+
                 $controller->getResponse()->clearHeader('Location');
                 $controller->getResponse()->clearBody();
-                $controller->getResponse()->appendBody('<script type="text/javascript">setTimeout(function(){location.href = "'.$session->getData('oro_success_url').'"}, 1000)</script>')->sendResponse();
+                $controller->getResponse()->appendBody(
+                    '<script type="text/javascript">setTimeout(function(){location.href = "'
+                        . $session->getData('oro_success_url')
+                    . '"}, 1000)</script>'
+                )->sendResponse();
                 exit;
             } else {
-                Mage::getSingleton('core/cookie')->set('is-oro-request', 1, null, null, null, null, false);
+                $this->_setCookieValue(1);
             }
         }
     }
@@ -96,5 +114,15 @@ class Oro_Api_Model_Observer_Crm_Controller
                 $layout->getBlock('root')->setTemplate('oro/api/page.phtml');
             }
         }
+    }
+
+    /**
+     * Set oro cookie value
+     *
+     * @param mixed $value
+     */
+    protected function _setCookieValue($value)
+    {
+        Mage::getSingleton('core/cookie')->set('is-oro-request', $value, null, null, null, null, false);
     }
 }
