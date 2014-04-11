@@ -46,7 +46,6 @@ class Oro_Api_Adminhtml_Oro_GatewayController
             if (count($endPoints)) {
                 $endPoint = (string)array_shift($endPoints);
 
-
                 Mage::getSingleton('adminhtml/session')->setData('oro_end_point', $endPoint);
                 Mage::getSingleton('adminhtml/session')->setData('oro_success_url', $request->getParam('success_url'));
                 Mage::getSingleton('adminhtml/session')->setData('oro_error_url', $request->getParam('error_url'));
