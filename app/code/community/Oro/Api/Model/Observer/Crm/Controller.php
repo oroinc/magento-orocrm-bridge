@@ -85,6 +85,15 @@ class Oro_Api_Model_Observer_Crm_Controller
 
             if (($contentBlock = $layout->getBlock('content')) instanceof Mage_Adminhtml_Block_Sales_Order_Create) {
                 $contentBlock->removeButton('reset');
+
+                // remove cart sidebar in case if we create order for active shopping cart
+                // because it has no sense to duplicate items info in two blocks
+                $sidebar = $layout->getBlock('sidebar');
+                /** @var $cartBlock Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart */
+                $cartBlock = $sidebar->getChild('cart');
+                if ($cartBlock && (bool)$cartBlock->getQuote()->getOrigData('is_active')) {
+                    $sidebar->unsetChild('cart');
+                }
             }
 
             /** @var Mage_Core_Block_Text $script */
