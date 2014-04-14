@@ -91,6 +91,15 @@
                     </oro_api_handle_crm_layout>
                 </observers>
             </controller_action_layout_render_before>
+            <checkout_submit_all_after>
+                <observers>
+                    <oro_api_sales_order_created>
+                        <type>singleton</type>
+                        <class>oro_api/observer_sales_order</class>
+                        <method>onSubmitAllAfter</method>
+                    </oro_api_sales_order_created>
+                </observers>
+            </checkout_submit_all_after>
         </events>
     </adminhtml>
 </config>
