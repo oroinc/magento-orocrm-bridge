@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Oro Inc.
  *
@@ -10,10 +11,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magecore.com so we can send you a copy immediately
  *
- * @category Oro
- * @package Api
+ * @category  Oro
+ * @package   Api
  * @copyright Copyright 2013 Oro Inc. (http://www.orocrm.com)
- * @license http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 class Oro_Api_Model_Observer_Crm_Controller
 {
@@ -52,31 +53,31 @@ class Oro_Api_Model_Observer_Crm_Controller
                 $errors        = array_merge($messages->getErrors(), $quoteMessages->getErrors());
 
                 // assume that if error messages exist then do no redirect to "success_url"
-                if (!empty($errors)) {
-                    $this->_setCookieValue(1);
-                    return;
-                }
+                if (empty($errors)) {
+                    $this->_setCookieValue(0);
 
-                $this->_setCookieValue(0);
+                    // clear all messages
+                    Mage::getSingleton('adminhtml/session')->getMessages(true);
+                    Mage::getSingleton('adminhtml/session_quote')->getMessages(true);
 
-                // clear success messages
-                Mage::getSingleton('adminhtml/session')->getMessages(true);
-                Mage::getSingleton('adminhtml/session_quote')->getMessages(true);
-
-                $controller->getResponse()->clearHeader('Location');
-                $controller->getResponse()->clearBody();
-                $controller->getResponse()->appendBody(
-                    '<script type="text/javascript">setTimeout(function(){location.href = "'
+                    $controller->getResponse()->clearHeader('Location');
+                    $controller->getResponse()->clearBody();
+                    $controller->getResponse()->appendBody(
+                        '<script type="text/javascript">setTimeout(function(){location.href = "'
                         . $session->getData('oro_success_url')
-                    . '"}, 1000)</script>'
-                )->sendResponse();
-                exit;
-            } else {
-                $this->_setCookieValue(1);
+                        . '"}, 1000)</script>'
+                    )->sendResponse();
+                    exit;
+                }
             }
+
+            $this->_setCookieValue(1);
         }
     }
 
+    /**
+     * @param Varien_Event_Observer $observer
+     */
     public function handleRenderLayout(Varien_Event_Observer $observer)
     {
         if (Mage::helper('oro_api')->isOroRequest()) {
