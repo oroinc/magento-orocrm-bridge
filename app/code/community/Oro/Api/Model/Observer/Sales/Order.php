@@ -19,7 +19,7 @@
 class Oro_Api_Model_Observer_Sales_Order
 {
     /**
-     * Deactivates quote after succeed placement, this is temporary solution for CRM processing
+     * Deactivates quote after succeed order placement, this is temporary solution for correct CRM processing
      *
      * @param Varien_Event_Observer $observer
      */
