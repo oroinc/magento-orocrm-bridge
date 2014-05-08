@@ -26,6 +26,15 @@ class Oro_Api_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
     );
 
     /**
+     * Attributes must be processed with source
+     *
+     * @var array
+     */
+    protected $_sourcedAttributes = array(
+        'gender',
+    );
+
+    /**
      * Retrieve customers data
      *
      * @param  object|array $filters
@@ -64,7 +73,11 @@ class Oro_Api_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
             }
 
             foreach ($this->getAllowedAttributes($customer) as $attributeCode => $attribute) {
+                /** @var $attribute Mage_Customer_Model_Attribute */
                 $row[$attributeCode] = $customer->getData($attributeCode);
+                if (in_array($attributeCode, $this->_sourcedAttributes)) {
+                    $row[$attributeCode] = $attribute->getSource()->getOptionText($customer->getData($attributeCode));
+                }
             }
 
             $row['addresses'] = $this->getAddressItems($customer);
