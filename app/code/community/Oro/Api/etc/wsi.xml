@@ -180,7 +180,7 @@
                 <xsd:sequence>
                     <xsd:element name="version" type="xsd:string" minOccurs="0" />
                     <xsd:element name="mage_version" type="xsd:string" minOccurs="0" />
-                    <xsd:element name="mage_edition" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="admin_url" type="xsd:string" minOccurs="0" />
                 </xsd:sequence>
             </xsd:complexType>
 
@@ -204,6 +204,7 @@
                     <xsd:element name="taxvat" type="xsd:string" minOccurs="0" />
                     <xsd:element name="confirmation" type="xsd:boolean" minOccurs="0" />
                     <xsd:element name="password_hash" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="gender" type="xsd:string" minOccurs="0" />
 
                     <xsd:element minOccurs="1" maxOccurs="1" name="addresses" type="typens:customerAddressEntityArray" />
                 </xsd:sequence>
