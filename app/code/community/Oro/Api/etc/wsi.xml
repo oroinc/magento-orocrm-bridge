@@ -180,7 +180,7 @@
                 <xsd:sequence>
                     <xsd:element name="version" type="xsd:string" minOccurs="0" />
                     <xsd:element name="mage_version" type="xsd:string" minOccurs="0" />
-                    <xsd:element name="mage_edition" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="admin_url" type="xsd:string" minOccurs="0" />
                 </xsd:sequence>
             </xsd:complexType>
 
