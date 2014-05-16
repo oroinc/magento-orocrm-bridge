@@ -41,7 +41,7 @@ class Oro_Api_Model_Sales_Quote_Api
             $this->_fault('filters_invalid', $e->getMessage());
         }
 
-        $quoteCollection->setOrder('entity_id');
+        $quoteCollection->setOrder('entity_id', Varien_Data_Collection_Db::SORT_ORDER_ASC);
         if (!$apiHelper->applyPager($quoteCollection, $pager)) {
             // there's no such page, so no results for it
             return array();

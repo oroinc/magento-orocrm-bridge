@@ -58,7 +58,7 @@ class Oro_Api_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
             $this->_fault('filters_invalid', $e->getMessage());
         }
 
-        $collection->setOrder('entity_id');
+        $collection->setOrder('entity_id', Varien_Data_Collection_Db::SORT_ORDER_ASC);
         if (!$apiHelper->applyPager($collection, $pager)) {
             // there's no such page, so no results for it
             return array();
