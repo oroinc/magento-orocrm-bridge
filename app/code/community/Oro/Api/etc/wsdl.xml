@@ -237,6 +237,18 @@
                     </restriction>
                 </complexContent>
             </complexType>
+
+            <complexType name="customerCustomerEntityToCreate">
+                <all>
+                    <element name="middlename" type="xsd:string" minOccurs="0" />
+                    <element name="prefix" type="xsd:string" minOccurs="0" />
+                    <element name="suffix" type="xsd:string" minOccurs="0" />
+                    <element name="dob" type="xsd:string" minOccurs="0" />
+                    <element name="taxvat" type="xsd:string" minOccurs="0" />
+                    <element name="gender" type="xsd:string" minOccurs="0" />
+                    <element name="group_id" type="xsd:int" minOccurs="0" />
+                </all>
+            </complexType>
         </schema>
     </types>
 

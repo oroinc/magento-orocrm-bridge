@@ -216,6 +216,18 @@
                 </xsd:sequence>
             </xsd:complexType>
 
+            <xsd:complexType name="customerCustomerEntityToCreate">
+                <xsd:sequence>
+                    <xsd:element name="middlename" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="group_id" type="xsd:int" minOccurs="0" />
+                    <xsd:element name="prefix" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="suffix" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="dob" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="taxvat" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="gender" type="xsd:string" minOccurs="0" />
+                </xsd:sequence>
+            </xsd:complexType>
+
             <!-- Customer -->
             <xsd:element name="oroCustomerListRequestParam">
                 <xsd:complexType>
