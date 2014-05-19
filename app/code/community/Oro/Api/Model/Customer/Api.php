@@ -76,7 +76,8 @@ class Oro_Api_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
                 /** @var $attribute Mage_Customer_Model_Attribute */
                 $row[$attributeCode] = $customer->getData($attributeCode);
                 if (in_array($attributeCode, $this->_sourcedAttributes)) {
-                    $row[$attributeCode] = $attribute->getSource()->getOptionText($customer->getData($attributeCode));
+                    $attributeValue = $attribute->getSource()->getOptionText($customer->getData($attributeCode));
+                    $row[$attributeCode] = !empty($attributeValue) ? $attributeValue : null;
                 }
             }
 
