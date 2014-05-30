@@ -3,6 +3,25 @@
 $cookie = Mage::getSingleton('core/cookie'); ?>
 <script type="text/javascript">
 //<![CDATA[
+    //check if we can set cookies in iframe
+    if (window.self != window.top) {
+        var cookieName = 'isCookiesEnabled';
+        function getCookie(name) {
+            var matches = document.cookie.match(new RegExp(
+                "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+            ));
+            return matches ? decodeURIComponent(matches[1]) : false;
+        }
+
+        if (!getCookie(cookieName)) {
+            document.cookie = cookieName + "=true";
+        }
+        if (!getCookie(cookieName)) {
+            document.body.innerHTML =
+                '<h1>Your browser does not allow set cookies for third party websites. Please enable it.</h1>';
+        }
+    }
+
     if (window.self == window.top && 1 == window.Mage.Cookies.get("is-oro-request")) {
         // If is not iframe and cookie exists then clear it
         window.Mage.Cookies.set(
