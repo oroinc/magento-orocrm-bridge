@@ -1,6 +1,8 @@
 <script type="text/javascript" src="<?php echo Mage::getBaseUrl('js') ?>mage/cookies.js"></script>
 <?php /** @var $cookie Mage_Core_Model_Cookie */
-$cookie = Mage::getSingleton('core/cookie'); ?>
+$cookie = Mage::getSingleton('core/cookie');
+$badCookiesMessage = Mage::helper('oro_api')->
+    __('Your browser does not allow set cookies for third party websites. Please enable it.');?>
 <script type="text/javascript">
 //<![CDATA[
     //check if we can set cookies in iframe
@@ -16,14 +18,7 @@ $cookie = Mage::getSingleton('core/cookie'); ?>
             );
         }
         if (!window.Mage.Cookies.get(cookieName)) {
-            document.body.innerHTML =
-                '<h1>' +
-                '<?php echo Mage::helper('core')->
-                    __(
-                        'Your browser does not allow set cookies for third party websites. Please enable it.'
-                    );
-                ?>' +
-                '</h1>';
+            document.body.innerHTML = '<h1><?php echo $badCookiesMessage; ?></h1>';
         }
     }
 
