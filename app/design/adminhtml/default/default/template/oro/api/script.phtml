@@ -6,19 +6,24 @@ $cookie = Mage::getSingleton('core/cookie'); ?>
     //check if we can set cookies in iframe
     if (window.self != window.top) {
         var cookieName = 'isCookiesEnabled';
-        function getCookie(name) {
-            var matches = document.cookie.match(new RegExp(
-                "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-            ));
-            return matches ? decodeURIComponent(matches[1]) : false;
+        if (!window.Mage.Cookies.get(cookieName)) {
+            window.Mage.Cookies.set(
+                cookieName,
+                0,
+                null,
+                '<?php echo $cookie->getPath();?>',
+                '<?php echo $cookie->getDomain();?>'
+            );
         }
-
-        if (!getCookie(cookieName)) {
-            document.cookie = cookieName + "=true";
-        }
-        if (!getCookie(cookieName)) {
+        if (!window.Mage.Cookies.get(cookieName)) {
             document.body.innerHTML =
-                '<h1>Your browser does not allow set cookies for third party websites. Please enable it.</h1>';
+                '<h1>' +
+                '<?php echo Mage::helper('core')->
+                    __(
+                        'Your browser does not allow set cookies for third party websites. Please enable it.'
+                    );
+                ?>' +
+                '</h1>';
         }
     }
 
