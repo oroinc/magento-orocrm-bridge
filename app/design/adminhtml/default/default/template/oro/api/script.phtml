@@ -2,24 +2,27 @@
 <?php /** @var $cookie Mage_Core_Model_Cookie */
 $cookie = Mage::getSingleton('core/cookie');
 $badCookiesMessage = Mage::helper('oro_api')->
-    __('Your browser does not allow set cookies for third party websites. Please enable it.');?>
+    __(
+        "In order for this feature to work properly your browser must accept third-party cookies.".
+        " Please enable third-party cookies in your browser's settings"
+    );?>
 <script type="text/javascript">
 //<![CDATA[
     //check if we can set cookies in iframe
+
     if (window.self != window.top) {
         var cookieName = 'isCookiesEnabled';
+        window.Mage.Cookies.set(
+            cookieName,
+            0,
+            null,
+            '<?php echo $cookie->getPath();?>',
+            '<?php echo $cookie->getDomain();?>'
+        );
         if (!window.Mage.Cookies.get(cookieName)) {
-            window.Mage.Cookies.set(
-                cookieName,
-                0,
-                null,
-                '<?php echo $cookie->getPath();?>',
-                '<?php echo $cookie->getDomain();?>'
-            );
+            document.body.innerHTML = "<h1><?php echo $badCookiesMessage; ?></h1>";
         }
-        if (!window.Mage.Cookies.get(cookieName)) {
-            document.body.innerHTML = '<h1><?php echo $badCookiesMessage; ?></h1>';
-        }
+        window.Mage.Cookies.clear(cookieName);
     }
 
     if (window.self == window.top && 1 == window.Mage.Cookies.get("is-oro-request")) {
