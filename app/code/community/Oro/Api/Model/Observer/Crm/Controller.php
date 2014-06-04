@@ -99,6 +99,10 @@ class Oro_Api_Model_Observer_Crm_Controller
             /** @var Mage_Core_Block_Text $script */
             $layout->createBlock('adminhtml/template', 'oro_script', array('template' => 'oro/api/script.phtml'));
 
+            if ($layout->getBlock('head')) {
+                $layout->getBlock('head')->addCss('css/oro_style.css');
+            }
+
             $destination = null;
 
             switch (true) {
