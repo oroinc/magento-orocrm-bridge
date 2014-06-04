@@ -14,12 +14,11 @@ $badCookiesMessage = Mage::helper('oro_api')->
             width: 350px;
             background-color: #ededed;
             border-radius: 6px;
-
         }
         .text-container{
             padding: 35px 35px 35px;
             text-align: left;
-            background: url(/skin/adminhtml/base/default/image/error.png) left no-repeat;
+            background: url(<?php echo $this->getSkinUrl('image/error.png') ?>) left no-repeat;
         }
     </style>
     <div class="error-container">
