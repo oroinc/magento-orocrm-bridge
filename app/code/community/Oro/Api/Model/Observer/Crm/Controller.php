@@ -80,7 +80,7 @@ class Oro_Api_Model_Observer_Crm_Controller
      */
     public function handleRenderLayout(Varien_Event_Observer $observer)
     {
-        if (Mage::helper('oro_api')->isOroRequest()) {
+        #if (Mage::helper('oro_api')->isOroRequest()) {
             $layout = Mage::app()->getLayout();
 
             if (($contentBlock = $layout->getBlock('content')) instanceof Mage_Adminhtml_Block_Sales_Order_Create) {
@@ -129,7 +129,7 @@ class Oro_Api_Model_Observer_Crm_Controller
             if ($layout->getBlock('root') instanceof Mage_Core_Block_Template) {
                 $layout->getBlock('root')->setTemplate('oro/api/page.phtml');
             }
-        }
+        #}
     }
 
     /**
