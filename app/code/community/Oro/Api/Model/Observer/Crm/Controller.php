@@ -115,9 +115,9 @@ class Oro_Api_Model_Observer_Crm_Controller
      * Insert block
      *
      * @param string $blockName
-     * @param Mage_Core_Block_Text $layout
+     * @param Mage_Core_Model_Layout $layout
      */
-    protected function _insertBlock($blockName, Mage_Core_Block_Text $layout)
+    protected function _insertBlock($blockName, Mage_Core_Model_Layout $layout)
     {
         $destination = null;
 
