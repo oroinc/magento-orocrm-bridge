@@ -111,7 +111,7 @@ class Oro_Api_Model_Observer_Crm_Controller
                 );
                 $loginForm->insert('oro_login_styles');
             } elseif ($layout->getBlock('head')) {
-                $layout->getBlock('head')->addCss('css/oro_style.css');
+                $layout->getBlock('head')->addCss('oro_style.css');
             }
 
             $this->_insertBlock('oro_script', $layout);

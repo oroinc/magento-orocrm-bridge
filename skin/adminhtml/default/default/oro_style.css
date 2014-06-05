@@ -1,0 +1,284 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.notice {
+    color: #c30b25;
+}
+
+a, a:hover {
+    color: #006acc;
+    text-decoration: underline;
+    font-size: 1.1em;
+}
+
+button:hover, .form-button:hover {
+    background: #f3f3f3 linear-gradient(#f3f3f3, #f6f6f6) 0 0 repeat-x;
+}
+
+button, .form-button {
+    background: #f3f3f3 linear-gradient(#f3f3f3, #f6f6f6) 0 0 repeat-x;
+    border: 1px solid #969696;
+    box-shadow: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: bold;
+    height: 22px;
+    line-height: 20px;
+    margin-bottom: 0px;
+    padding: 0 12px 0 12px;
+    text-align: center;
+    text-decoration: none solid rgb(255, 255, 255);
+    vertical-align: middle;
+    visibility: visible;
+    color: #666666;
+}
+
+button.add span {
+    background-image: url('./images/oro/add_button_icon_dark.png');
+}
+
+button.save span {
+    background-image: url('./images/oro/apply_button_icon.png');
+}
+
+button.save {
+    background-color: rgb(113, 192, 24);
+    background-image: linear-gradient(rgb(130, 206, 32), rgb(87, 172, 11));
+    background-repeat: repeat-x;
+    border-bottom-color: rgb(38, 117, 7);
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-image-outset: 0px;
+    border-image-repeat: stretch;
+    border-image-slice: 100%;
+    border-image-source: none;
+    border-image-width: 1;
+    border-left-color: rgb(59, 141, 28);
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-right-color: rgb(59, 141, 28);
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-top-color: rgb(73, 152, 43);
+    border-top-style: solid;
+    border-top-width: 1px;
+    color: rgb(255, 255, 255);
+    position: relative;
+    text-shadow: rgb(59, 141, 28) 0px 1px 0px;
+}
+
+dl.accordion dt, .entry-edit .entry-edit-head, .create-order-sidebar-block .head {
+    border-bottom: 1px solid #000;
+    background-color: #47505a;
+    background-color: #404952;
+    background-image: -moz-linear-gradient(top, #47505a, #363e47);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#47505a), to(#363e47));
+    background-image: -webkit-linear-gradient(top, #47505a, #363e47);
+    background-image: -o-linear-gradient(top, #47505a, #363e47);
+    background-image: linear-gradient(to bottom, #47505a, #363e47);
+    background-repeat: repeat-x;
+    color: #ffffff;
+}
+
+.entry-edit .entry-edit-head h4 {
+    color: #ffffff;
+    font-weight: normal;
+}
+
+.content-header h3 {
+    color: #444444;
+    font-weight: normal;
+}
+
+.create-order-sidebar-block .head h5 {
+    color: #ffffff;
+    font-weight: normal;
+    margin-top: 3px;
+}
+
+.entry-edit .entry-edit-head h4 {
+    font-size: 1.1em;
+    line-height: 16px;
+    margin-top: 5px;
+    font-weight: normal;
+}
+
+.grid tr.headings {
+    background: #ececec;
+}
+
+.grid tr.headings th.no-link, .grid tr.headings th span.sort-title {
+    text-transform: uppercase;
+}
+
+.grid tr.headings th span.nobr {
+    color: #2d444f;
+}
+
+.grid table td {
+    background-color: #fff;
+}
+
+.grid tr.filter {
+    background: #f6f6f6;
+}
+
+.grid table tfoot tr td {
+    background: #ececec;
+}
+
+.grid tr.headings th a.sort-arrow-desc span.sort-title {
+    background-image: url('./images/oro/grid_sort_desc.gif');
+}
+
+.grid tr.headings th a.sort-arrow-asc span.sort-title {
+    background-image: url('./images/oro/grid_sort_asc.gif');
+}
+
+.grid tr.headings th a.sort-arrow-desc, .grid tr.headings th a.sort-arrow-asc {
+    background: none;
+    border-bottom: 0;
+    border-right: 0;
+}
+
+.grid tr.headings th a, .grid tr.headings th a:hover {
+    color: #2d444f;
+}
+
+.order-save-in-address-book {
+    background: #f9f9f9;
+}
+
+.switcher {
+    background: none repeat scroll 0 0 #ffffff;
+}
+
+.box, .entry-edit fieldset, .entry-edit .fieldset {
+    background: #fff;
+}
+
+.order-choose-address {
+    background: #f6f6f6;
+}
+
+.sub-btn-set {
+    background: #fff;
+}
+
+.create-order-sidebar-container {
+    background: #fff;
+}
+
+.login-container {
+    background: none;
+}
+
+.login-form {
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    background: none;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.login-form label {
+    font: 14px/22px Helvetica, Arial, sans-serif;
+    color: #5b636d;
+}
+
+.login-form input.input-text {
+    font: 14px/16px Helvetica, Arial, sans-serif;
+    height: 16px;
+}
+
+.login-container .legal {
+    display: none;
+}
+
+.order-totals {
+    background: none;
+    border: 1px solid #d6d6d6 !important;
+}
+
+.content-header-floating {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    border-bottom: none;
+    z-index: 100;
+    background: #444444;
+    color: #ffffff;
+    opacity: .85;
+}
+
+.content-header-floating .content-header {
+    padding: 10px 20px;
+}
+
+.content-header-floating .content-header h3 {
+    color: #ffffff;
+}
+
+#order-header h3 {
+    padding-left: 0;
+    margin-left: 0;
+    background: none;
+}
+
+#loading-mask {
+    background: none;
+    opacity: 1;
+}
+
+#loading-mask .loading-wrapper {
+    background: #000;
+    opacity: .3;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+}
+
+#loading-mask .loading-frame {
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    width: 180px;
+    z-index: 9999;
+}
+
+#loading-mask .loading-frame .box {
+    margin: 20px 0;
+    background: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 24px;
+    min-height: 20px;
+    padding: 19px;
+    border: 1px solid #e6e6e6;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+#loading-mask .loading-frame .box .loading-content {
+    opacity: 1;
+    background: #ffffff url('./images/oro/loader.gif') no-repeat center left;
+    padding-left: 35px;
+    text-align: left;
+    color: #000;
+}
