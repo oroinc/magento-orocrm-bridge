@@ -102,12 +102,16 @@ class Oro_Api_Model_Observer_Crm_Controller
 
             /** @var Mage_Core_Block_Text $script */
             $layout->createBlock('adminhtml/template', 'oro_script', array('template' => 'oro/api/script.phtml'));
-            $layout->createBlock('adminhtml/template', 'oro_login_styles', array('template' => 'oro/api/login_styles.phtml'));
 
-            if ($layout->getBlock('head')) {
-                $layout->getBlock('head')->addCss('css/oro_style.css');
-            } elseif (($loginForm = $layout->getBlock('form.additional.info')) instanceof Mage_Core_Block_Text_List) {
+            if (($loginForm = $layout->getBlock('form.additional.info')) instanceof Mage_Core_Block_Text_List) {
+                $layout->createBlock(
+                    'adminhtml/template',
+                    'oro_login_styles',
+                    array('template' => 'oro/api/login_styles.phtml')
+                );
                 $loginForm->insert('oro_login_styles');
+            } elseif ($layout->getBlock('head')) {
+                $layout->getBlock('head')->addCss('css/oro_style.css');
             }
 
             $this->_insertBlock('oro_script', $layout);
