@@ -37,7 +37,7 @@ $cookie = Mage::getSingleton('core/cookie');
         var cookieName = 'isCookiesEnabled';
         window.Mage.Cookies.set(
             cookieName,
-            0,
+            1,
             null,
             '<?php echo $cookie->getPath();?>',
             '<?php echo $cookie->getDomain();?>'
@@ -45,7 +45,13 @@ $cookie = Mage::getSingleton('core/cookie');
         if (!window.Mage.Cookies.get(cookieName)) {
             document.body.innerHTML = document.getElementById('errorPage').innerHTML;
         }
-        window.Mage.Cookies.clear(cookieName);
+        window.Mage.Cookies.set(
+            cookieName,
+            0,
+            new Date(1980, 1, 1),
+            '<?php echo $cookie->getPath();?>',
+            '<?php echo $cookie->getDomain();?>'
+        );
     }
     //]]>
 </script>
