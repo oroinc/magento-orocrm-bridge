@@ -80,9 +80,13 @@ class Oro_Api_Model_Observer_Crm_Controller
      */
     public function handleRenderLayout(Varien_Event_Observer $observer)
     {
-        if (Mage::helper('oro_api')->isOroRequest()) {
-            $layout = Mage::app()->getLayout();
+        $layout = Mage::app()->getLayout();
 
+        //add check cookies script
+        $layout->createBlock('adminhtml/template', 'oro_check_script', array('template' => 'oro/api/check.phtml'));
+        $this->_insertBlock('oro_check_script', $layout);
+
+        if (Mage::helper('oro_api')->isOroRequest()) {
             if (($contentBlock = $layout->getBlock('content')) instanceof Mage_Adminhtml_Block_Sales_Order_Create) {
                 $contentBlock->removeButton('reset');
 
@@ -102,33 +106,45 @@ class Oro_Api_Model_Observer_Crm_Controller
 
             if ($layout->getBlock('head')) {
                 $layout->getBlock('head')->addCss('css/oro_style.css');
+            } elseif (($loginForm = $layout->getBlock('form.additional.info')) instanceof Mage_Core_Block_Text_List) {
+                $loginForm->insert('oro_login_styles');
             }
 
-            $destination = null;
-
-            switch (true) {
-                case $layout->getBlock('form.additional.info') instanceof Mage_Core_Block_Text_List:
-                    $destination = $layout->getBlock('form.additional.info');
-                    $destination->insert('oro_login_styles');
-                    break;
-                case $layout->getBlock('before_body_end') instanceof Mage_Core_Block_Text_List:
-                    $destination = $layout->getBlock('before_body_end');
-                    break;
-                case $layout->getBlock('content') instanceof Mage_Core_Block_Text_List:
-                    $destination = $layout->getBlock('content');
-                    break;
-                default:
-                    $destination = null;
-                    break;
-            }
-
-            if ($destination) {
-                $destination->insert('oro_script');
-            }
+            $this->_insertBlock('oro_script', $layout);
 
             if ($layout->getBlock('root') instanceof Mage_Core_Block_Template) {
                 $layout->getBlock('root')->setTemplate('oro/api/page.phtml');
             }
+        }
+    }
+
+    /**
+     * Insert block
+     *
+     * @param string $blockName
+     * @param Mage_Core_Model_Layout $layout
+     */
+    protected function _insertBlock($blockName, Mage_Core_Model_Layout $layout)
+    {
+        $destination = null;
+
+        switch (true) {
+            case $layout->getBlock('form.additional.info') instanceof Mage_Core_Block_Text_List:
+                $destination = $layout->getBlock('form.additional.info');
+                break;
+            case $layout->getBlock('before_body_end') instanceof Mage_Core_Block_Text_List:
+                $destination = $layout->getBlock('before_body_end');
+                break;
+            case $layout->getBlock('content') instanceof Mage_Core_Block_Text_List:
+                $destination = $layout->getBlock('content');
+                break;
+            default:
+                $destination = null;
+                break;
+        }
+
+        if ($destination) {
+            $destination->insert($blockName);
         }
     }
 
