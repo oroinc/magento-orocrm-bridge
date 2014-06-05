@@ -42,7 +42,6 @@ $cookie = Mage::getSingleton('core/cookie');
             '<?php echo $cookie->getPath();?>',
             '<?php echo $cookie->getDomain();?>'
         );
-        alert('cookie -> ' + window.Mage.Cookies.get(cookieName));
         if (!window.Mage.Cookies.get(cookieName)) {
             document.body.innerHTML = document.getElementById('errorPage').innerHTML;
         }
