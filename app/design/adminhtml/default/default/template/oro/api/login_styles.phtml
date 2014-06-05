@@ -1,0 +1,10 @@
+<script>
+//<![CDATA[
+    var head = document.head || document.getElementsByTagName('head')[0],
+        style = document.createElement('link');
+    style.type = 'text/css';
+    style.rel = 'stylesheet';
+    style.href = '<?php echo $this->getSkinUrl('css/oro_style.css') ?>';
+    head.appendChild(style);
+//]]>
+</script>

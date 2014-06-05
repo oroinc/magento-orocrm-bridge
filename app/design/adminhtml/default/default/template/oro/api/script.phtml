@@ -1,7 +1,6 @@
 <script type="text/javascript" src="<?php echo Mage::getBaseUrl('js') ?>mage/cookies.js"></script>
-<?php /** @var $cookie Mage_Core_Model_Cookie */
-$cookie = Mage::getSingleton('core/cookie');
-?>
+<?php /** @var $cookie Mage_Core_Model_Cookie */ ?>
+<?php $cookie = Mage::getSingleton('core/cookie'); ?>
 <script type="text/javascript">
 //<![CDATA[
     if (window.self == window.top && 1 == window.Mage.Cookies.get("is-oro-request")) {
