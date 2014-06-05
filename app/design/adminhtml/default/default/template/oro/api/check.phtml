@@ -1,0 +1,52 @@
+<?php
+$badCookiesMessage = Mage::helper('oro_api')->
+    __(
+        "In order for this feature to work properly your browser must accept third-party cookies.".
+        " Please enable third-party cookies in your browser's settings"
+    );
+?>
+<script type="text/html" id="errorPage">
+    <style type="text/css">
+        .error-container {
+            margin: 170px auto;
+            padding-left: 32px;
+            width: 350px;
+            background-color: #ededed;
+            border-radius: 6px;
+        }
+        .text-container{
+            padding: 35px;
+            text-align: left;
+            background: url(<?php echo $this->getSkinUrl('image/error.png') ?>) left no-repeat;
+        }
+    </style>
+    <div class="error-container">
+        <div class="text-container">
+            <?php echo $badCookiesMessage; ?>
+        </div>
+    </div>
+</script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl('js') ?>mage/cookies.js"></script>
+<?php /** @var $cookie Mage_Core_Model_Cookie */
+$cookie = Mage::getSingleton('core/cookie');
+?>
+<script type="text/javascript">
+    //<![CDATA[
+    //check if we can set cookies in iframe
+    if (window.self != window.top) {
+        var cookieName = 'isCookiesEnabled';
+        window.Mage.Cookies.set(
+            cookieName,
+            0,
+            null,
+            '<?php echo $cookie->getPath();?>',
+            '<?php echo $cookie->getDomain();?>'
+        );
+        alert('cookie -> ' + window.Mage.Cookies.get(cookieName));
+        if (!window.Mage.Cookies.get(cookieName)) {
+            document.body.innerHTML = document.getElementById('errorPage').innerHTML;
+        }
+        window.Mage.Cookies.clear(cookieName);
+    }
+    //]]>
+</script>
