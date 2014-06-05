@@ -14,5 +14,14 @@ $cookie = Mage::getSingleton('core/cookie'); ?>
         );
         location.reload();
     }
+
+    window.onload = function () {
+        var mask = document.getElementById('loading-mask');
+        var backGround = document.createElement('div');
+        backGround.setAttribute('class', 'loading-wrapper');
+        backGround.setAttribute('style', 'height: 100%;');
+        mask.appendChild(backGround);
+        document.getElementById('loading_mask_loader').getElementsByTagName('img')[0].src = '/skin/adminhtml/base/default/image/loader.gif';
+    }
 //]]>
 </script>
