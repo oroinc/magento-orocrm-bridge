@@ -32,7 +32,7 @@ class Oro_Api_Model_Sales_Quote_Api
         /** @var $apiHelper Oro_Api_Helper_Data */
         $apiHelper = Mage::helper('oro_api');
 
-        $filters = $apiHelper->parseFilters($filters, $this->_attributesMap['quote']);
+        $filters = $apiHelper->parseFilters($filters);
         try {
             foreach ($filters as $field => $value) {
                 $quoteCollection->addFieldToFilter($field, $value);
@@ -69,10 +69,10 @@ class Oro_Api_Model_Sales_Quote_Api
             );
         }
 
-        $result = $this->_getAttributes($quote, 'quote');
+        $result                     = $this->_getAttributes($quote, 'quote');
         $result['shipping_address'] = $this->_getAttributes($quote->getShippingAddress(), 'quote_address');
-        $result['billing_address'] = $this->_getAttributes($quote->getBillingAddress(), 'quote_address');
-        $result['items'] = array();
+        $result['billing_address']  = $this->_getAttributes($quote->getBillingAddress(), 'quote_address');
+        $result['items']            = array();
 
         foreach ($quote->getAllItems() as $item) {
             if ($item->getGiftMessageId() > 0) {
@@ -85,6 +85,11 @@ class Oro_Api_Model_Sales_Quote_Api
         }
 
         $result['payment'] = $this->_getAttributes($quote->getPayment(), 'quote_payment');
+        if (isset($result['payment'], $result['payment']['additional_information'])
+            && is_array($result['payment']['additional_information'])
+        ) {
+            $result['payment']['additional_information'] = serialize($result['payment']['additional_information']);
+        }
 
         return $result;
     }
