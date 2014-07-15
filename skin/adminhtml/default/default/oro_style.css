@@ -198,6 +198,11 @@ dl.accordion dt, .entry-edit .entry-edit-head, .create-order-sidebar-block .head
     height: 16px;
 }
 
+.login-form .form-buttons a.left {
+    /* forgot password link */
+    display: none;
+}
+
 .login-container .legal {
     display: none;
 }
