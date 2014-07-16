@@ -30,31 +30,9 @@ class Oro_Analytics_Model_Observer
             return;
         }
 
-        $block = $this->_getTrackingBlock();
+        $block = Mage::app()->getLayout()->getBlock('oro_analytics');
         if ($block) {
             $block->setOrderIds($orderIds);
-        }
-    }
-
-    /**
-     * Set flags depends on current full action name
-     */
-    public function onRenderBefore()
-    {
-        $delimiter = '_';
-        $request   = Mage::app()->getRequest();
-        $block     = $this->_getTrackingBlock();
-        if ($block) {
-            $action = $request->getRequestedRouteName() . $delimiter .
-                $request->getRequestedControllerName() . $delimiter .
-                $request->getRequestedActionName();
-
-            switch ($action) {
-                case 'checkout_onepage_index':
-                case 'checkout_multishipping_addresses':
-                    $block->setIsCheckoutPage(true);
-                    break;
-            }
         }
     }
 
@@ -72,22 +50,12 @@ class Oro_Analytics_Model_Observer
      *
      * @param Varien_Event_Observer $observer
      */
-    public function onCartItemAdd(Varien_Event_Observer $observer)
+    public function onCartItemAdded(Varien_Event_Observer $observer)
     {
         /** @var $product Mage_Catalog_Model_Product */
         $product = $observer->getEvent()->getProduct();
 
         $session = Mage::getSingleton('checkout/session');
         $session->setData('justAddedProductId', $product->getId());
-    }
-
-    /**
-     * Returns tracking block from layout
-     *
-     * @return Oro_Analytics_Block_Tracking|null
-     */
-    protected function _getTrackingBlock()
-    {
-        return $block = Mage::app()->getLayout()->getBlock('oro_analytics');
     }
 }

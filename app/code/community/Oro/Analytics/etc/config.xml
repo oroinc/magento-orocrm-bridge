@@ -49,15 +49,6 @@
             </updates>
         </layout>
         <events>
-            <controller_action_layout_render_before>
-                <observers>
-                    <oroanalitycs_render_before>
-                        <class>oro_analytics/observer</class>
-                        <method>onRenderBefore</method>
-                    </oroanalitycs_render_before>
-                </observers>
-            </controller_action_layout_render_before>
-
             <!-- Order place events -->
             <checkout_onepage_controller_success_action>
                 <observers>
@@ -91,7 +82,7 @@
                 <observers>
                     <oroanalitycs_cart_item_add>
                         <class>oro_analytics/observer</class>
-                        <method>onCartItemAdd</method>
+                        <method>onCartItemAdded</method>
                     </oroanalitycs_cart_item_add>
                 </observers>
             </checkout_cart_add_product_complete>

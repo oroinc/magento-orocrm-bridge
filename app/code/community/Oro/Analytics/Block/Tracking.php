@@ -20,8 +20,6 @@
 /**
  * @method array getOrderIds()
  * @method void  setOrderIds(array $orderIds)
- * @method void  setIsCheckoutPage(bool $value)
- * @method bool  getIsCheckoutPage()
  */
 class Oro_Analytics_Block_Tracking extends Mage_Core_Block_Template
 {
@@ -37,7 +35,10 @@ class Oro_Analytics_Block_Tracking extends Mage_Core_Block_Template
         $data = array('id' => null, 'email' => null);
         if ($session->isLoggedIn()) {
             $customer = $session->getCustomer();
-            $data     = array('id' => $customer->getId(), 'email' => $customer->getEmail());
+            $data     = array(
+                'id'    => $customer->getId(),
+                'email' => $customer->getEmail()
+            );
         } else {
             $data['id'] = Oro_Analytics_Helper_Data::GUEST_USER_IDENTIFIER;
         }
@@ -80,10 +81,17 @@ class Oro_Analytics_Block_Tracking extends Mage_Core_Block_Template
      */
     protected function _getCheckoutEventsData()
     {
-        if ($this->getIsCheckoutPage()) {
+        /** @var $action Mage_Core_Controller_Varien_Action */
+        $action          = Mage::app()->getFrontController()->getAction();
+        $fullActionName  = $action->getFullActionName();
+        $isCheckoutIndex = in_array(
+            $fullActionName,
+            array('checkout_onepage_index', 'checkout_multishipping_addresses')
+        );
+
+        if ($isCheckoutIndex) {
             /** @var $quote Mage_Sales_Model_Quote */
             $quote = Mage::getModel('checkout/session')->getQuote();
-            $this->setIsCheckoutPage(false);
 
             return sprintf(
                 "_paq.push(['trackEvent', 'OroCRM', 'Tracking', '%s', '%f' ]);",
