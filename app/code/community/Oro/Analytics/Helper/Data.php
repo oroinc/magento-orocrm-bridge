@@ -25,9 +25,9 @@ class Oro_Analytics_Helper_Data extends Mage_Core_Helper_Abstract
     const EVENT_CHECKOUT_STARTED      = 'user entered checkout';
     const EVENT_ORDER_PLACE_SUCCESS   = 'order successfully placed';
 
-    const XML_PATH_ENABLED         = 'oro_analytics/enabled';
-    const XML_PATH_HOST            = 'oro_analytics/host';
-    const XML_PATH_SITE_IDENTIFIER = 'oro_analytics/site_identifier';
+    const XML_PATH_ENABLED         = 'oro/analytics/active';
+    const XML_PATH_HOST            = 'oro/analytics/host';
+    const XML_PATH_SITE_IDENTIFIER = 'oro/analytics/site_identifier';
 
     /**
      * Returns whether analytics is enabled
@@ -73,29 +73,9 @@ class Oro_Analytics_Helper_Data extends Mage_Core_Helper_Abstract
      * @param string $xmlPath
      *
      * @return mixed
-     * @throws Exception Unknown path given
      */
     protected function _getConfigValue($xmlPath)
     {
-        // @TODO process real config if needed
-        // return Mage::getStoreConfig($xmlPath);
-
-        $value = null;
-
-        switch ($xmlPath) {
-            case self::XML_PATH_HOST:
-                $value = 'http://crm.dev/';
-                break;
-            case self::XML_PATH_SITE_IDENTIFIER:
-                $value = 'MAGORO';
-                break;
-            case self::XML_PATH_ENABLED:
-                $value = true;
-                break;
-            default:
-                throw new Exception('Invalid config path');
-        }
-
-        return $value;
+        return Mage::getStoreConfig($xmlPath);
     }
 }
