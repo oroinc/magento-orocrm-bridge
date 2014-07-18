@@ -32,12 +32,15 @@ class Oro_Analytics_Block_Tracking extends Mage_Core_Block_Template
     {
         $session = Mage::getModel('customer/session');
 
-        $data = array('id' => null, 'email' => null);
+        $data = array('id' => null, 'email' => null, 'visitor-id' => Mage::getSingleton('log/visitor')->getId());
         if ($session->isLoggedIn()) {
             $customer = $session->getCustomer();
-            $data     = array(
-                'id'    => $customer->getId(),
-                'email' => $customer->getEmail()
+            $data     = array_merge(
+                $data,
+                array(
+                    'id'    => $customer->getId(),
+                    'email' => $customer->getEmail()
+                )
             );
         } else {
             $data['id'] = Oro_Analytics_Helper_Data::GUEST_USER_IDENTIFIER;
