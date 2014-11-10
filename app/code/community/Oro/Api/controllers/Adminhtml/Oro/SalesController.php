@@ -18,6 +18,34 @@
 class Oro_Api_Adminhtml_Oro_SalesController
     extends Mage_Adminhtml_Controller_Action
 {
+    public function checkoutAction()
+    {
+        $quote   = false;
+        $session = Mage::getSingleton('adminhtml/session_quote');
+        $session->clear();
+
+        $quoteId = $this->getRequest()->getParam('quote');
+        if (null !== $quoteId) {
+            $quote = $this->_getQuoteById($quoteId);
+        }
+
+        $customerId = $this->getRequest()->getParam('customer');
+        if (null !== $customerId && $this->_checkCustomer($customerId)) {
+            $session->setQuoteId(null);
+            $session->setCustomerId((int)$customerId);
+        } elseif (false !== $quote) {
+            $customerId = (int)$quote->getCustomerId();
+
+            $session->setStoreId($quote->getStoreId());
+            $session->setQuoteId($quote->getId());
+            $session->setCustomerId($customerId);
+        } else {
+            return $this->_redirect('*/oro_gateway/error');
+        }
+
+        return $this->_redirect('*/checkout/index', array('customer' => $customerId));
+    }
+
     public function newOrderAction()
     {
         $quote   = false;
