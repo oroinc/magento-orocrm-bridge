@@ -3,4 +3,7 @@
     <oro_sales_new_order>
         <end_point_action>adminhtml_sales_order_create_save</end_point_action>
     </oro_sales_new_order>
+    <oro_sales_checkout>
+        <end_point_action>adminhtml_sales_order_create_save</end_point_action>
+    </oro_sales_checkout>
 </config>
