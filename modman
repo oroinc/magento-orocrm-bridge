@@ -1,0 +1,5 @@
+app/etc/modules/Oro_Api.xml                                   app/etc/modules/Oro_Api.xml
+app/code/community/Oro/Api                                    app/code/community/Oro/Api
+app/design/adminhtml/default/default/template/oro/api         app/design/adminhtml/default/default/template/oro/api
+skin/adminhtml/default/default/images/oro                     skin/adminhtml/default/default/images/oro
+skin/adminhtml/default/default/oro_style.css                  skin/adminhtml/default/default/oro_style.css
