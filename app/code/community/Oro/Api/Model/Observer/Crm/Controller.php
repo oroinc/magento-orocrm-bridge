@@ -87,6 +87,13 @@ class Oro_Api_Model_Observer_Crm_Controller
         $this->_insertBlock('oro_check_script', $layout);
 
         if (Mage::helper('oro_api')->isOroRequest()) {
+            // Remove back button on Manage Shopping Cart of Customer if it's rendered in Oro Request.
+            if (class_exists('Enterprise_Checkout_Block_Adminhtml_Manage') &&
+                ($manageBlock = $layout->getBlock('ID')) instanceof Enterprise_Checkout_Block_Adminhtml_Manage
+            ) {
+                $manageBlock->removeButton('back');
+            }
+
             if (($contentBlock = $layout->getBlock('content')) instanceof Mage_Adminhtml_Block_Sales_Order_Create) {
                 $contentBlock->removeButton('reset');
 
