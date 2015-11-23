@@ -1,0 +1,364 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Oro Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is published at http://opensource.org/licenses/osl-3.0.php.
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magecore.com so we can send you a copy immediately
+ *
+ * @category Oro
+ * @package Api
+ * @copyright Copyright 2013 Oro Inc. (http://www.orocrm.com)
+ * @license http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <api>
+        <resources>
+            <oro_ping translate="title" module="oro_api">
+                <model>oro_api/ping</model>
+                <title>Oro extension ping</title>
+                <acl>oro</acl>
+                <methods>
+                    <ping translate="title" module="oro_api">
+                        <title>Ping mage instance in order to check if extension available</title>
+                        <method>ping</method>
+                        <acl>oro/ping</acl>
+                    </ping>
+                </methods>
+            </oro_ping>
+            <oro_quote translate="title" module="oro_api">
+                <model>oro_api/sales_quote_api</model>
+                <title>Quote Information</title>
+                <acl>oro</acl>
+                <methods>
+                    <list translate="title" module="oro_api">
+                        <title>Get quote list by filters</title>
+                        <method>items</method>
+                        <acl>oro/quote</acl>
+                    </list>
+                </methods>
+            </oro_quote>
+            <oro_order translate="title" module="oro_api">
+                <model>oro_api/sales_order_api</model>
+                <title>Order Information</title>
+                <acl>oro</acl>
+                <methods>
+                    <list translate="title" module="oro_api">
+                        <title>Get order list by filters</title>
+                        <method>items</method>
+                        <acl>oro/order</acl>
+                    </list>
+                    <info translate="title" module="oro_api">
+                        <title>Retrieve order information</title>
+                        <method>info</method>
+                        <acl>oro/order</acl>
+                    </info>
+                </methods>
+                <faults module="oro_api">
+                    <not_exists>
+                        <code>100</code>
+                        <message>Requested order not exists.</message>
+                    </not_exists>
+                    <filters_invalid>
+                        <code>101</code>
+                        <message>Invalid filters given. Details in error message.</message>
+                    </filters_invalid>
+                </faults>
+            </oro_order>
+            <oro_customer translate="title" module="oro_api">
+                <model>oro_api/customer_api</model>
+                <title>Customer List Information</title>
+                <acl>oro/customer</acl>
+                <methods>
+                    <list translate="title" module="oro_api">
+                        <title>Get customer list by filters</title>
+                        <method>items</method>
+                        <acl>oro/customer/info</acl>
+                    </list>
+                    <create translate="title" module="oro_api">
+                        <title>Create customer</title>
+                        <method>create</method>
+                        <acl>oro/customer/create</acl>
+                    </create>
+                    <update translate="title" module="oro_api">
+                        <title>Update customer data</title>
+                        <method>update</method>
+                        <acl>oro/customer/update</acl>
+                    </update>
+                    <info translate="title" module="oro_api">
+                        <title>Retrieve customer data</title>
+                        <method>info</method>
+                        <acl>oro/customer/info</acl>
+                    </info>
+                </methods>
+                <faults module="oro_api">
+                    <data_invalid>
+                        <code>100</code>
+                        <message>Invalid customer data. Details in error message.</message>
+                    </data_invalid>
+                    <filters_invalid>
+                        <code>101</code>
+                        <message>Invalid filters specified. Details in error message.</message>
+                    </filters_invalid>
+                    <not_exists>
+                        <code>102</code>
+                        <message>Customer not exists.</message>
+                    </not_exists>
+                    <address_not_exists>
+                        <code>103</code>
+                        <message>Customer address not exists.</message>
+                    </address_not_exists>
+                </faults>
+            </oro_customer>
+            <oro_customer_address translate="title" module="oro_api">
+                <model>oro_api/customer_address_api</model>
+                <title>Customer Address List Information</title>
+                <acl>oro/customer</acl>
+                <methods>
+                    <list translate="title" module="oro_api">
+                        <title>Retrieve customer addresses</title>
+                        <method>items</method>
+                        <acl>oro/customer/address</acl>
+                    </list>
+                    <info translate="title" module="oro_api">
+                        <title>Retrieve customer address data</title>
+                        <method>info</method>
+                        <acl>oro/customer/address</acl>
+                    </info>
+                </methods>
+                <faults module="oro_api">
+                    <not_exists>
+                        <code>102</code>
+                        <message>Customer not exists.</message>
+                    </not_exists>
+                    <address_not_exists>
+                        <code>103</code>
+                        <message>Customer address not exists.</message>
+                    </address_not_exists>
+                </faults>
+            </oro_customer_address>
+            <wishlist translate="title" module="oro_api">
+                <model>oro_api/wishlist_api</model>
+                <title>Wishlist</title>
+                <acl>oro</acl>
+                <methods>
+                    <list translate="title" module="oro_api">
+                        <title>Get wishlist collection by filters</title>
+                        <method>items</method>
+                        <acl>oro/wishlist</acl>
+                    </list>
+                </methods>
+            </wishlist>
+            <wishlist_item translate="title" module="oro_api">
+                <model>oro_api/wishlist_item_api</model>
+                <title>Wishlist Item</title>
+                <acl>oro</acl>
+                <methods>
+                    <list translate="title" module="oro_api">
+                        <title>Get wishlist item collection by filters</title>
+                        <method>items</method>
+                        <acl>oro/wishlist_item</acl>
+                    </list>
+                </methods>
+            </wishlist_item>
+            <report_product_viewed translate="title" module="oro_api">
+                <model>oro_api/report_product_viewed_api</model>
+                <title>Report Product Viewed</title>
+                <acl>oro</acl>
+                <methods>
+                    <list translate="title" module="oro_api">
+                        <title>Viewed  product collection by filters</title>
+                        <method>items</method>
+                        <acl>oro/report_product_viewed</acl>
+                    </list>
+                </methods>
+            </report_product_viewed>
+            <newsletter_subscriber translate="title" module="oro_api">
+                <model>oro_api/newsletter_subscriber_api</model>
+                <title>Newsletter Subscriber</title>
+                <acl>oro/newsletter_subscriber</acl>
+                <methods>
+                    <list translate="title" module="oro_api">
+                        <title>Subscribers collection</title>
+                        <method>items</method>
+                        <acl>oro/newsletter_subscriber/list</acl>
+                    </list>
+                    <create translate="title" module="oro_api">
+                        <title>Create newsletter subscriber</title>
+                        <acl>oro/newsletter_subscriber/create</acl>
+                    </create>
+                    <update translate="title" module="oro_api">
+                        <title>Update newsletter subscriber data</title>
+                        <acl>oro/newsletter_subscriber/update</acl>
+                    </update>
+                    <subscribeEmail translate="title" module="oro_api">
+                        <title>Newsletter subscriber - Subscribe email</title>
+                        <acl>oro/newsletter_subscriber/subscribe_email</acl>
+                    </subscribeEmail>
+                    <unsubscribe translate="title" module="oro_api">
+                        <title>Unsubscribe Newsletter subscriber</title>
+                        <acl>oro/newsletter_subscriber/unsubscribe</acl>
+                    </unsubscribe>
+                </methods>
+                <faults module="customer">
+                    <data_invalid>
+                        <code>100</code>
+                        <message>Invalid newsletter subscriber data. Details in error message.</message>
+                    </data_invalid>
+                    <filters_invalid>
+                        <code>101</code>
+                        <message>Invalid filters specified. Details in error message.</message>
+                    </filters_invalid>
+                    <not_exists>
+                        <code>102</code>
+                        <message>Newsletter subscriber not exists.</message>
+                    </not_exists>
+                    <email_already_subscribed>
+                        <code>103</code>
+                        <message>Email already subscribed.</message>
+                    </email_already_subscribed>
+                    <customer_already_subscribed>
+                        <code>104</code>
+                        <message>Customer already subscribed.</message>
+                    </customer_already_subscribed>
+                    <email_is_empty>
+                        <code>105</code>
+                        <message>Newsletter subscriber email is required.</message>
+                    </email_is_empty>
+                    <customer_not_found>
+                        <code>106</code>
+                        <message>Customer not found.</message>
+                    </customer_not_found>
+                    <subscriber_customer_change_forbidden>
+                        <code>107</code>
+                        <message>Newsletter subscribe Customer change is forbidden.</message>
+                    </subscriber_customer_change_forbidden>
+                </faults>
+            </newsletter_subscriber>
+            <oro_website translate="title" module="oro_api">
+                <model>oro_api/website_api</model>
+                <title>Website API</title>
+                <acl>oro</acl>
+                <methods>
+                    <list translate="title" module="oro_api">
+                        <title>Retrieve websites list</title>
+                        <method>items</method>
+                        <acl>oro/website</acl>
+                    </list>
+                </methods>
+            </oro_website>
+        </resources>
+        <rest>
+            <mapping>
+                <wishlist_list>
+                    <get><method>list</method></get>
+                </wishlist_list>
+                <wishlist_item_list>
+                    <get><method>list</method></get>
+                </wishlist_item_list>
+                <report_product_viewed>
+                    <get><method>list</method></get>
+                </report_product_viewed>
+                <newsletter_subscriber>
+                    <get><method>list</method></get>
+                </newsletter_subscriber>
+                <oro_ping>
+                    <get><method>ping</method></get>
+                </oro_ping>
+                <oro_order_list>
+                    <get><method>list</method></get>
+                </oro_order_list>
+                <oro_customer_list>
+                    <get><method>list</method></get>
+                </oro_customer_list>
+                <oro_quote_list>
+                    <get><method>list</method></get>
+                </oro_quote_list>
+                <oro_website>
+                    <get><method>list</method></get>
+                </oro_website>
+            </mapping>
+        </rest>
+        <acl>
+            <resources>
+                <oro translate="title" module="oro_api">
+                    <title>Oro</title>
+                    <ping translate="title" module="oro_api">
+                        <title>Oro Ping</title>
+                    </ping>
+                    <quote translate="title" module="oro_api">
+                        <title>Quote List</title>
+                    </quote>
+                    <order translate="title" module="oro_api">
+                        <title>Order Info</title>
+                    </order>
+                    <customer translate="title" module="oro_api">
+                        <title>Customer</title>
+                        <info translate="title" module="oro_api">
+                            <title>Customer Info</title>
+                        </info>
+                        <create translate="title" module="oro_api">
+                            <title>Customer Create</title>
+                        </create>
+                        <update translate="title" module="oro_api">
+                            <title>Customer Update</title>
+                        </update>
+                        <address translate="title" module="oro_api">
+                            <title>Customer Address</title>
+                        </address>
+                    </customer>
+                    <wishlist translate="title" module="oro_api">
+                        <title>Wishlist Info</title>
+                    </wishlist>
+                    <wishlist_item translate="title" module="oro_api">
+                        <title>Wishlist Item Info</title>
+                    </wishlist_item>
+                    <report_product_viewed translate="title" module="oro_api">
+                        <title>Report Product Viewed</title>
+                    </report_product_viewed>
+                    <newsletter_subscriber translate="title" module="oro_api">
+                        <title>Newsletter Subscriber</title>
+                        <list translate="title" module="oro_api">
+                            <title>Newsletter Subscriber List</title>
+                        </list>
+                        <create translate="title" module="oro_api">
+                            <title>Newsletter Subscriber Create</title>
+                        </create>
+                        <update translate="title" module="oro_api">
+                            <title>Newsletter Subscriber Update</title>
+                        </update>
+                        <unsubscribe translate="title" module="oro_api">
+                            <title>Newsletter Subscriber Unsubscribe</title>
+                        </unsubscribe>
+                        <subscribe_email translate="title" module="oro_api">
+                            <title>Newsletter Subscriber Subscribe Email</title>
+                        </subscribe_email>
+                    </newsletter_subscriber>
+                    <website translate="title" module="oro_api">
+                        <title>Website List</title>
+                    </website>
+                </oro>
+            </resources>
+        </acl>
+        <v2>
+            <resources_function_prefix>
+                <oro_ping>oro</oro_ping>
+                <oro_quote>oroQuote</oro_quote>
+                <oro_order>oroOrder</oro_order>
+                <oro_website>oroWebsite</oro_website>
+                <oro_customer>oroCustomer</oro_customer>
+                <oro_customer_address>oroCustomerAddress</oro_customer_address>
+                <wishlist>wishlist</wishlist>
+                <wishlist_item>wishlistItem</wishlist_item>
+                <report_product_viewed>reportProductViewed</report_product_viewed>
+                <newsletter_subscriber>newsletterSubscriber</newsletter_subscriber>
+            </resources_function_prefix>
+        </v2>
+    </api>
+</config>
