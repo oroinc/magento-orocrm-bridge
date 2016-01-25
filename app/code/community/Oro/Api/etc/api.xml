@@ -167,6 +167,47 @@
                     </list>
                 </methods>
             </wishlist_item>
+            <oro_wishlist translate="title" module="oro_api">
+                <model>oro_api/wishlist_api</model>
+                <title>Oro Wishlist API</title>
+                <acl>oro</acl>
+                <methods>
+                    <list translate="title" module="oro_api">
+                        <title>Get wishlist with items by filters</title>
+                        <method>listWithItems</method>
+                        <acl>oro/wishlist</acl>
+                    </list>
+                </methods>
+                <faults module="oro_api">
+                    <filters_invalid>
+                        <code>100</code>
+                        <message>Invalid filters given. Details in error message.</message>
+                    </filters_invalid>
+                </faults>
+            </oro_wishlist>
+            <oro_wishlist_status translate="title" module="oro_api">
+                <model>oro_api/wishlist_status_api</model>
+                <title>Wishlist Status Information</title>
+                <acl>oro</acl>
+                <methods>
+                    <list translate="title" module="oro_api">
+                        <title>Get wishlist status by filters</title>
+                        <method>items</method>
+                        <acl>oro/wishlist</acl>
+                    </list>
+                    <delete translate="title" module="oro_api">
+                        <title>Delete wishlist status</title>
+                        <method>delete</method>
+                        <acl>oro/wishlist</acl>
+                    </delete>
+                </methods>
+                <faults module="oro_api">
+                    <filters_invalid>
+                        <code>100</code>
+                        <message>Invalid filters given. Details in error message.</message>
+                    </filters_invalid>
+                </faults>
+            </oro_wishlist_status>
             <report_product_viewed translate="title" module="oro_api">
                 <model>oro_api/report_product_viewed_api</model>
                 <title>Report Product Viewed</title>
@@ -262,6 +303,12 @@
                 <wishlist_item_list>
                     <get><method>list</method></get>
                 </wishlist_item_list>
+                <oro_wishlist>
+                    <get><method>list</method></get>
+                </oro_wishlist>
+                <oro_wishlist_status>
+                    <get><method>list</method></get>
+                </oro_wishlist_status>
                 <report_product_viewed>
                     <get><method>list</method></get>
                 </report_product_viewed>
@@ -319,6 +366,12 @@
                     <wishlist_item translate="title" module="oro_api">
                         <title>Wishlist Item Info</title>
                     </wishlist_item>
+                    <oro_wishlist translate="title" module="oro_api">
+                        <title>Wishlist with Items Info</title>
+                    </oro_wishlist>
+                    <oro_wishlist_status translate="title" module="oro_api">
+                        <title>Wishlist Status Info</title>
+                    </oro_wishlist_status>
                     <report_product_viewed translate="title" module="oro_api">
                         <title>Report Product Viewed</title>
                     </report_product_viewed>
@@ -356,6 +409,8 @@
                 <oro_customer_address>oroCustomerAddress</oro_customer_address>
                 <wishlist>wishlist</wishlist>
                 <wishlist_item>wishlistItem</wishlist_item>
+                <oro_wishlist>oroWishlistList</oro_wishlist>
+                <oro_wishlist_status>oroWishlistStatus</oro_wishlist_status>
                 <report_product_viewed>reportProductViewed</report_product_viewed>
                 <newsletter_subscriber>newsletterSubscriber</newsletter_subscriber>
             </resources_function_prefix>
