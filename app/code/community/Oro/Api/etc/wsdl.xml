@@ -655,6 +655,7 @@
     <message name="oroWishlistListRequest">
         <part name="sessionId" type="xsd:string" />
         <part name="filters" type="typens:filters" />
+        <part name="pager" type="typens:pager" />
     </message>
     <message name="oroWishlistListResponse">
         <part name="result" type="typens:oroWishlistEntityArray" />
