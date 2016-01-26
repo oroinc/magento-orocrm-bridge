@@ -115,6 +115,7 @@ class Oro_Api_Model_Wishlist_Api
                 $item->setProductName($product->getName());
             }
             $wishlistItem = $item->toArray();
+            unset($wishlistItem['product']);
             $result['items'][] = $wishlistItem;
         }
         return $result;

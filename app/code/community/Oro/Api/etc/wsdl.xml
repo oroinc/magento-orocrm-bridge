@@ -423,6 +423,12 @@
             <output message="typens:oroWishlistListResponse"/>
         </operation>
 
+        <operation name="oroWishlistStatusList">
+            <documentation>Get wishlist Status collection</documentation>
+            <input message="typens:oroWishlistStatusListRequest"/>
+            <output message="typens:oroWishlistStatusListResponse"/>
+        </operation>
+
         <operation name="reportProductViewedList">
             <documentation>Get product viewed collection</documentation>
             <input message="typens:reportProductViewedListRequest"/>

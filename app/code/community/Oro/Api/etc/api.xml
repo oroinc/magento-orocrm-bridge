@@ -303,12 +303,12 @@
                 <wishlist_item_list>
                     <get><method>list</method></get>
                 </wishlist_item_list>
-                <oro_wishlist>
+                <oro_wishlist_list>
                     <get><method>list</method></get>
-                </oro_wishlist>
-                <oro_wishlist_status>
+                </oro_wishlist_list>
+                <oro_wishlist_status_list>
                     <get><method>list</method></get>
-                </oro_wishlist_status>
+                </oro_wishlist_status_list>
                 <report_product_viewed>
                     <get><method>list</method></get>
                 </report_product_viewed>
@@ -409,7 +409,7 @@
                 <oro_customer_address>oroCustomerAddress</oro_customer_address>
                 <wishlist>wishlist</wishlist>
                 <wishlist_item>wishlistItem</wishlist_item>
-                <oro_wishlist>oroWishlistList</oro_wishlist>
+                <oro_wishlist>oroWishlist</oro_wishlist>
                 <oro_wishlist_status>oroWishlistStatus</oro_wishlist_status>
                 <report_product_viewed>reportProductViewed</report_product_viewed>
                 <newsletter_subscriber>newsletterSubscriber</newsletter_subscriber>
