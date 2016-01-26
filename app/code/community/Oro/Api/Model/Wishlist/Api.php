@@ -23,22 +23,36 @@ class Oro_Api_Model_Wishlist_Api
     );
 
     /**
+     * @var Oro_Api_Helper_Data
+     */
+    protected $_apiHelper;
+
+    public function __construct()
+    {
+        $this->_apiHelper = Mage::helper('oro_api');
+    }
+
+    /**
      * @param array|object $filters
+     * @param \stdClass    $pager
      * @return array
      */
-    public function items($filters)
+    public function items($filters, $pager = null)
     {
         /** @var Mage_Wishlist_Model_Resource_Wishlist_Collection $collection */
         $collection = Mage::getResourceModel('wishlist/wishlist_collection');
-        /** @var $apiHelper Mage_Api_Helper_Data */
-        $apiHelper = Mage::helper('oro_api');
-        $filters = $apiHelper->parseFilters($filters);
+        $filters = $this->_apiHelper->parseFilters($filters);
         try {
             foreach ($filters as $field => $value) {
                 $collection->addFieldToFilter($field, $value);
             }
         } catch (Mage_Core_Exception $e) {
             $this->_fault('filters_invalid', $e->getMessage());
+        }
+
+        if ($pager && !$this->_apiHelper->applyPager($collection, $pager)) {
+            // there's no such page, so no results for it
+            return array();
         }
 
         $arr = $collection->toArray();
@@ -49,26 +63,29 @@ class Oro_Api_Model_Wishlist_Api
     /**
      * Get wishlist with items info
      *
-     * @param array|object $filters
+     * @param array|object   $filters
+     * @param null|\stdClass $pager
      * @param int|null $websiteId
      * @return array
      *
      * @throws Mage_Api_Exception
      */
-    public function listWithItems($filters, $websiteId = null)
+    public function listWithItems($filters, $pager = null, $websiteId = null)
     {
         /** @var Mage_Wishlist_Model_Resource_Wishlist_Collection $collection */
         $collection = Mage::getResourceModel('wishlist/wishlist_collection');
-
-        /** @var $apiHelper Mage_Api_Helper_Data */
-        $apiHelper = Mage::helper('oro_api');
-        $filters = $apiHelper->parseFilters($filters);
+        $filters = $this->_apiHelper->parseFilters($filters);
         try {
             foreach ($filters as $field => $value) {
                 $collection->addFieldToFilter($field, $value);
             }
         } catch (Mage_Core_Exception $e) {
             $this->_fault('filters_invalid', $e->getMessage());
+        }
+
+        if ($pager && !$this->_apiHelper->applyPager($collection, $pager)) {
+            // there's no such page, so no results for it
+            return array();
         }
 
         $result = array();
