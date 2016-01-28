@@ -21,7 +21,7 @@
  */
 class Oro_Api_Model_Wishlist_Status extends Mage_Core_Model_Abstract
 {
-    const XML_WISHLIST_STATUS_CLEAN_DAYS = 'oro/api/wishlist_status/clean_after_day';
+    const XML_WISHLIST_STATUS_CLEAN_DAYS = 'oro/api/wishlist_status_clean_after_day';
 
     /**
      * Init Resource Model

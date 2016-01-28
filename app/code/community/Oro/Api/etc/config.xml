@@ -142,22 +142,20 @@
     <default>
         <oro>
             <api>
-                <wishlist_status>
-                    <clean_after_day>30</clean_after_day>
-                </wishlist_status>
+                <wishlist_status_clean_after_day>30</wishlist_status_clean_after_day>
             </api>
         </oro>
     </default>
-    <!--<crontab>-->
-        <!--<jobs>-->
-            <!--<oro_api_wishlist_status_clean>-->
-                <!--<schedule>-->
-                    <!--<cron_expr>*/10 * 28 * *</cron_expr>-->
-                <!--</schedule>-->
-                <!--<run>-->
-                    <!--<model>oro_api/wishlist_status::clean</model>-->
-                <!--</run>-->
-            <!--</oro_api_wishlist_status_clean>-->
-        <!--</jobs>-->
-    <!--</crontab>-->
+    <crontab>
+        <jobs>
+            <oro_api_wishlist_status_clean>
+                <schedule>
+                    <cron_expr>15 0 1 * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>oro_api/wishlist_status::clean</model>
+                </run>
+            </oro_api_wishlist_status_clean>
+        </jobs>
+    </crontab>
 </config>

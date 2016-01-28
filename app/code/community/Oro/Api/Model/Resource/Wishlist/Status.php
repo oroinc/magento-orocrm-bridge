@@ -68,7 +68,7 @@ class Oro_Api_Model_Resource_Wishlist_Status extends Mage_Core_Model_Resource_Db
                     array('status_table' => $this->getTable('oro_api/wishlist_status')),
                     array('wishlist_id' => 'status_table.wishlist_id')
                 )
-                ->where('wishlist_id.deleted_at < ?', $timeLimit)
+                ->where('status_table.deleted_at < ?', $timeLimit)
                 ->limit(100);
             $wishlisIds = $readAdapter->fetchCol($select);
             if (!$wishlisIds) {
