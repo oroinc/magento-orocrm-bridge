@@ -195,11 +195,6 @@
                         <method>items</method>
                         <acl>oro/wishlist</acl>
                     </list>
-                    <delete translate="title" module="oro_api">
-                        <title>Delete wishlist status</title>
-                        <method>delete</method>
-                        <acl>oro/wishlist</acl>
-                    </delete>
                 </methods>
                 <faults module="oro_api">
                     <filters_invalid>

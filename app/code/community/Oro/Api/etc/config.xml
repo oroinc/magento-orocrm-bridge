@@ -143,9 +143,21 @@
         <oro>
             <api>
                 <wishlist_status>
-                    <clean_after_day>180</clean_after_day>
+                    <clean_after_day>30</clean_after_day>
                 </wishlist_status>
             </api>
         </oro>
     </default>
+    <!--<crontab>-->
+        <!--<jobs>-->
+            <!--<oro_api_wishlist_status_clean>-->
+                <!--<schedule>-->
+                    <!--<cron_expr>*/10 * 28 * *</cron_expr>-->
+                <!--</schedule>-->
+                <!--<run>-->
+                    <!--<model>oro_api/wishlist_status::clean</model>-->
+                <!--</run>-->
+            <!--</oro_api_wishlist_status_clean>-->
+        <!--</jobs>-->
+    <!--</crontab>-->
 </config>

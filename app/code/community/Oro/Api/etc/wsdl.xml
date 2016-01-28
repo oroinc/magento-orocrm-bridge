@@ -208,6 +208,22 @@
                     </restriction>
                 </complexContent>
             </complexType>
+            <!-- Oro Wishlist With Items-->
+            <!-- Oro Wishlist Status -->
+            <complexType name="oroWishlistStatusEntity">
+                <all>
+                    <element name="wishlist_id" type="xsd:string" minOccurs="0" />
+                    <element name="deleted_at" type="xsd:string" minOccurs="0" />
+                </all>
+            </complexType>
+            <complexType name="oroWishlistStatusEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:oroWishlistStatusEntity[]" />
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <!-- Oro Wishlist Status -->
 
             <!--  Report Product Viewed -->
             <complexType name="reportProductViewedEntity">
@@ -539,6 +555,11 @@
             <input><soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
             <output><soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
         </operation>
+        <operation name="oroWishlistStatusList">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input><soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+            <output><soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+        </operation>
         <operation name="reportProductViewedList">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input><soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
@@ -661,6 +682,16 @@
         <part name="result" type="typens:oroWishlistEntityArray" />
     </message>
     <!--  Oro Wishlist -->
+    <!--  Oro Wishlist Status -->
+    <message name="oroWishlistStatusListRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="filters" type="typens:filters" />
+        <part name="pager" type="typens:pager" />
+    </message>
+    <message name="oroWishlistStatusListResponse">
+        <part name="result" type="typens:oroWishlistStatusEntityArray" />
+    </message>
+    <!--  Oro Wishlist Status -->
 
     <!--  Report Product Viewed -->
     <message name="reportProductViewedListRequest">
