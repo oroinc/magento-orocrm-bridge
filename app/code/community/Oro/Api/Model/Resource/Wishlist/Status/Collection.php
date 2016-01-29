@@ -17,33 +17,17 @@
  */
 
 /**
- * Log Wishlist Status Model
+ * Wishlist Status Resource Collection
  */
-class Oro_Api_Model_Wishlist_Status extends Mage_Core_Model_Abstract
+class Oro_Api_Model_Resource_Wishlist_Status_Collection
+    extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
-    const XML_WISHLIST_STATUS_CLEAN_DAYS = 'oro/api/wishlist_status_clean_after_day';
-
     /**
-     * Init Resource Model
+     * Resource constructor
+     *
      */
     protected function _construct()
     {
         $this->_init('oro_api/wishlist_status');
-    }
-
-    public function getLogCleanTime()
-    {
-        return Mage::getStoreConfig(self::XML_WISHLIST_STATUS_CLEAN_DAYS) * 60 * 60 * 24;
-    }
-
-    /**
-     * Clean statuses
-     *
-     * @return Oro_Api_Model_Wishlist_Status
-     */
-    public function clean()
-    {
-        $this->getResource()->clean($this);
-        return $this;
     }
 }
