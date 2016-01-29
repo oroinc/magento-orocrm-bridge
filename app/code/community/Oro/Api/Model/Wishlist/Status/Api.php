@@ -45,7 +45,11 @@ class Oro_Api_Model_Wishlist_Status_Api extends Oro_Api_Model_Wishlist_Api
             // there's no such page, so no results for it
             return array();
         }
-        $result = $collection->toArray();
+
+        $result = array();
+        foreach ($collection as $status) {
+            $result[] = $status->toArray();
+        }
 
         return $result;
     }
