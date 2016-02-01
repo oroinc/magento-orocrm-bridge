@@ -30,9 +30,7 @@ class Oro_Api_Model_Wishlist_Status_Api extends Oro_Api_Model_Wishlist_Api
     {
         /** @var Oro_Api_Model_Resource_Wishlist_Status_Collection $collection */
         $collection = Mage::getResourceModel('oro_api/wishlist_status_collection');
-        /** @var $apiHelper Mage_Api_Helper_Data */
-        $apiHelper = Mage::helper('oro_api');
-        $filters = $apiHelper->parseFilters($filters);
+        $filters = $this->apiHelper->parseFilters($filters);
         try {
             foreach ($filters as $field => $value) {
                 $collection->addFieldToFilter($field, $value);
@@ -41,12 +39,13 @@ class Oro_Api_Model_Wishlist_Status_Api extends Oro_Api_Model_Wishlist_Api
             $this->_fault('filters_invalid', $e->getMessage());
         }
 
-        if ($pager && !$this->_apiHelper->applyPager($collection, $pager)) {
+        if ($pager && !$this->apiHelper->applyPager($collection, $pager)) {
             // there's no such page, so no results for it
             return array();
         }
 
         $result = array();
+        /** @var Oro_Api_Model_Wishlist_Status $status */
         foreach ($collection as $status) {
             $result[] = $status->toArray();
         }
