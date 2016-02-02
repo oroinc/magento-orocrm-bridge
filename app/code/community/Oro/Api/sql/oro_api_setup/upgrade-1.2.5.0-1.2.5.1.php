@@ -31,6 +31,9 @@ $table = $installer->getConnection()
         'nullable'  => false,
         'primary'   => true,
     ), 'Wishlist ID')
+    ->addColumn('website_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+        'unsigned'  => true,
+    ), 'Website Id')
     ->addColumn('deleted_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
     ), 'Wishlist Deletion Time')
     ->setComment('Wishlist Deletion Status Table');
