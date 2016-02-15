@@ -59,9 +59,8 @@ class Oro_Api_Model_Resource_Wishlist_Status extends Mage_Core_Model_Resource_Db
     protected function _cleanStatuses($time)
     {
         $writeAdapter   = $this->_getWriteAdapter();
-
         $timeLimit = $this->formatDate(Mage::getModel('core/date')->gmtTimestamp() - $time);
-        $condition = array('deleted_at < ?', $timeLimit);
+        $condition = array('deleted_at < ?' => $timeLimit);
 
         // remove wishlist statuses from oro_api/wishlist_status
         try {
