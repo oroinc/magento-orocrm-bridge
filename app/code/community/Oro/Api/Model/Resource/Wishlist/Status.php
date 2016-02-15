@@ -58,30 +58,16 @@ class Oro_Api_Model_Resource_Wishlist_Status extends Mage_Core_Model_Resource_Db
      */
     protected function _cleanStatuses($time)
     {
-        $readAdapter    = $this->_getReadAdapter();
         $writeAdapter   = $this->_getWriteAdapter();
 
         $timeLimit = $this->formatDate(Mage::getModel('core/date')->gmtTimestamp() - $time);
-        while (true) {
-            $select = $readAdapter->select()
-                ->from(
-                    array('status_table' => $this->getTable('oro_api/wishlist_status')),
-                    array('wishlist_id' => 'status_table.wishlist_id')
-                )
-                ->where('status_table.deleted_at < ?', $timeLimit)
-                ->limit(100);
-            $wishlisIds = $readAdapter->fetchCol($select);
-            if (!$wishlisIds) {
-                break;
-            }
-            $condition = array('wishlist_id IN (?)' => $wishlisIds);
+        $condition = array('deleted_at < ?', $timeLimit);
 
-            // remove wishlist statuses from oro_api/wishlist_status
-            try {
-                $writeAdapter->delete($this->getTable('oro_api/wishlist_status'), $condition);
-            } catch (Exception $e) {
-                Mage::log($e->getMessage());
-            }
+        // remove wishlist statuses from oro_api/wishlist_status
+        try {
+            $writeAdapter->delete($this->getTable('oro_api/wishlist_status'), $condition);
+        } catch (Exception $e) {
+            Mage::log($e->getMessage());
         }
 
         return $this;

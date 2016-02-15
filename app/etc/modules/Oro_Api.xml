@@ -22,6 +22,9 @@
         <Oro_Api>
             <active>true</active>
             <codePool>community</codePool>
+            <depends>
+                <Mage_Api/>
+            </depends>
         </Oro_Api>
     </modules>
 </config>

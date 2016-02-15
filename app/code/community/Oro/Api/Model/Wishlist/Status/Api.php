@@ -16,8 +16,24 @@
  * @license    http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-class Oro_Api_Model_Wishlist_Status_Api extends Oro_Api_Model_Wishlist_Api
+/**
+ * Oro API Wishlist Status Api
+ */
+class Oro_Api_Model_Wishlist_Status_Api extends Mage_Api_Model_Resource_Abstract
 {
+    /**
+     * @var Oro_Api_Helper_Data
+     */
+    protected $apiHelper;
+
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->apiHelper = Mage::helper('oro_api');
+    }
+
     /**
      * Get wishlist status list
      *

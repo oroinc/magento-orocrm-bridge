@@ -16,7 +16,10 @@
  * @license http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-class Oro_Api_Model_Wishlist_Api extends Mage_Checkout_Model_Api_Resource
+/**
+ * Oro Wishlist Api
+ */
+class Oro_Api_Model_Wishlist_Api extends Mage_Api_Model_Resource_Abstract
 {
     protected $_mapAttributes = array(
         'wishlist_id' => 'entity_id'
@@ -34,6 +37,9 @@ class Oro_Api_Model_Wishlist_Api extends Mage_Checkout_Model_Api_Resource
      */
     protected $apiHelper;
 
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
         $this->apiHelper = Mage::helper('oro_api');

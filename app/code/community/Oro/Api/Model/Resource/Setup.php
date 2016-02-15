@@ -16,5 +16,10 @@
  * @license    http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-/* @var $installer Oro_Api_Model_Resource_Setup */
-$installer = $this;
+/**
+ * Oro API wishlist resource setup
+ *
+ */
+class Oro_Api_Model_Resource_Setup extends Mage_Core_Model_Resource_Setup
+{
+}

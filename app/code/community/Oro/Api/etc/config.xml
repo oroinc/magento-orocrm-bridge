@@ -52,7 +52,7 @@
             <oro_api_setup>
                 <setup>
                     <module>Oro_Api</module>
-                    <class>Mage_Core_Model_Resource_Setup</class>
+                    <class>Oro_Api_Model_Resource_Setup</class>
                 </setup>
                 <connection>
                     <use>core_setup</use>
