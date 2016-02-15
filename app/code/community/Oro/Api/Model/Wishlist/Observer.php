@@ -36,9 +36,11 @@ class Oro_Api_Model_Wishlist_Observer
             $wishlistId = $wishlist->getId();
             if ($wishlistId) {
                 try {
+                    $websiteId = $this->getWishlistOwnerWebsiteId($wishlist);
                     /** @var Oro_Api_Model_Wishlist_Status $wishlistStatus */
                     $wishlistStatus = Mage::getModel('oro_api/wishlist_status')
                         ->setWishlistId($wishlistId)
+                        ->setWebsiteId($websiteId)
                         ->setDeletedAt(Mage::getSingleton('core/date')->gmtDate());
                     $wishlistStatus->save();
                 } catch (Exception $e) {
@@ -48,5 +50,26 @@ class Oro_Api_Model_Wishlist_Observer
         }
 
         return $this;
+    }
+
+    /**
+     * Retrieve wishlist owner website
+     *
+     * @param Mage_Wishlist_Model_Wishlist $wishlist
+     * @return null
+     */
+    public function getWishlistOwnerWebsiteId($wishlist)
+    {
+        $customerId = $wishlist->getCustomerId();
+        if ($customerId) {
+            /** @var Mage_Customer_Model_Customer $owner */
+            $owner = Mage::getModel("customer/customer");
+            $owner->load($customerId);
+            if ($owner->getId()) {
+                return $owner->getWebsiteId();
+            }
+        }
+
+        return null;
     }
 }
