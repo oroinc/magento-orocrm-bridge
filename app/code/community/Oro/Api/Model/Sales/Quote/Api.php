@@ -28,6 +28,21 @@ class Oro_Api_Model_Sales_Quote_Api
      */
     protected $_apiHelper;
 
+    /**
+     * @var array
+     */
+    protected $giftMessageCollection;
+
+    /**
+     * @var string
+     */
+    protected $imageAttributeCode = null;
+
+    /**
+     * @var array
+     */
+    protected $productListByStore = array();
+
     public function __construct()
     {
         $this->_apiHelper = Mage::helper('oro_api');
@@ -45,6 +60,26 @@ class Oro_Api_Model_Sales_Quote_Api
     {
         /** @var Mage_Sales_Model_Resource_Quote_Collection $quoteCollection */
         $quoteCollection = Mage::getResourceModel('sales/quote_collection');
+        $this->giftMessageCollection = Mage::getSingleton('giftmessage/message')->getCollection();
+        /** @var Mage_Catalog_Model_Product $productModel */
+        $productModel = Mage::getModel('catalog/product');
+        $productList = Mage::getModel('catalog/product')->getCollection();
+        /** @var Mage_Catalog_Model_Resource_Eav_Attribute[] $mediaAttributes */
+        $mediaAttributes = $productModel->getMediaAttributes();
+        if (is_array($mediaAttributes) && array_key_exists('image', $mediaAttributes)) {
+            $this->imageAttributeCode = $mediaAttributes['image']->getAttributeCode();
+            $productList->addAttributeToSelect($this->imageAttributeCode);
+        }
+
+        if ($productList) {
+            foreach($productList as $product) {
+                $storesIds = $product->getStoreIds();
+                $productId = $product->getId();
+                foreach ($storesIds as $storeId) {
+                    $this->productListByStore[$storeId][$productId] = $product;
+                }
+            }
+        }
 
         $filters = $this->_apiHelper->parseFilters($filters);
         try {
@@ -85,9 +120,10 @@ class Oro_Api_Model_Sales_Quote_Api
     protected function info($quote)
     {
         if ($quote->getGiftMessageId() > 0) {
-            $quote->setGiftMessage(
-                Mage::getSingleton('giftmessage/message')->load($quote->getGiftMessageId())->getMessage()
-            );
+            $message = $this->giftMessageCollection->getItemById($quote->getGiftMessageId());
+            if ($message) {
+                $quote->setGiftMessage($message->getMessage());
+            }
         }
 
         $result                     = $this->_getAttributes($quote, 'quote');
@@ -98,9 +134,10 @@ class Oro_Api_Model_Sales_Quote_Api
         /** @var Mage_Sales_Model_Quote_Item $item */
         foreach ($quote->getAllItems() as $item) {
             if ($item->getGiftMessageId() > 0) {
-                $item->setGiftMessage(
-                    Mage::getSingleton('giftmessage/message')->load($item->getGiftMessageId())->getMessage()
-                );
+                $message = $this->giftMessageCollection->getItemById($item->getGiftMessageId());
+                if ($message) {
+                    $item->setGiftMessage($message->getMessage());
+                }
             }
 
             $quoteItem = $this->_getAttributes($item, 'quote_item');
@@ -127,15 +164,13 @@ class Oro_Api_Model_Sales_Quote_Api
     protected function _getProductAttributes($item)
     {
         $result = array();
-        /** @var Mage_Catalog_Model_Product $productModel */
-        $productModel = Mage::getModel('catalog/product');
-        /** @var Mage_Catalog_Model_Resource_Eav_Attribute[] $mediaAttributes */
-        $mediaAttributes = $productModel->getMediaAttributes();
-        if (is_array($mediaAttributes) && array_key_exists('image', $mediaAttributes)) {
-            /** @var Mage_Catalog_Model_Product $product */
-            $product = Mage::getModel('catalog/product')
-                ->setStoreId($item->getQuote()->getStoreId())
-                ->load($item->getProductId(), array($mediaAttributes['image']->getAttributeCode()));
+        if ($this->imageAttributeCode) {
+            $storeId = $item->getQuote()->getStoreId();
+            $productId = $item->getProductId();
+            $product = null;
+            if (isset($this->productListByStore[$storeId][$productId])) {
+                $product = $this->productListByStore[$storeId][$productId];
+            }
 
             if ($product) {
                 /** @var Mage_Catalog_Model_Product_Media_Config $productMediaConfig */
