@@ -197,6 +197,9 @@ class Oro_Api_Model_Wishlist_Api extends Mage_Api_Model_Resource_Abstract
      * Save store filter data to storeIds - used for filter wishlist items
      * Save website filter data to websiteIds - used for filter wishlists by customer's website
      *
+     * If website filter exists in the incoming filter (from integration) and customer accounts shared globally
+     * ignore sent filters, set all stores where customer can be presented to storeIds
+     *
      * Example if complex filter:
      * 'website_id',
      * [
@@ -220,21 +223,26 @@ class Oro_Api_Model_Wishlist_Api extends Mage_Api_Model_Resource_Abstract
      */
     protected function prepareFilters($filters)
     {
-        if (isset($filters['store_id'])) {
-            $storeIds = $this->apiHelper->getDataFromFilterCondition($filters['store_id']);
-            $this->storeIds = $storeIds;
-            unset($filters['store_id']);
-        }
-        if (isset($filters['website_id'])) {
-            $websiteIds = $this->apiHelper->getDataFromFilterCondition($filters['website_id']);
-            if (!$this->storeIds) {
-                foreach ($websiteIds as $websiteId) {
-                    $storeIds = $this->getStoreIds($websiteId);
-                    foreach ($storeIds as $id) {
-                        $this->storeIds[] = $id;
+        if (Mage::getSingleton('customer/config_share')->isWebsiteScope()) {
+            if (isset($filters['store_id'])) {
+                $storeIds = $this->apiHelper->getDataFromFilterCondition($filters['store_id']);
+                $this->storeIds = $storeIds;
+                unset($filters['store_id']);
+            }
+            if (isset($filters['website_id'])) {
+                $websiteIds = $this->apiHelper->getDataFromFilterCondition($filters['website_id']);
+                if (!$this->storeIds) {
+                    foreach ($websiteIds as $websiteId) {
+                        $storeIds = $this->getStoreIds($websiteId);
+                        foreach ($storeIds as $id) {
+                            $this->storeIds[] = $id;
+                        }
                     }
                 }
             }
+        } else {
+            unset($filters['store_id']);
+            unset($filters['website_id']);
         }
 
         if (!$this->storeIds) {
