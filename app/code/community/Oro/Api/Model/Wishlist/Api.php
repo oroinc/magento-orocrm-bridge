@@ -182,6 +182,7 @@ class Oro_Api_Model_Wishlist_Api extends Mage_Api_Model_Resource_Abstract
             if ($product) {
                 $item->setSku($product->getSku());
                 $item->setProductName($product->getName());
+                $item->setWebsiteId(Mage::app()->getStore($item->getStoreId())->getWebsiteId());
             }
             $wishlistItem = $item->toArray();
             unset($wishlistItem['product']);

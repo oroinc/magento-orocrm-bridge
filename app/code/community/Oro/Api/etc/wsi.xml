@@ -172,6 +172,7 @@
                     <xsd:element name="wishlist_id" type="xsd:string" minOccurs="0" />
                     <xsd:element name="product_id" type="xsd:string" minOccurs="0" />
                     <xsd:element name="store_id" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="website_id" type="xsd:string" minOccurs="0" />
                     <xsd:element name="added_at" type="xsd:string" minOccurs="0" />
                     <xsd:element name="description" type="xsd:string" minOccurs="0" />
                     <xsd:element name="qty" type="xsd:string" minOccurs="0" />

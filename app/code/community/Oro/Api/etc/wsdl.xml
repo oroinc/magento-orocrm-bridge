@@ -194,6 +194,7 @@
                     <element name="wishlist_id" type="xsd:string" minOccurs="0" />
                     <element name="product_id" type="xsd:string" minOccurs="0" />
                     <element name="store_id" type="xsd:string" minOccurs="0" />
+                    <element name="website_id" type="xsd:string" minOccurs="0" />
                     <element name="added_at" type="xsd:string" minOccurs="0" />
                     <element name="description" type="xsd:string" minOccurs="0" />
                     <element name="qty" type="xsd:string" minOccurs="0" />
