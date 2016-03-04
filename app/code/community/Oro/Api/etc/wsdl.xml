@@ -276,6 +276,7 @@
                     <element name="version" type="xsd:string" minOccurs="0" />
                     <element name="mage_version" type="xsd:string" minOccurs="0" />
                     <element name="admin_url" type="xsd:string" minOccurs="0" />
+                    <element name="customer_scope" type="xsd:int" minOccurs="0" />
                 </all>
             </complexType>
 
