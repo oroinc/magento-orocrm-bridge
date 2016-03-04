@@ -22,10 +22,13 @@ class Oro_Api_Model_Ping extends Mage_Api_Model_Resource_Abstract
      */
     public function ping()
     {
+        $customerScope = (int)Mage::getSingleton('customer/config_share')->isWebsiteScope();
+
         return array(
-            'version'      => (string)Mage::getConfig()->getNode('modules/Oro_Api/version'),
-            'mage_version' => Mage::getVersion(),
-            'admin_url'    => Mage::getUrl('adminhtml'),
+            'version'        => (string)Mage::getConfig()->getNode('modules/Oro_Api/version'),
+            'mage_version'   => Mage::getVersion(),
+            'admin_url'      => Mage::getUrl('adminhtml'),
+            'customer_scope' => $customerScope,
         );
     }
 }
