@@ -38,11 +38,6 @@ class Oro_Api_Model_Sales_Quote_Api
      */
     protected $imageAttributeCode = null;
 
-    /**
-     * @var array
-     */
-    protected $productListByStore = array();
-
     public function __construct()
     {
         $this->_apiHelper = Mage::helper('oro_api');
@@ -63,22 +58,10 @@ class Oro_Api_Model_Sales_Quote_Api
         $this->giftMessageCollection = Mage::getSingleton('giftmessage/message')->getCollection();
         /** @var Mage_Catalog_Model_Product $productModel */
         $productModel = Mage::getModel('catalog/product');
-        $productList = Mage::getModel('catalog/product')->getCollection();
         /** @var Mage_Catalog_Model_Resource_Eav_Attribute[] $mediaAttributes */
         $mediaAttributes = $productModel->getMediaAttributes();
         if (is_array($mediaAttributes) && array_key_exists('image', $mediaAttributes)) {
             $this->imageAttributeCode = $mediaAttributes['image']->getAttributeCode();
-            $productList->addAttributeToSelect($this->imageAttributeCode);
-        }
-
-        if ($productList) {
-            foreach($productList as $product) {
-                $storesIds = $product->getStoreIds();
-                $productId = $product->getId();
-                foreach ($storesIds as $storeId) {
-                    $this->productListByStore[$storeId][$productId] = $product;
-                }
-            }
         }
 
         $filters = $this->_apiHelper->parseFilters($filters);
@@ -165,12 +148,7 @@ class Oro_Api_Model_Sales_Quote_Api
     {
         $result = array();
         if ($this->imageAttributeCode) {
-            $storeId = $item->getQuote()->getStoreId();
-            $productId = $item->getProductId();
-            $product = null;
-            if (isset($this->productListByStore[$storeId][$productId])) {
-                $product = $this->productListByStore[$storeId][$productId];
-            }
+            $product = $item->getProduct();
 
             if ($product) {
                 /** @var Mage_Catalog_Model_Product_Media_Config $productMediaConfig */

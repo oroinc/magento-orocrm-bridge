@@ -60,6 +60,15 @@
                 </observers>
             </newsletter_subscriber_save_before>
         </events>
+        <sales>
+            <quote>
+                <item>
+                    <product_attributes>
+                        <image/>
+                    </product_attributes>
+                </item>
+            </quote>
+        </sales>
     </global>
     <admin>
         <routers>
