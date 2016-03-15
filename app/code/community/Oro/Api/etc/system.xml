@@ -45,6 +45,15 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                         </enable_attributes>
+                        <wishlist_status_clean_after_day translate="label">
+                            <label>Save Wishlist Status Log, Days</label>
+                            <comment>Used in case of Magento Enterprise Multiple Wishlist enabled to clean Wishlist deletion logs.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </wishlist_status_clean_after_day>
                     </fields>
                 </api>
             </groups>

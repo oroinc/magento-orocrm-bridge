@@ -260,4 +260,25 @@ class Oro_Api_Helper_Data
 
         return $result;
     }
+
+    /**
+     * Get store/wibsite filter data as array from filter condition
+     *
+     * @param array $condition
+     * @return array
+     */
+    public function getDataFromFilterCondition($condition)
+    {
+        $result = array();
+
+        if (is_array($condition)) {
+            if (isset($condition['eq'])) {
+                $result = array($condition['eq']);
+            } elseif (isset($condition['in'])) {
+                $result = $condition['in'];
+            }
+        }
+
+        return $result;
+    }
 }
