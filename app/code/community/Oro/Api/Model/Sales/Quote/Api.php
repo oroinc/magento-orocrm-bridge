@@ -28,16 +28,6 @@ class Oro_Api_Model_Sales_Quote_Api
      */
     protected $_apiHelper;
 
-    /**
-     * @var array
-     */
-    protected $giftMessageCollection;
-
-    /**
-     * @var string
-     */
-    protected $imageAttributeCode = null;
-
     public function __construct()
     {
         $this->_apiHelper = Mage::helper('oro_api');
@@ -55,15 +45,6 @@ class Oro_Api_Model_Sales_Quote_Api
     {
         /** @var Mage_Sales_Model_Resource_Quote_Collection $quoteCollection */
         $quoteCollection = Mage::getResourceModel('sales/quote_collection');
-        $this->giftMessageCollection = Mage::getSingleton('giftmessage/message')->getCollection();
-        /** @var Mage_Catalog_Model_Product $productModel */
-        $productModel = Mage::getModel('catalog/product');
-        /** @var Mage_Catalog_Model_Resource_Eav_Attribute[] $mediaAttributes */
-        $mediaAttributes = $productModel->getMediaAttributes();
-        if (is_array($mediaAttributes) && array_key_exists('image', $mediaAttributes)) {
-            $this->imageAttributeCode = $mediaAttributes['image']->getAttributeCode();
-        }
-
         $filters = $this->_apiHelper->parseFilters($filters);
         try {
             foreach ($filters as $field => $value) {
@@ -78,6 +59,8 @@ class Oro_Api_Model_Sales_Quote_Api
             // there's no such page, so no results for it
             return array();
         }
+
+        $this->_preparesGiftMessages($quoteCollection);
 
         $resultArray = array();
         /** @var Mage_Sales_Model_Quote $quote */
@@ -102,13 +85,6 @@ class Oro_Api_Model_Sales_Quote_Api
      */
     protected function info($quote)
     {
-        if ($quote->getGiftMessageId() > 0) {
-            $message = $this->giftMessageCollection->getItemById($quote->getGiftMessageId());
-            if ($message) {
-                $quote->setGiftMessage($message->getMessage());
-            }
-        }
-
         $result                     = $this->_getAttributes($quote, 'quote');
         $result['shipping_address'] = $this->_getAttributes($quote->getShippingAddress(), 'quote_address');
         $result['billing_address']  = $this->_getAttributes($quote->getBillingAddress(), 'quote_address');
@@ -116,13 +92,6 @@ class Oro_Api_Model_Sales_Quote_Api
 
         /** @var Mage_Sales_Model_Quote_Item $item */
         foreach ($quote->getAllItems() as $item) {
-            if ($item->getGiftMessageId() > 0) {
-                $message = $this->giftMessageCollection->getItemById($item->getGiftMessageId());
-                if ($message) {
-                    $item->setGiftMessage($message->getMessage());
-                }
-            }
-
             $quoteItem = $this->_getAttributes($item, 'quote_item');
             $productAttributes = $this->_getProductAttributes($item);
             $quoteItem = array_merge($quoteItem, $productAttributes);
@@ -147,23 +116,14 @@ class Oro_Api_Model_Sales_Quote_Api
     protected function _getProductAttributes($item)
     {
         $result = array();
-        if ($this->imageAttributeCode) {
-            $product = $item->getProduct();
-
-            if ($product) {
-                /** @var Mage_Catalog_Model_Product_Media_Config $productMediaConfig */
-                $productMediaConfig = Mage::getSingleton('catalog/product_media_config');
-
-                $productImage = $product->getData('image');
-                if ($productImage) {
-                    $result['product_image_url'] = $productMediaConfig->getMediaUrl($productImage);
-                }
-            }
-        } else {
-            $product = $item->getProduct();
-        }
+        $product = $item->getProduct();
 
         if ($product) {
+            $productImage = $product->getData('image');
+            if ($productImage) {
+                $result['product_image_url'] = Mage::getSingleton('catalog/product_media_config')
+                    ->getMediaUrl($productImage);
+            }
             $result['product_url'] = $product->getProductUrl(false);
         }
 
@@ -185,5 +145,47 @@ class Oro_Api_Model_Sales_Quote_Api
         }
 
         return $this->_knownAttributes;
+    }
+
+    /**
+     * Set gift_message key to quote and quote item
+     *
+     * @param Mage_Sales_Model_Resource_Quote_Collection $quoteCollection
+     */
+    protected function _preparesGiftMessages($quoteCollection)
+    {
+        $messageIds = array();
+        /* @var Mage_Sales_Model_Quote $quote */
+        foreach ($quoteCollection as $quote) {
+            if ($quote->getGiftMessageId()) {
+                $messageIds[] = $quote->getGiftMessageId();
+            }
+            foreach ($quote->getAllItems() as $quoteItem) {
+                if ($quoteItem->getGiftMessageId()) {
+                    $messageIds[] = $quoteItem->getGiftMessageId();
+                }
+            }
+        }
+
+        if (!$messageIds) {
+            return;
+        }
+
+        $messageIds = array_unique($messageIds);
+
+        $giftCollection = Mage::getResourceModel('giftmessage/message_collection');
+        $giftCollection->addFieldToFilter('gift_message_id', array('in' => $messageIds));
+
+        /* @var Mage_Sales_Model_Quote $quote */
+        foreach ($quoteCollection as $quote) {
+            if ($quote->getGiftMessageId()) {
+                $quote->setGiftMessage($giftCollection->getItemById($quote->getGiftMessageId())->getMessage());
+            }
+            foreach ($quote->getAllItems() as $quoteItem) {
+                if ($quoteItem->getGiftMessageId()) {
+                    $quoteItem->setGiftMessage($giftCollection->getItemById($quoteItem->getGiftMessageId())->getMessage());
+                }
+            }
+        }
     }
 }
