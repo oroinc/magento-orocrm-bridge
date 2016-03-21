@@ -75,6 +75,7 @@
                     <xsd:element name="ext_shipping_info" type="xsd:string" minOccurs="0" />
                     <xsd:element name="gift_message_id" type="xsd:string" minOccurs="0" />
                     <xsd:element name="is_persistent" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="gift_message" type="xsd:string" minOccurs="0" />
 
                     <xsd:element name="shipping_address" type="typens:shoppingCartAddressEntity" minOccurs="0"/>
                     <xsd:element name="billing_address" type="typens:shoppingCartAddressEntity" minOccurs="0"/>
