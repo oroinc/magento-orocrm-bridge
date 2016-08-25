@@ -1,7 +1,6 @@
-<?xml version="1.0"?>
-<!--
+<?php
 /**
- * MageCore
+ * Oro Inc.
  *
  * NOTICE OF LICENSE
  *
@@ -16,15 +15,24 @@
  * @copyright Copyright 2013 Oro Inc. (http://www.orocrm.com)
  * @license http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
--->
-<config>
-    <modules>
-        <Oro_Api>
-            <active>true</active>
-            <codePool>community</codePool>
-            <depends>
-                <Mage_Api/>
-            </depends>
-        </Oro_Api>
-    </modules>
-</config>
+class Oro_Api_Model_Website_Api extends Mage_Api_Model_Resource_Abstract
+{
+    /**
+     * Retrieve websites list
+     *
+     * @return array
+     */
+    public function items()
+    {
+        /** @var Mage_Core_Model_Website[] $websites */
+        $websites = Mage::app()->getWebsites(true);
+
+        // Make result array
+        $result = array();
+        foreach ($websites as $website) {
+            $result[] = $website->toArray();
+        }
+
+        return $result;
+    }
+}

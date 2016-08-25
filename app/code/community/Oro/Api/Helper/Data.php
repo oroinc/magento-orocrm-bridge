@@ -18,6 +18,8 @@
 class Oro_Api_Helper_Data
     extends Mage_Api_Helper_Data
 {
+    const XPATH_ATTRIBUTES_ENABLED = 'oro/api/enable_attributes';
+
     /**
      * @return string
      */
@@ -147,5 +149,136 @@ class Oro_Api_Helper_Data
     public function isOroRequest()
     {
         return (bool) Mage::registry('is-oro-request');
+    }
+
+    /**
+     * Get WSDL/WSI complexType attributes by complex type name.
+     *
+     * @param string $typeName
+     * @return array
+     */
+    public function getComplexTypeAttributes($typeName)
+    {
+        /** @var Mage_Api_Model_Wsdl_Config $wsdlModel */
+        $wsdlModel = Mage::getModel('api/wsdl_config');
+        $wsdlModel->init();
+
+        $elements = array();
+        if ($this->isComplianceWSI()) {
+            $elements = $wsdlModel->getXpath(
+                'wsdl:types/xsd:schema/xsd:complexType[@name="' . $typeName . '"]/xsd:sequence/xsd:element'
+            );
+        } else {
+            $typeDefinition = $wsdlModel->getNode('types/schema/complexType@name="' . $typeName . '"/all');
+            if ($typeDefinition && $typeDefinition->children()->count() > 0) {
+                $elements = $typeDefinition->children();
+            }
+        }
+
+        $exposedAttributes = array();
+        /** @var Mage_Api_Model_Wsdl_Config_Element $definitionNode */
+        foreach ($elements as $definitionNode) {
+            $name = (string)$definitionNode->getAttribute('name');
+            $type = (string)$definitionNode->getAttribute('type');
+            $exposedAttributes[$name] = $type;
+        }
+
+        return $exposedAttributes;
+    }
+
+    /**
+     * Get WSDL/WSI complexType scalar attributes by complex type name.
+     *
+     * @param string $typeName
+     * @return array
+     */
+    public function getComplexTypeScalarAttributes($typeName)
+    {
+        $scalarTypes = array('xsd:string', 'xsd:int', 'xsd:double', 'xsd:boolean', 'xsd:long');
+
+        $result = array();
+        $attributes = $this->getComplexTypeAttributes($typeName);
+        foreach ($attributes as $typeName => $type) {
+            if (in_array($type, $scalarTypes, true)) {
+                $result[] = $typeName;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get entity attributes that are not not present in known attributes list.
+     *
+     * @param Varien_Object $entity
+     * @param array $data
+     * @param array $exclude
+     * @param array $include
+     * @return array
+     */
+    public function getNotIncludedAttributes(
+        Varien_Object $entity,
+        array $data,
+        array $exclude = array(),
+        array $include = array()
+    ) {
+        if (!Mage::getStoreConfig(self::XPATH_ATTRIBUTES_ENABLED)) {
+            return array();
+        }
+
+        $entityData = $entity->__toArray();
+        $knownAttributes = array_diff(array_keys($entityData), $exclude);
+        $attributesToExpose = array_merge($knownAttributes, $include);
+
+        $attributes = array();
+
+        if (!empty($attributesToExpose)) {
+            $attributes = array_intersect_key(
+                array_merge($data, $entityData),
+                array_combine($attributesToExpose, $attributesToExpose)
+            );
+        }
+
+        return $this->packAssoc($attributes);
+    }
+
+    /**
+     * Pack associative array to format supported by API.
+     *
+     * @param array $data
+     * @return array
+     */
+    public function packAssoc(array $data)
+    {
+        $result = array();
+        foreach ($data as $key => $value) {
+            $result[] = array(
+                'key' => $key,
+                'value' => $value
+            );
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get store/wibsite filter data as array from filter condition
+     *
+     * @param array $condition
+     * @return array
+     */
+    public function getDataFromFilterCondition($condition)
+    {
+        $result = array();
+
+        if (is_array($condition)) {
+            if (isset($condition['eq'])) {
+                $result = array($condition['eq']);
+            } elseif (isset($condition['in'])) {
+                $result = $condition['in'];
+            }
+        }
+
+        return $result;
     }
 }

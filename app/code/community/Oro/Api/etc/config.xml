@@ -20,7 +20,7 @@
 <config>
     <modules>
         <Oro_Api>
-            <version>1.1.4</version>
+            <version>1.2.6</version>
         </Oro_Api>
     </modules>
     <global>
@@ -31,6 +31,11 @@
             </oro_api>
             <oro_api_resource>
                 <class>Oro_Api_Model_Resource</class>
+                <entities>
+                    <wishlist_status>
+                        <table>oro_wishlist_status</table>
+                    </wishlist_status>
+                </entities>
             </oro_api_resource>
             <catalog>
                 <rewrite>
@@ -47,9 +52,50 @@
             <oro_api_setup>
                 <setup>
                     <module>Oro_Api</module>
+                    <class>Oro_Api_Model_Resource_Setup</class>
                 </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
             </oro_api_setup>
+            <oro_api_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </oro_api_read>
+            <oro_api_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </oro_api_write>
         </resources>
+        <events>
+            <newsletter_subscriber_save_before>
+                <observers>
+                    <oro_api_newsletter_subscriber_save_before_observer>
+                        <class>oro_api/observer</class>
+                        <method>beforeNewsletterSubscriberSave</method>
+                    </oro_api_newsletter_subscriber_save_before_observer>
+                </observers>
+            </newsletter_subscriber_save_before>
+            <wishlist_delete_commit_after>
+                <observers>
+                    <oro_api_wishlist_status>
+                        <class>oro_api/wishlist_observer</class>
+                        <method>registerWishlistChange</method>
+                    </oro_api_wishlist_status>
+                </observers>
+            </wishlist_delete_commit_after>
+        </events>
+        <sales>
+            <quote>
+                <item>
+                    <product_attributes>
+                        <image/>
+                    </product_attributes>
+                </item>
+            </quote>
+        </sales>
     </global>
     <admin>
         <routers>
@@ -102,4 +148,23 @@
             </checkout_submit_all_after>
         </events>
     </adminhtml>
+    <default>
+        <oro>
+            <api>
+                <wishlist_status_clean_after_day>30</wishlist_status_clean_after_day>
+            </api>
+        </oro>
+    </default>
+    <crontab>
+        <jobs>
+            <oro_api_wishlist_status_clean>
+                <schedule>
+                    <cron_expr>15 0 1 * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>oro_api/wishlist_status::clean</model>
+                </run>
+            </oro_api_wishlist_status_clean>
+        </jobs>
+    </crontab>
 </config>

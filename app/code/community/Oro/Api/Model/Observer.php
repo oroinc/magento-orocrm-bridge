@@ -1,7 +1,6 @@
-<?xml version="1.0"?>
-<!--
+<?php
 /**
- * MageCore
+ * Oro Inc.
  *
  * NOTICE OF LICENSE
  *
@@ -16,15 +15,15 @@
  * @copyright Copyright 2013 Oro Inc. (http://www.orocrm.com)
  * @license http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
--->
-<config>
-    <modules>
-        <Oro_Api>
-            <active>true</active>
-            <codePool>community</codePool>
-            <depends>
-                <Mage_Api/>
-            </depends>
-        </Oro_Api>
-    </modules>
-</config>
+class Oro_Api_Model_Observer
+{
+    /**
+     * @param Varien_Event_Observer $observer
+     */
+    public function beforeNewsletterSubscriberSave($observer)
+    {
+        $subscriber = $observer->getSubscriber();
+        $now = new \DateTime('now', new \DateTimeZone('UTC'));
+        $subscriber['change_status_at'] = $now->format('Y-m-d H:i:s');
+    }
+}

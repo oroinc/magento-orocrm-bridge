@@ -17,9 +17,27 @@
  */
 class Oro_Api_Model_Sales_Order_Api extends Mage_Sales_Model_Api_Resource
 {
+    /** @var array */
     protected $_attributesMap = array(
         'order' => array('order_id' => 'entity_id'),
+        'order_address' => array('address_id' => 'entity_id'),
+        'global' => array()
     );
+
+    /**
+     * @var Oro_Api_Helper_Data
+     */
+    protected $_apiHelper;
+
+    /**
+     * @var array
+     */
+    protected $_knownApiAttributes = array();
+
+    public function __construct()
+    {
+        $this->_apiHelper = Mage::helper('oro_api');
+    }
 
     /**
      * Retrieve list of orders. Filtration could be applied
@@ -34,10 +52,7 @@ class Oro_Api_Model_Sales_Order_Api extends Mage_Sales_Model_Api_Resource
         $orders          = array();
         $orderCollection = $this->getOrderCollection();
 
-        /** @var $apiHelper Oro_Api_Helper_Data */
-        $apiHelper = Mage::helper('oro_api');
-
-        $filters = $apiHelper->parseFilters($filters, $this->_attributesMap['order']);
+        $filters = $this->_apiHelper->parseFilters($filters, $this->_attributesMap['order']);
         try {
             foreach ($filters as $field => $value) {
                 $orderCollection->addFieldToFilter($field, $value);
@@ -47,15 +62,13 @@ class Oro_Api_Model_Sales_Order_Api extends Mage_Sales_Model_Api_Resource
         }
 
         $orderCollection->setOrder('entity_id', Varien_Data_Collection_Db::SORT_ORDER_ASC);
-        if (!$apiHelper->applyPager($orderCollection, $pager)) {
+        if (!$this->_apiHelper->applyPager($orderCollection, $pager)) {
             // there's no such page, so no results for it
             return array();
         }
 
         foreach ($orderCollection as $order) {
-            $orderArray = $this->_getAttributes($order, 'order');
-
-            $orders[] = array_merge($orderArray, $this->info($order));
+            $orders[] = $this->_getOrderData($order);
         }
 
         return $orders;
@@ -64,10 +77,47 @@ class Oro_Api_Model_Sales_Order_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Retrieve full order information
      *
-     * @param object $order
+     * @param string $orderIncrementId
      * @return array
      */
-    protected function info($order)
+    public function info($orderIncrementId)
+    {
+        /** @var Mage_Sales_Model_Order $order */
+        $order = Mage::getModel('sales/order');
+        $order->loadByIncrementId($orderIncrementId);
+
+        if (!$order->getId()) {
+            $this->_fault('not_exists');
+        }
+
+        return $this->_getOrderData($order);
+    }
+
+    /**
+     * @param Mage_Sales_Model_Order $order
+     * @return array
+     */
+    protected function _getOrderData($order)
+    {
+        /** @var array $orderData */
+        $orderData = $this->_getAttributes($order, 'order');
+
+        $attributes = $this->_apiHelper->getNotIncludedAttributes($order, $orderData, $this->getKnownApiAttributes());
+        if ($attributes) {
+            $orderData['attributes'] = $attributes;
+        }
+        $orderData = array_merge($orderData, $this->_getOrderAdditionalInfo($order));
+
+        return $orderData;
+    }
+
+    /**
+     * Retrieve detailed order information
+     *
+     * @param Mage_Sales_Model_Order $order
+     * @return array
+     */
+    protected function _getOrderAdditionalInfo($order)
     {
         if ($order->getGiftMessageId() > 0) {
             $order->setGiftMessage(
@@ -80,6 +130,7 @@ class Oro_Api_Model_Sales_Order_Api extends Mage_Sales_Model_Api_Resource
         $result['billing_address']  = $this->_getAttributes($order->getBillingAddress(), 'order_address');
         $result['items'] = array();
 
+        /** @var Mage_Sales_Model_Order_Item $item */
         foreach ($order->getAllItems() as $item) {
             if ($item->getGiftMessageId() > 0) {
                 $item->setGiftMessage(
@@ -97,6 +148,8 @@ class Oro_Api_Model_Sales_Order_Api extends Mage_Sales_Model_Api_Resource
         foreach ($order->getAllStatusHistory() as $history) {
             $result['status_history'][] = $this->_getAttributes($history, 'order_status_history');
         }
+
+        $result['coupon_code'] = $order->getCouponCode();
 
         return $result;
     }
@@ -152,5 +205,22 @@ class Oro_Api_Model_Sales_Order_Api extends Mage_Sales_Model_Api_Resource
             );
 
         return $orderCollection;
+    }
+
+    /**
+     * Get list of attributes exposed to API.
+     *
+     * @return array
+     */
+    protected function getKnownApiAttributes()
+    {
+        if (!$this->_knownApiAttributes) {
+            $this->_knownApiAttributes = array_merge(
+                $this->_apiHelper->getComplexTypeScalarAttributes('salesOrderEntity'),
+                array('entity_id')
+            );
+        }
+
+        return $this->_knownApiAttributes;
     }
 }

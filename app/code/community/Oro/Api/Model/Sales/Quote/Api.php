@@ -19,6 +19,23 @@ class Oro_Api_Model_Sales_Quote_Api
     extends Mage_Checkout_Model_Api_Resource
 {
     /**
+     * @var array
+     */
+    protected $_knownAttributes = array();
+
+    /**
+     * @var Oro_Api_Helper_Data
+     */
+    protected $_apiHelper;
+
+    public function __construct()
+    {
+        $this->_apiHelper = Mage::helper('oro_api');
+    }
+
+    /**
+     * Retrieve list of quotes. Filtration could be applied
+     *
      * @param array|object $filters
      * @param \stdClass    $pager
      *
@@ -28,11 +45,7 @@ class Oro_Api_Model_Sales_Quote_Api
     {
         /** @var Mage_Sales_Model_Resource_Quote_Collection $quoteCollection */
         $quoteCollection = Mage::getResourceModel('sales/quote_collection');
-
-        /** @var $apiHelper Oro_Api_Helper_Data */
-        $apiHelper = Mage::helper('oro_api');
-
-        $filters = $apiHelper->parseFilters($filters);
+        $filters = $this->_apiHelper->parseFilters($filters);
         try {
             foreach ($filters as $field => $value) {
                 $quoteCollection->addFieldToFilter($field, $value);
@@ -42,14 +55,23 @@ class Oro_Api_Model_Sales_Quote_Api
         }
 
         $quoteCollection->setOrder('entity_id', Varien_Data_Collection_Db::SORT_ORDER_ASC);
-        if (!$apiHelper->applyPager($quoteCollection, $pager)) {
+        if (!$this->_apiHelper->applyPager($quoteCollection, $pager)) {
             // there's no such page, so no results for it
             return array();
         }
 
+        $this->_preparesGiftMessages($quoteCollection);
+
         $resultArray = array();
+        /** @var Mage_Sales_Model_Quote $quote */
         foreach ($quoteCollection as $quote) {
-            $resultArray[] = array_merge($quote->__toArray(), $this->info($quote));
+            $row = $quote->__toArray();
+            $attributes = $this->_apiHelper->getNotIncludedAttributes($quote, $row, $this->_getKnownQuoteAttributes());
+            if ($attributes) {
+                $row['attributes'] = $attributes;
+            }
+            $row = array_merge($row, $this->info($quote));
+            $resultArray[] = $row;
         }
 
         return $resultArray;
@@ -58,30 +80,23 @@ class Oro_Api_Model_Sales_Quote_Api
     /**
      * Retrieve full information about quote
      *
-     * @param  $quote
+     * @param Mage_Sales_Model_Quote $quote
      * @return array
      */
     protected function info($quote)
     {
-        if ($quote->getGiftMessageId() > 0) {
-            $quote->setGiftMessage(
-                Mage::getSingleton('giftmessage/message')->load($quote->getGiftMessageId())->getMessage()
-            );
-        }
-
         $result                     = $this->_getAttributes($quote, 'quote');
         $result['shipping_address'] = $this->_getAttributes($quote->getShippingAddress(), 'quote_address');
         $result['billing_address']  = $this->_getAttributes($quote->getBillingAddress(), 'quote_address');
         $result['items']            = array();
 
+        /** @var Mage_Sales_Model_Quote_Item $item */
         foreach ($quote->getAllItems() as $item) {
-            if ($item->getGiftMessageId() > 0) {
-                $item->setGiftMessage(
-                    Mage::getSingleton('giftmessage/message')->load($item->getGiftMessageId())->getMessage()
-                );
-            }
+            $quoteItem = $this->_getAttributes($item, 'quote_item');
+            $productAttributes = $this->_getProductAttributes($item);
+            $quoteItem = array_merge($quoteItem, $productAttributes);
 
-            $result['items'][] = $this->_getAttributes($item, 'quote_item');
+            $result['items'][] = $quoteItem;
         }
 
         $result['payment'] = $this->_getAttributes($quote->getPayment(), 'quote_payment');
@@ -92,5 +107,85 @@ class Oro_Api_Model_Sales_Quote_Api
         }
 
         return $result;
+    }
+
+    /**
+     * @param Mage_Sales_Model_Quote_Item $item
+     * @return array
+     */
+    protected function _getProductAttributes($item)
+    {
+        $result = array();
+        $product = $item->getProduct();
+
+        if ($product) {
+            $productImage = $product->getData('image');
+            if ($productImage) {
+                $result['product_image_url'] = Mage::getSingleton('catalog/product_media_config')
+                    ->getMediaUrl($productImage);
+            }
+            $result['product_url'] = $product->getProductUrl(false);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get list of attributes exposed to API.
+     *
+     * @return array
+     */
+    protected function _getKnownQuoteAttributes()
+    {
+        if (!$this->_knownAttributes) {
+            $this->_knownAttributes = array_merge(
+                $this->_apiHelper->getComplexTypeScalarAttributes('salesQuoteEntity'),
+                array('entity_id')
+            );
+        }
+
+        return $this->_knownAttributes;
+    }
+
+    /**
+     * Set gift_message key to quote and quote item
+     *
+     * @param Mage_Sales_Model_Resource_Quote_Collection $quoteCollection
+     */
+    protected function _preparesGiftMessages($quoteCollection)
+    {
+        $messageIds = array();
+        /* @var Mage_Sales_Model_Quote $quote */
+        foreach ($quoteCollection as $quote) {
+            if ($quote->getGiftMessageId()) {
+                $messageIds[] = $quote->getGiftMessageId();
+            }
+            foreach ($quote->getAllItems() as $quoteItem) {
+                if ($quoteItem->getGiftMessageId()) {
+                    $messageIds[] = $quoteItem->getGiftMessageId();
+                }
+            }
+        }
+
+        if (!$messageIds) {
+            return;
+        }
+
+        $messageIds = array_unique($messageIds);
+
+        $giftCollection = Mage::getResourceModel('giftmessage/message_collection');
+        $giftCollection->addFieldToFilter('gift_message_id', array('in' => $messageIds));
+
+        /* @var Mage_Sales_Model_Quote $quote */
+        foreach ($quoteCollection as $quote) {
+            if ($quote->getGiftMessageId()) {
+                $quote->setGiftMessage($giftCollection->getItemById($quote->getGiftMessageId())->getMessage());
+            }
+            foreach ($quote->getAllItems() as $quoteItem) {
+                if ($quoteItem->getGiftMessageId()) {
+                    $quoteItem->setGiftMessage($giftCollection->getItemById($quoteItem->getGiftMessageId())->getMessage());
+                }
+            }
+        }
     }
 }
