@@ -715,6 +715,22 @@
     </wsdl:message>
     <!--  Oro Wishlist -->
 
+    <wsdl:message name="oroWishlistListRequest">
+        <wsdl:part name="sessionId" element="xsd:string" />
+        <wsdl:part name="filters" element="typens:filters" />
+    </wsdl:message>
+    <wsdl:message name="oroWishlistListResponse">
+        <wsdl:part name="result" element="typens:oroWishlistEntityArray" />
+    </wsdl:message>
+
+    <wsdl:message name="oroWishlistStatusListRequest">
+        <wsdl:part name="sessionId" element="xsd:string" />
+        <wsdl:part name="filters" element="typens:filters" />
+    </wsdl:message>
+    <wsdl:message name="oroWishlistStatusListResponse">
+        <wsdl:part name="result" element="typens:oroWishlistStatusEntityArray" />
+    </wsdl:message>
+
     <!--  Report Product Viewed -->
     <wsdl:message name="reportProductViewedListRequest">
         <wsdl:part name="sessionId" element="xsd:string" />
