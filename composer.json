@@ -1,0 +1,10 @@
+{
+    "name":"orocrm/magento-orocrm-bridge",
+    "type":"magento-module",
+    "license":"OSL-3.0",
+    "homepage":"https://github.com/orocrm/magento-orocrm-bridge",
+    "description":"The OroCRM Bridge extension improves on the Magento SOAP API v2 to expose additional shopping cart and customer data.",
+    "require":{
+        "magento-hackathon/magento-composer-installer":"*"
+    }
+}
