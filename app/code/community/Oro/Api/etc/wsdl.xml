@@ -108,7 +108,22 @@
                 <all>
                     <element name="product_image_url" type="xsd:string" minOccurs="0"/>
                     <element name="product_url" type="xsd:string" minOccurs="0"/>
+                    <element name="categories" type="typens:shoppingCartItemEntityCategoriesArray" minOccurs="0"/>
                 </all>
+            </complexType>
+
+            <complexType name="shoppingCartItemEntityCategory">
+                <all>
+                    <element name="name" type="xsd:string" minOccurs="0"/>
+                </all>
+            </complexType>
+
+            <complexType name="shoppingCartItemEntityCategoriesArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:shoppingCartItemEntityCategory[]"/>
+                    </restriction>
+                </complexContent>
             </complexType>
 
             <complexType name="salesQuoteEntityArray">
