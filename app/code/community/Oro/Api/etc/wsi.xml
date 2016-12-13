@@ -90,6 +90,19 @@
                 <xsd:sequence>
                     <xsd:element name="product_image_url" type="xsd:string" minOccurs="0"/>
                     <xsd:element name="product_url" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="categories" type="typens:shoppingCartItemEntityCategoriesArray" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="shoppingCartItemEntityCategory">
+                <xsd:sequence>
+                    <xsd:element name="name" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="shoppingCartItemEntityCategoriesArray">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" maxOccurs="unbounded" name="complexObjectArray" type="typens:shoppingCartItemEntityCategory" />
                 </xsd:sequence>
             </xsd:complexType>
 

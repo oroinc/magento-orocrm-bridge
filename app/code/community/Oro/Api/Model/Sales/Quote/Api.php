@@ -24,12 +24,20 @@ class Oro_Api_Model_Sales_Quote_Api
     protected $_knownAttributes = array();
 
     /**
+     * @var Mage_Catalog_Model_Resource_Category_Collection
+     */
+    protected $_categoryCollection;
+
+    /**
      * @var Oro_Api_Helper_Data
      */
     protected $_apiHelper;
 
     public function __construct()
     {
+        $this->_categoryCollection = Mage::getResourceModel('catalog/category_collection')
+            ->addAttributeToSelect('name');
+
         $this->_apiHelper = Mage::helper('oro_api');
     }
 
@@ -125,6 +133,13 @@ class Oro_Api_Model_Sales_Quote_Api
                     ->getMediaUrl($productImage);
             }
             $result['product_url'] = $product->getProductUrl(false);
+
+            $productCategoryIds = $product->getCategoryIds();
+            foreach ($productCategoryIds as $categoryId) {
+                $result['categories'][] = array(
+                    'name' => $this->_categoryCollection->getItemById($categoryId)->getName()
+                );
+            }
         }
 
         return $result;
