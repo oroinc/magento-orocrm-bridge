@@ -42,6 +42,11 @@
                     <product_api_v2>Oro_Api_Model_Catalog_Product_Api_V2</product_api_v2>
                 </rewrite>
             </catalog>
+            <sales>
+                <rewrite>
+                    <quote_item>Oro_Api_Model_Sales_Quote_Item</quote_item>
+                </rewrite>
+            </sales>
         </models>
         <helpers>
             <oro_api>
