@@ -21,7 +21,6 @@ class Oro_Api_Model_Sales_Quote_Item extends Mage_Sales_Model_Quote_Item
      * {@inheritdoc}
      *
      * In addition it fixes Magento bug which causes calling methods on null in case productId is null
-     * @see https://magecore.atlassian.net/browse/CRM-6442
      */
     public function checkData()
     {
