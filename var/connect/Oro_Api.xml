@@ -1,5 +1,5 @@
 <_>
-   <form_key>AGm6xLozLtauw48l</form_key>
+   <form_key>CJSPaxDS1th7DZ8a</form_key>
    <name>Oro_Api</name>
    <channel>community</channel>
    <version_ids>
@@ -24,7 +24,7 @@
       </email>
    </authors>
    <depends_php_min>5.2.13</depends_php_min>
-   <depends_php_max>5.6.0</depends_php_max>
+   <depends_php_max>5.6.99</depends_php_max>
    <depends>
       <package>
          <name>
@@ -40,7 +40,7 @@
             <max/>
          </max>
          <files>
-            <files>                          </files>
+            <files>                            </files>
          </files>
       </package>
       <extension>
