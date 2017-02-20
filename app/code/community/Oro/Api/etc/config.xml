@@ -47,6 +47,11 @@
                     <quote_item>Oro_Api_Model_Sales_Quote_Item</quote_item>
                 </rewrite>
             </sales>
+            <admin>
+                <rewrite>
+                    <redirectpolicy>Oro_Api_Model_Admin_Redirectpolicy</redirectpolicy>
+                </rewrite>
+            </admin>
         </models>
         <helpers>
             <oro_api>
