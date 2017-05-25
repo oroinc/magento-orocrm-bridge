@@ -106,6 +106,30 @@ dl.accordion dt, .entry-edit .entry-edit-head, .create-order-sidebar-block .head
     font-weight: normal;
 }
 
+.giftmessage-order-create .entire-order,
+.giftmessage-order-create .each-order-item {
+    height: auto;
+    background-color: #fff;
+}
+.giftmessage-order-create .entire-order .entry-edit,
+.giftmessage-order-create .each-order-item .scroll {
+    height: auto;
+}
+.giftmessage-order-create .form-list td.label {
+    width: 184px;
+}
+.giftmessage-order-create .form-list td.label label {
+    width: 92px;
+}
+.giftmessage-order-create .form-list tr:last-of-type td.value:after {
+    content: '';
+    display: block;
+    min-width: 137px;
+}
+.giftmessage-order-create .form-list td.value textarea {
+    height: 8em;
+}
+
 .grid tr.headings {
     background: #ececec;
 }
