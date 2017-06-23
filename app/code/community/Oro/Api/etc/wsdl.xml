@@ -299,27 +299,27 @@
 
             <complexType name="oroCustomerEntity">
                 <all>
-                    <element name="customer_id" type="xsd:int" minOccurs="0" />
-                    <element name="created_at" type="xsd:string" minOccurs="0" />
-                    <element name="updated_at" type="xsd:string" minOccurs="0" />
-                    <element name="increment_id" type="xsd:string" minOccurs="0" />
-                    <element name="store_id" type="xsd:int" minOccurs="0" />
-                    <element name="website_id" type="xsd:int" minOccurs="0" />
-                    <element name="created_in" type="xsd:string" minOccurs="0" />
-                    <element name="email" type="xsd:string" minOccurs="0" />
-                    <element name="firstname" type="xsd:string" minOccurs="0" />
-                    <element name="middlename" type="xsd:string" minOccurs="0" />
-                    <element name="lastname" type="xsd:string" minOccurs="0" />
-                    <element name="group_id" type="xsd:int" minOccurs="0" />
-                    <element name="prefix" type="xsd:string" minOccurs="0" />
-                    <element name="suffix" type="xsd:string" minOccurs="0" />
-                    <element name="dob" type="xsd:string" minOccurs="0" />
-                    <element name="taxvat" type="xsd:string" minOccurs="0" />
-                    <element name="confirmation" type="xsd:boolean" minOccurs="0" />
-                    <element name="password_hash" type="xsd:string" minOccurs="0" />
-                    <element name="gender" type="xsd:string" minOccurs="0" />
+                    <element name="customer_id" type="xsd:int" />
+                    <element name="created_at" type="xsd:string" />
+                    <element name="updated_at" type="xsd:string" />
+                    <element name="increment_id" type="xsd:string" />
+                    <element name="store_id" type="xsd:int" />
+                    <element name="website_id" type="xsd:int" />
+                    <element name="created_in" type="xsd:string" />
+                    <element name="email" type="xsd:string" />
+                    <element name="firstname" type="xsd:string" />
+                    <element name="middlename" type="xsd:string" />
+                    <element name="lastname" type="xsd:string" />
+                    <element name="group_id" type="xsd:int" />
+                    <element name="prefix" type="xsd:string" />
+                    <element name="suffix" type="xsd:string" />
+                    <element name="dob" type="xsd:string" />
+                    <element name="taxvat" type="xsd:string" />
+                    <element name="confirmation" type="xsd:boolean" />
+                    <element name="password_hash" type="xsd:string" />
+                    <element name="gender" type="xsd:string" />
 
-                    <element name="addresses" type="typens:customerAddressEntityArray" minOccurs="0" maxOccurs="1"/>
+                    <element name="addresses" type="typens:customerAddressEntityArray" />
                     <element name="attributes" type="typens:associativeArray" minOccurs="0" maxOccurs="1"/>
                 </all>
             </complexType>
