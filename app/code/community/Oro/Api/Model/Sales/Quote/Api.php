@@ -136,9 +136,12 @@ class Oro_Api_Model_Sales_Quote_Api
 
             $productCategoryIds = $product->getCategoryIds();
             foreach ($productCategoryIds as $categoryId) {
-                $result['categories'][] = array(
-                    'name' => $this->_categoryCollection->getItemById($categoryId)->getName()
-                );
+                $category = $this->_categoryCollection->getItemById($categoryId);
+                if ($category) {
+                    $result['categories'][] = array(
+                        'name' => $category->getName()
+                    );
+                }
             }
         }
 
