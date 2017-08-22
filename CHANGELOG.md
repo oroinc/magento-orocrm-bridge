@@ -1,4 +1,8 @@
-Current version 1.1.4.4 is compatible with OroCRM version 1.*
+Current version 1.2.14 is compatible with OroCRM version 1.*
+
+ - Added new endpoint for getting Regions list
+
+## Changelog for 1.1.4.4
 
  - Fixed issue on some environments with CE when class_exist is called on class from EE.
  

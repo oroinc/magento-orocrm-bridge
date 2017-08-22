@@ -7,5 +7,6 @@ The OroCRM Bridge extension improves on the Magento SOAP API v2 to expose additi
 - List of newsletter subscribers
 - List of viewed products
 - Customer wish list information
+- List of all regions
 
 The OroCRM Bridge is recommended for better integration between OroCRM and Magento. It can also be used for other integrations that require an API for the features listed. 

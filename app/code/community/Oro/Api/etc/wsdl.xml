@@ -375,6 +375,24 @@
                     </restriction>
                 </complexContent>
             </complexType>
+
+            <complexType name="oroRegionEntity">
+                <all>
+                    <element name="region_id" type="xsd:int" minOccurs="0" />
+                    <element name="countryCode" type="xsd:string" minOccurs="0" />
+                    <element name="code" type="xsd:string" minOccurs="0" />
+                    <element name="name" type="xsd:string" minOccurs="0" />
+                </all>
+            </complexType>
+
+
+            <complexType name="oroRegionEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:oroRegionEntity[]" />
+                    </restriction>
+                </complexContent>
+            </complexType>
         </schema>
     </types>
 
@@ -504,6 +522,12 @@
             <input message="typens:oroWebsiteListRequest" />
             <output message="typens:oroWebsiteListResponse" />
         </operation>
+
+        <operation name="oroRegionList">
+            <documentation>Retrieve regions list</documentation>
+            <input message="typens:oroRegionListRequest" />
+            <output message="typens:oroRegionListResponse" />
+        </operation>
     </portType>
 
     <binding name="{{var wsdl.handler}}Binding" type="typens:{{var wsdl.handler}}PortType">
@@ -609,6 +633,11 @@
             <output><soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" /></output>
         </operation>
         <operation name="oroWebsiteList">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input><soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" /></input>
+            <output><soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" /></output>
+        </operation>
+        <operation name="oroRegionList">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
             <input><soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" /></input>
             <output><soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" /></output>
@@ -773,5 +802,16 @@
         <part name="result" type="typens:oroWebsiteEntityArray" />
     </message>
     <!-- Oro Website -->
+
+    <!-- Oro Region -->
+    <message name="oroRegionListRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="filters" type="typens:filters" />
+        <part name="pager" type="typens:pager" />
+    </message>
+    <message name="oroRegionListResponse">
+        <part name="result" type="typens:oroRegionEntityArray" />
+    </message>
+    <!-- Oro Region -->
 </definitions>
 
