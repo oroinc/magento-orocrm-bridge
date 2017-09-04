@@ -1,4 +1,8 @@
-Current version 1.2.14 is compatible with OroCRM version 1.*
+Current version 1.2.15 is compatible with OroCRM version 1.*
+
+- Fixed bug with missing Gift Order Message during sync with OroCRM. 
+
+## Changelog for 1.2.14
 
  - Added new endpoint for getting Regions list
 

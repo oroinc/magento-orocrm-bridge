@@ -9,7 +9,7 @@
    <description>OroCRM Bridge extension adds a couple of improvements to Magento SOAP API v2 in order to expose more shopping cart and customer data.</description>
    <license>Open Software License (OSL 3.0)</license>
    <license_uri>http://opensource.org/licenses/osl-3.0.php</license_uri>
-   <version>1.2.14.0</version>
+   <version>1.2.15.0</version>
    <stability>stable</stability>
    <notes>OroCRM Bridge extension adds a couple of improvements to Magento SOAP API v2 in order to expose more shopping cart and customer data.</notes>
    <authors>
