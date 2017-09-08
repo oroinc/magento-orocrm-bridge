@@ -1,6 +1,7 @@
 Current version 1.2.15 is compatible with OroCRM version 1.*
 
 - Fixed bug with missing Gift Order Message during sync with OroCRM. 
+- fixed version on application config file
 
 ## Changelog for 1.2.14
 
