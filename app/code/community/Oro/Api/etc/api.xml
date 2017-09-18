@@ -289,6 +289,18 @@
                     </list>
                 </methods>
             </oro_website>
+            <oro_region translate="title" module="oro_api">
+                <model>oro_api/directory_region_api</model>
+                <title>Region List Information</title>
+                <acl>oro</acl>
+                <methods>
+                    <list translate="title" module="oro_api">
+                        <title>Get list of all regions</title>
+                        <method>items</method>
+                        <acl>directory/region</acl>
+                    </list>
+                </methods>
+            </oro_region>
         </resources>
         <rest>
             <mapping>
@@ -325,6 +337,9 @@
                 <oro_website>
                     <get><method>list</method></get>
                 </oro_website>
+                <oro_region>
+                    <get><method>list</method></get>
+                </oro_region>
             </mapping>
         </rest>
         <acl>
@@ -391,6 +406,9 @@
                     <website translate="title" module="oro_api">
                         <title>Website List</title>
                     </website>
+                    <region translate="title" module="oro_api">
+                        <title>Region List</title>
+                    </region>
                 </oro>
             </resources>
         </acl>
@@ -400,6 +418,7 @@
                 <oro_quote>oroQuote</oro_quote>
                 <oro_order>oroOrder</oro_order>
                 <oro_website>oroWebsite</oro_website>
+                <oro_region>oroRegion</oro_region>
                 <oro_customer>oroCustomer</oro_customer>
                 <oro_customer_address>oroCustomerAddress</oro_customer_address>
                 <wishlist>wishlist</wishlist>

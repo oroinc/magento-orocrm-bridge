@@ -299,27 +299,27 @@
 
             <complexType name="oroCustomerEntity">
                 <all>
-                    <element name="customer_id" type="xsd:int" minOccurs="0" />
-                    <element name="created_at" type="xsd:string" minOccurs="0" />
-                    <element name="updated_at" type="xsd:string" minOccurs="0" />
-                    <element name="increment_id" type="xsd:string" minOccurs="0" />
-                    <element name="store_id" type="xsd:int" minOccurs="0" />
-                    <element name="website_id" type="xsd:int" minOccurs="0" />
-                    <element name="created_in" type="xsd:string" minOccurs="0" />
-                    <element name="email" type="xsd:string" minOccurs="0" />
-                    <element name="firstname" type="xsd:string" minOccurs="0" />
-                    <element name="middlename" type="xsd:string" minOccurs="0" />
-                    <element name="lastname" type="xsd:string" minOccurs="0" />
-                    <element name="group_id" type="xsd:int" minOccurs="0" />
-                    <element name="prefix" type="xsd:string" minOccurs="0" />
-                    <element name="suffix" type="xsd:string" minOccurs="0" />
-                    <element name="dob" type="xsd:string" minOccurs="0" />
-                    <element name="taxvat" type="xsd:string" minOccurs="0" />
-                    <element name="confirmation" type="xsd:boolean" minOccurs="0" />
-                    <element name="password_hash" type="xsd:string" minOccurs="0" />
-                    <element name="gender" type="xsd:string" minOccurs="0" />
+                    <element name="customer_id" type="xsd:int" />
+                    <element name="created_at" type="xsd:string" />
+                    <element name="updated_at" type="xsd:string" />
+                    <element name="increment_id" type="xsd:string" />
+                    <element name="store_id" type="xsd:int" />
+                    <element name="website_id" type="xsd:int" />
+                    <element name="created_in" type="xsd:string" />
+                    <element name="email" type="xsd:string" />
+                    <element name="firstname" type="xsd:string" />
+                    <element name="middlename" type="xsd:string" />
+                    <element name="lastname" type="xsd:string" />
+                    <element name="group_id" type="xsd:int" />
+                    <element name="prefix" type="xsd:string" />
+                    <element name="suffix" type="xsd:string" />
+                    <element name="dob" type="xsd:string" />
+                    <element name="taxvat" type="xsd:string" />
+                    <element name="confirmation" type="xsd:boolean" />
+                    <element name="password_hash" type="xsd:string" />
+                    <element name="gender" type="xsd:string" />
 
-                    <element name="addresses" type="typens:customerAddressEntityArray" minOccurs="0" maxOccurs="1"/>
+                    <element name="addresses" type="typens:customerAddressEntityArray" />
                     <element name="attributes" type="typens:associativeArray" minOccurs="0" maxOccurs="1"/>
                 </all>
             </complexType>
@@ -372,6 +372,24 @@
                 <complexContent>
                     <restriction base="soapenc:Array">
                         <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:oroWebsiteEntity[]" />
+                    </restriction>
+                </complexContent>
+            </complexType>
+
+            <complexType name="oroRegionEntity">
+                <all>
+                    <element name="region_id" type="xsd:int" minOccurs="0" />
+                    <element name="countryCode" type="xsd:string" minOccurs="0" />
+                    <element name="code" type="xsd:string" minOccurs="0" />
+                    <element name="name" type="xsd:string" minOccurs="0" />
+                </all>
+            </complexType>
+
+
+            <complexType name="oroRegionEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:oroRegionEntity[]" />
                     </restriction>
                 </complexContent>
             </complexType>
@@ -504,6 +522,12 @@
             <input message="typens:oroWebsiteListRequest" />
             <output message="typens:oroWebsiteListResponse" />
         </operation>
+
+        <operation name="oroRegionList">
+            <documentation>Retrieve regions list</documentation>
+            <input message="typens:oroRegionListRequest" />
+            <output message="typens:oroRegionListResponse" />
+        </operation>
     </portType>
 
     <binding name="{{var wsdl.handler}}Binding" type="typens:{{var wsdl.handler}}PortType">
@@ -609,6 +633,11 @@
             <output><soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" /></output>
         </operation>
         <operation name="oroWebsiteList">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input><soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" /></input>
+            <output><soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" /></output>
+        </operation>
+        <operation name="oroRegionList">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
             <input><soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" /></input>
             <output><soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" /></output>
@@ -773,5 +802,16 @@
         <part name="result" type="typens:oroWebsiteEntityArray" />
     </message>
     <!-- Oro Website -->
+
+    <!-- Oro Region -->
+    <message name="oroRegionListRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="filters" type="typens:filters" />
+        <part name="pager" type="typens:pager" />
+    </message>
+    <message name="oroRegionListResponse">
+        <part name="result" type="typens:oroRegionEntityArray" />
+    </message>
+    <!-- Oro Region -->
 </definitions>
 
