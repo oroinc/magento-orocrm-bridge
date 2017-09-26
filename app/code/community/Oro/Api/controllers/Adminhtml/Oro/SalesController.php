@@ -103,4 +103,12 @@ class Oro_Api_Adminhtml_Oro_SalesController
 
         return (bool)$customer->getId();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function _isAllowed()
+    {
+        return true;
+    }
 }
