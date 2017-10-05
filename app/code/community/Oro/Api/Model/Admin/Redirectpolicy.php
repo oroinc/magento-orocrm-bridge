@@ -25,6 +25,6 @@ class Oro_Api_Model_Admin_Redirectpolicy extends Mage_Admin_Model_Redirectpolicy
             && $request->getControllerName() === 'oro_gateway') {
             return $alternativeUrl;
         }
-        return parent::getRedirectUrl($user, $request, $alternativeUrl);
+        parent::getRedirectUrl($user, $request, $alternativeUrl);
     }
 }
