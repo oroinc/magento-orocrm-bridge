@@ -1,4 +1,8 @@
-Current version 1.2.16 is compatible with OroCRM version 1.*
+Current version 1.2.17 is compatible with OroCRM version 1.*
+
+- fixed: https://github.com/oroinc/magento-orocrm-bridge/issues/13
+
+## Changelog for 1.2.16
 
 - fixed version on application config file
 
