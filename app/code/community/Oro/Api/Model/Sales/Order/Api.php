@@ -209,6 +209,13 @@ class Oro_Api_Model_Sales_Order_Api extends Mage_Sales_Model_Api_Resource
                 array('shipping_firstname' => $shippingFirstnameField, 'shipping_lastname' => $shippingLastnameField)
             );
 
+        $orderCollection->join(
+            array('store' => 'core/store'),
+            'main_table.store_id = store.store_id',
+            array('website_id' => 'website_id')
+        );
+        $orderCollection->addFilterToMap('store_id', 'main_table.store_id');
+
         return $orderCollection;
     }
 
