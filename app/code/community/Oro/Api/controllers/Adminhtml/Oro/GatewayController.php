@@ -70,4 +70,12 @@ class Oro_Api_Adminhtml_Oro_GatewayController
         $response->setBody($this->__('Gateway error.'));
         $response->setHttpResponseCode(400);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function _isAllowed()
+    {
+        return true;
+    }
 }

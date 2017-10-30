@@ -67,7 +67,7 @@ class Oro_Api_Model_Observer_Crm_Controller
                         . $session->getData('oro_success_url')
                         . '"}, 1000)</script>'
                     )->sendResponse();
-                    exit;
+                    return;
                 }
             }
 
