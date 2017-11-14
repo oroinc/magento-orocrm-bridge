@@ -1,5 +1,10 @@
-Current version 1.2.17 is compatible with OroCRM version 1.*
+## Changelog for 1.2.19
 
+- In the "sales_order.info" request, the value of the "entity_id" is now returned as the "increment_id" field (part of the status history data)
+
+## Changelog for 1.2.17
+
+- made version compatible with OroCRM version 1.*
 - fixed: https://github.com/oroinc/magento-orocrm-bridge/issues/13
 
 ## Changelog for 1.2.16
