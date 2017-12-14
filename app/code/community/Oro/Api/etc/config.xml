@@ -20,7 +20,7 @@
 <config>
     <modules>
         <Oro_Api>
-            <version>1.2.18</version>
+            <version>1.2.19</version>
         </Oro_Api>
     </modules>
     <global>

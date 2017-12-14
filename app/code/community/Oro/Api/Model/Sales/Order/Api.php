@@ -151,7 +151,10 @@ class Oro_Api_Model_Sales_Order_Api extends Mage_Sales_Model_Api_Resource
         $result['status_history'] = array();
 
         foreach ($order->getAllStatusHistory() as $history) {
-            $result['status_history'][] = $this->_getAttributes($history, 'order_status_history');
+            $historyAttributes = $this->_getAttributes($history, 'order_status_history');
+            // Force adding entity_id to history data for correct import
+            $historyAttributes['increment_id'] = $history->getId();
+            $result['status_history'][] = $historyAttributes;
         }
 
         $result['coupon_code'] = $order->getCouponCode();
